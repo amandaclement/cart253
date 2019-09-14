@@ -1,5 +1,6 @@
 // Exercise 1 - Movement
 // Pippin Barr
+// Edited by Amanda Clement
 //
 // Starter code for exercise 1.
 // Draws a moving square and circle that intersect
@@ -20,12 +21,17 @@ let square2X;
 let square2Y;
 let square2Size = 100;
 
+// String for font
+let myText = "Draw!";
+let myFont;
 
 // preload()
 //
 // Nothing here
 
 function preload() {
+  // Font will load before all else to avoid delays
+  myFont = loadFont("assets/fonts/VeraMono.ttf");
 }
 
 
@@ -55,6 +61,12 @@ function setup() {
   rectMode(CENTER);
   // We won't have a stroke in this
   noStroke();
+
+  // Styling font
+  textFont(myFont);
+  textSize(16);
+  textAlign(CENTER, CENTER);
+
 }
 
 
@@ -64,6 +76,13 @@ function setup() {
 // Draw the circle and both squares' on screen
 
 function draw() {
+
+  // Making text black
+  fill(0);
+  // Making text follow mouse
+  // background(255);
+ text(myText, mouseX, mouseY);
+
   // We don't fill the background so we get a drawing effect
 
   // Move circle up and to the right
