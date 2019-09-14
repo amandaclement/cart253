@@ -15,13 +15,17 @@ let squareX;
 let squareY;
 let squareSize = 100;
 
+// The current position and size of square2
+let square2X;
+let square2Y;
+let square2Size = 100;
+
 
 // preload()
 //
 // Nothing here
 
 function preload() {
-
 }
 
 
@@ -43,6 +47,10 @@ function setup() {
   squareX = width + squareSize/2;
   squareY = height + squareSize/2;
 
+  // Start square off screen to left (vertically centered)
+  square2X = -square2Size/2;
+  square2Y = height/2;
+
   // We'll draw rectangles from the center
   rectMode(CENTER);
   // We won't have a stroke in this
@@ -52,8 +60,8 @@ function setup() {
 
 // draw()
 //
-// Change the circle and square's positions so they move
-// Draw the circle and square on screen
+// Change the circle and both squares' positions so they move
+// Draw the circle and both squares' on screen
 
 function draw() {
   // We don't fill the background so we get a drawing effect
@@ -73,4 +81,11 @@ function draw() {
   fill(0,0,255,10);
   // Display the square
   rect(squareX,squareY,squareSize,squareSize);
+
+  // Move square2 to right
+  square2X += 1;
+  // Make square2 transparent green
+  fill(0,255,0,10);
+  // Display square2
+  rect(square2X,square2Y,square2Size,square2Size);
 }
