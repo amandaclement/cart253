@@ -25,12 +25,16 @@ let square2Size = 100;
 let myText = "Draw!";
 let myFont;
 
+// The current position of oval
+let ovalX;
+let ovalY;
+
 // preload()
 //
 // Nothing here
 
 function preload() {
-  // Font will load before all else to avoid delays
+  // These will load before all else to avoid delays
   myFont = loadFont("assets/fonts/VeraMono.ttf");
 }
 
@@ -67,6 +71,11 @@ function setup() {
   textSize(16);
   textAlign(CENTER, CENTER);
 
+  // Displaying img in center of canvas
+  // imageMode(CENTER);
+  // image(smileyImage, width/2, height/2);
+
+
 }
 
 
@@ -77,11 +86,10 @@ function setup() {
 
 function draw() {
 
-  // Making text black
-  fill(0);
+  // Making text black (with fading effect)
+  fill(0,0,0,10);
   // Making text follow mouse
-  // background(255);
- text(myText, mouseX, mouseY);
+  text(myText, mouseX, mouseY);
 
   // We don't fill the background so we get a drawing effect
 
@@ -107,4 +115,14 @@ function draw() {
   fill(0,255,0,10);
   // Display square2
   rect(square2X,square2Y,square2Size,square2Size);
+
+  // Oval
+  // Make it transparent yellow
+  fill(255,255,0,15)
+  // Creating circular motion
+  ovalX = sin(frameCount / 50) * 250;
+  ovalY = cos(frameCount / 50) * 250;
+  // Display oval
+  ellipse(320 + ovalX, 320 + ovalY, 100, 50)
+
 }
