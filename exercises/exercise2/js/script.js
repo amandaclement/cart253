@@ -2,6 +2,7 @@
 
 Game - The Artful Dodger
 Pippin Barr
+Edited by Amanda Clement
 
 A simple dodging game with keyboard controls
 
@@ -28,6 +29,15 @@ let enemyVX = 5;
 
 // How many dodges the player has made
 let dodges = 0;
+
+// Declaring font variable
+let myFont;
+
+// preload()
+function preload() {
+  // This will load before all else to avoid delays
+  myFont = loadFont("assets/fonts/Bebas-Regular.otf");
+}
 
 // setup()
 //
@@ -129,6 +139,15 @@ function draw() {
 
   // Display the number of successful dodges in the console
   console.log(dodges);
+
+  // Making text black
+  fill(0);
+  // Using preloaded font
+  textFont ("Bebas-Regular");
+  // Changing text size (21px)
+  textSize(21);
+  // Displaying the text (at top left)
+  text ('You have dodged '+dodges+' time(s)', 25, 50);
 
   // The player is black
   fill(0);
