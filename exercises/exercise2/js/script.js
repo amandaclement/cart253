@@ -21,7 +21,7 @@ let avatarVY = 0;
 // The position and size of the enemy circle
 let enemyX;
 let enemyY;
-let enemySize = 50;
+let enemySize;
 
 // The speed and velocity of our enemy circle
 let enemySpeed = 5;
@@ -94,10 +94,13 @@ function draw() {
   avatarX = avatarX + avatarVX;
   avatarY = avatarY + avatarVY;
 
-  // The enemy always moves at enemySpeed
-  enemyVX = enemySpeed;
   // Update the enemy's position based on its velocity
   enemyX = enemyX + enemyVX;
+
+  // Increase enemy speed based on number of dodges (1.1 times)
+  enemyVX = enemySpeed + 1.1 * dodges;
+  // Increase enemy size based on number of dodges (resets to 50 if you lose)
+  enemySize = 50 + (dodges * 5)
 
   // Check if the enemy and avatar overlap - if they do the player loses
   // We do this by checking if the distance between the centre of the enemy
