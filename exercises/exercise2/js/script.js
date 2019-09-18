@@ -12,6 +12,8 @@ A simple dodging game with keyboard controls
 let avatarX;
 let avatarY;
 let avatarSize = 50;
+// For changing avatar color
+let avatarColor;
 
 // The speed and velocity of our avatar circle
 let avatarSpeed = 10;
@@ -22,6 +24,8 @@ let avatarVY = 0;
 let enemyX;
 let enemyY;
 let enemySize;
+// For changing enemy color
+let enemyColor;
 
 // The speed and velocity of our enemy circle
 let enemySpeed = 5;
@@ -32,11 +36,20 @@ let dodges = 0;
 
 // Declaring font variable
 let myFont;
+// For changing text color
+let fontColor;
+
+// Background variables
+let dayImage;
+let nightImage;
 
 // preload()
 function preload() {
   // This will load before all else to avoid delays
   myFont = loadFont("assets/fonts/Bebas-Regular.otf");
+
+  dayImage = loadImage("assets/images/dayImage.jpg");
+  nightImage = loadImage("assets/images/nightImage.jpg");
 }
 
 // setup()
@@ -63,8 +76,31 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
-  background(255,220,220);
+
+// If less than or equal to 4 dodges, this will occur
+if (dodges <= 4) {
+  // Display dayImage for background
+  background(dayImage);
+  // Making text black on dayImage
+  fontColor = color(0);
+  // Making avatar black
+  avatarColor = color(0);
+  // Making enemy red
+  enemyColor = color(255,0,0);
+}
+// If over 5 dodges, this will occur
+else {
+  // Display nightImage for background
+  background(nightImage);
+  // Making text white on nightImage
+  fontColor = color(255);
+  // Making avatar white
+  avatarColor = color(255);
+  // Making enemy yellow
+  enemyColor = color(255,255,0);
+}
+
+
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -143,23 +179,25 @@ function draw() {
   // Display the number of successful dodges in the console
   console.log(dodges);
 
-  // Making text black
-  fill(0);
   // Using preloaded font
+  noStroke();
   textFont ("Bebas-Regular");
   // Changing text size (21px)
   textSize(21);
+  // Text color is variable since it changes depending on number of dodges
+  fill(fontColor);
   // Displaying the text (at top left)
   text ('You have dodged '+dodges+' time(s)', 25, 50);
 
-  // The player is black
-  fill(0);
-  // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
+  // Avatar color and stroke are variables since they change depending on number of dodges
+  fill(avatarColor);
+  strokeWeight(5);
+  stroke(255,255,255,90);
+  // Draw the player as a rounded square
+  rect(avatarX,avatarY,avatarSize,avatarSize,10);
 
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
-
+  // Enemy color is variable since it changes depending on number of dodges
+  fill(enemyColor);
+  // Draw the enemy as a rounded square
+  rect(enemyX,enemyY,enemySize,enemySize,10);
 }
