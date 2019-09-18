@@ -100,8 +100,6 @@ else {
   enemyColor = color(255,255,0);
 }
 
-
-
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
   avatarVY = 0;
@@ -183,11 +181,16 @@ else {
   noStroke();
   textFont ("Bebas-Regular");
   // Changing text size (21px)
-  textSize(21);
+  textSize(24);
   // Text color is variable since it changes depending on number of dodges
   fill(fontColor);
   // Displaying the text (at top left)
-  text ('You have dodged '+dodges+' time(s)', 25, 50);
+  text ('You have dodged '+dodges+' time(s)',25, 50);
+
+  // Make text smaller for instructions
+  textSize(17);
+  // Display to bottom left of screen
+  text ('Press the Enter key to toggle player size.',25,475);
 
   // Avatar color and stroke are variables since they change depending on number of dodges
   fill(avatarColor);
@@ -200,4 +203,19 @@ else {
   fill(enemyColor);
   // Draw the enemy as a rounded square
   rect(enemyX,enemyY,enemySize,enemySize,10);
+}
+
+// Press Enter key to toggle player sizes
+function keyPressed(){
+  console.log(keyCode, key);
+  if (keyCode === ENTER) {
+    // If player is default size (50), change to 35 when Enter is clicked
+       if (avatarSize === 50) {
+         avatarSize = 35;
+       }
+    // If player is 35, change back to default size (50) when Enter is clicked
+       else if (avatarSize === 35) {
+         avatarSize = 50;
+       }
+    }
 }
