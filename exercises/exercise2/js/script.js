@@ -46,9 +46,11 @@ let nightImage;
 // preload()
 function preload() {
   // This will load before all else to avoid delays
+  // Preload chosen font
   myFont = loadFont("assets/fonts/Bebas-Regular.otf");
-
+  // Preload for dayImage (bright)
   dayImage = loadImage("assets/images/dayImage.jpg");
+  // Preload for nightImage (dark)
   nightImage = loadImage("assets/images/nightImage.jpg");
 }
 
@@ -88,7 +90,7 @@ if (dodges <= 4) {
   // Making enemy red
   enemyColor = color(255,0,0);
 }
-// If over 5 dodges, this will occur
+// If 5 dodges or over, this will occur
 else {
   // Display nightImage for background
   background(nightImage);
@@ -98,6 +100,24 @@ else {
   avatarColor = color(255);
   // Making enemy yellow
   enemyColor = color(255,255,0);
+}
+
+// If player successfully dodges 3 times, display this text
+if (dodges === 3) {
+  noStroke();
+  // Make text blue with transparency
+  fill(0,0,255,70);
+  textSize(24);
+  // Text will say 'Keep it up!' under # of dodges text
+  text('Keep it up!',25,80);
+}
+// If player successfully dodges 6 times, display this text
+else if (dodges === 6) {
+  // Make text appear grey over bg
+  fill(255,255,255,80);
+  textSize(24);
+  // Text will say 'Awesome!' under # of dodges
+  text('Awesome!',25,80);
 }
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
