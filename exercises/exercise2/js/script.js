@@ -113,6 +113,7 @@ if (dodges === 3) {
 }
 // If player successfully dodges 6 times, display this text
 else if (dodges === 6) {
+  noStroke();
   // Make text appear grey over bg
   fill(255,255,255,80);
   textSize(24);
@@ -170,6 +171,8 @@ else if (dodges === 6) {
     avatarY = height/2;
     // Reset the dodge counter
     dodges = 0;
+    // When you lose, reset player to default size (50)
+    avatarSize = 50;
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -181,6 +184,8 @@ else if (dodges === 6) {
     avatarX = width/2;
     avatarY = height/2;
     dodges = 0;
+    // When you lose, reset player to default size (50)
+    avatarSize = 50;
   }
 
   // Check if the enemy has moved all the way across the screen
