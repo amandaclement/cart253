@@ -3,6 +3,7 @@
 /******************************************************************************
 Where's Sausage Dog?
 by Pippin Barr
+Edited by Amanda Clement
 
 An algorithmic version of a Where's Wally/Waldo searching game where you
 need to click on the sausage dog you're searching for in amongst all
@@ -63,6 +64,7 @@ function setup() {
   background("#ffff00");
   imageMode(CENTER);
 
+
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
     // Choose a random location on the canvas for this decoy
@@ -112,8 +114,16 @@ function setup() {
 
   // And draw it (because it's the last thing drawn, it will always be on top)
   image(targetImage,targetX,targetY);
-}
 
+  // Styling for square (blue with stroke)
+  stroke("#5DADE2");
+  strokeWeight(8);
+  fill("#85C1E9");
+  // Position square in top right corner of window
+  rect(width - 150,20,130,140);
+  // Displaying the dog image on the square
+  image(targetImage,width - 85,90);
+}
 
 // draw()
 //
