@@ -37,6 +37,9 @@ let numDecoys = 100;
 // Keep track of whether they've won
 let gameOver = false;
 
+// For text string
+let myFont;
+
 // preload()
 //
 // Loads the target and decoy images before the program starts
@@ -53,6 +56,11 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  // Loads Oswald font before program starts
+  myFont = loadFont('assets/fonts/oswald.ttf');
+
+
 }
 
 // setup()
@@ -115,14 +123,24 @@ function setup() {
   // And draw it (because it's the last thing drawn, it will always be on top)
   image(targetImage,targetX,targetY);
 
-  // Styling for square (blue with stroke)
-  stroke("#5DADE2");
-  strokeWeight(8);
-  fill("#85C1E9");
-  // Position square in top right corner of window
-  rect(width - 150,20,130,140);
-  // Displaying the dog image on the square
-  image(targetImage,width - 85,90);
+  // Styling for rectangle (white with black stroke)
+  stroke("#000");
+  strokeWeight(6);
+  fill("#FFF");
+  // Position rectangle in top right corner of window
+  rect(width - 150,20,130,155);
+  // Displaying the dog image on the rectangle
+  image(targetImage,width - 85,80);
+
+  // To display text string LOST DOG
+  let lostDogText = "LOST DOG";
+  noStroke();
+  fill("#000");
+  // Displaying text in Oswald font
+  textFont(myFont);
+  textSize(27);
+  // Positioning text within rectangle
+  text(lostDogText,width - 136,155);
 }
 
 // draw()
@@ -132,7 +150,7 @@ function setup() {
 function draw() {
   if (gameOver) {
     // Prepare our typography
-    textFont("Helvetica");
+    textFont(myFont);
     textSize(128);
     textAlign(CENTER,CENTER);
     noStroke();
