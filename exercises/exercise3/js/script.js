@@ -40,6 +40,15 @@ let gameOver = false;
 // For text string
 let myFont;
 
+// For calculating speed (of dog when found)
+let speedX = 3;
+let speedY = 3;
+// For directions (for movement of dog when found)...
+  // Left/Right
+let dirX = 1;
+  // Top/Bottom
+let dirY = 1;
+
 // preload()
 //
 // Loads the target and decoy images before the program starts
@@ -58,8 +67,7 @@ function preload() {
   decoyImage10 = loadImage("assets/images/animals-10.png");
 
   // Loads Oswald font before program starts
-  myFont = loadFont('assets/fonts/oswald.ttf');
-
+  myFont = loadFont("assets/fonts/oswald.ttf");
 
 }
 
@@ -149,6 +157,8 @@ function setup() {
 // otherwise nothing (all the gameplay stuff is in mousePressed())
 function draw() {
   if (gameOver) {
+    // To hide all animals except dog when found
+    background("#ffff00");
     // Prepare our typography
     textFont(myFont);
     textSize(128);
@@ -156,8 +166,22 @@ function draw() {
     noStroke();
     fill(random(255));
 
-    // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    // Tell them they found him!
+    text("YOU FOUND HIM!",width/2,height/2);
+
+    // Updating position of dog and surrounding circle
+    targetX = targetX + speedX * dirX;
+    targetY = targetY + speedY * dirY;
+
+    // Testing to see if dog in circle exceeds boundaries when moving across window
+      // If it does, reverse direction by multiplying by -1
+      // Must divide targetImage width and height by 2 so it hits edge of window
+    if (targetX > width - targetImage.width/2 || targetX < targetImage.width/2){
+       dirX = (dirX)*(-1);
+   }
+     if (targetY > height - targetImage.height/2 || targetY < targetImage.height/2){
+       dirY = (dirY)*(-1);
+     }
 
     // Draw a circle around the sausage dog to show where it is (even though
     // they already know because they found it!)
@@ -165,6 +189,8 @@ function draw() {
     stroke(random(255));
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    // Displaying dog in circle
+    image(targetImage,targetX,targetY);
   }
 }
 
