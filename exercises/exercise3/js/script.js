@@ -36,7 +36,7 @@ let decoyImage10;
 // chosen from the decoy images
 let numDecoys = 100;
 
-// To control size of animals
+// To control size of animals (starts at 130)
 let animalSize = 130;
 
 // Keep track of whether they've won
@@ -46,7 +46,7 @@ let gameOver = false;
 let myFont;
 
 // Used to keep track of level player is at
-  // Counter will start at 2 since they will have already passed level 1 when string appears
+// Counter will start at 2 since they will have already passed level 1 when string appears
 let numLevel = 2;
 
 // For calculating speed (of dog when found)
@@ -195,8 +195,17 @@ function initialAnimalSetup() {
     targetY = random(0, height);
 
     // And draw it (because it's the last thing drawn, it will always be on top)
-    image(targetImage, targetX, targetY);
+    image(targetImage, targetX, targetY, animalSize, animalSize);
   }
+  // To see how many decoys there are
+  console.log("There are " + numDecoys);
+  // To see the size of the animals
+  console.log("The current animal size is " + animalSize);
+
+  // Decreasing animal size every round
+  animalSize = animalSize - (2 * numLevel);
+  // Increasing number of decoys every round
+  numDecoys = numDecoys + (5 * numLevel)
 }
 
 // Making dog bounce around screen edges when found
@@ -251,7 +260,7 @@ function lostDogText() {
   // Displaying text in Oswald font
   textFont(myFont);
   textSize(27);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   // Positioning text within rectangle
   text(lostDog, width - 85, 145);
 }
