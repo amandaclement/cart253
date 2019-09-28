@@ -125,15 +125,19 @@ function handleInput() {
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
     // Hold down SHIFT to double the speed
+      // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
       playerVX = -playerMaxSpeed * 2;
+      playerHealth = playerHealth - 1;
     }
   }
   else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
     // Hold down SHIFT to double the speed
+      // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
       playerVX = playerMaxSpeed * 2;
+      playerHealth = playerHealth - 1;
     }
   }
   else {
@@ -144,15 +148,19 @@ function handleInput() {
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
     // Hold down SHIFT to double the speed
+      // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
       playerVY = -playerMaxSpeed * 2;
+      playerHealth = playerHealth - 1;
     }
   }
   else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
     // Hold down SHIFT to double the speed
+      // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
       playerVY = playerMaxSpeed * 2;
+      playerHealth = playerHealth - 1;
     }
   }
   else {
