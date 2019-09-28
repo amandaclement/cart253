@@ -3,7 +3,7 @@
 /******************************************************
 
 Game - Chaser
-Pippin Barr
+Amanda Clement
 
 A "simple" game of cat and mouse. The player is a circle and can move with keys,
 if they overlap the (randomly moving) prey they "eat it" by sucking out its life
@@ -38,6 +38,10 @@ let preyRadius = 25;
 let preyVX;
 let preyVY;
 let preyMaxSpeed = 4;
+// Prey time variables
+  // Seperate noise values (at different times) so they don't mirror each other
+let preyTX = 0;
+let preyTY = 100;
 // Prey health
 let preyHealth;
 let preyMaxHealth = 100;
@@ -71,6 +75,10 @@ function setupPrey() {
   preyVX = -preyMaxSpeed;
   preyVY = preyMaxSpeed;
   preyHealth = preyMaxHealth;
+
+  // what does this do?
+  preyTX = random(0,1000);
+  preyTY = random(0,1000);
 }
 
 // setupPlayer()
@@ -213,20 +221,16 @@ function checkEating() {
 
 // movePrey()
 //
-// Moves the prey based on random velocity changes
+// Moves the prey using Perlin noise
+  // Creating a sequence of random numbers that are related to one another
+    // Random numbers following some kind of organic pattern
 function movePrey() {
-  // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    //
-    // Use map() to convert from the 0-1 range of the random() function
+  // Use map() to convert from the 0-1 range of the noise() function
     // to the appropriate range of velocities for the prey
-    preyVX = map(random(), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-    preyVY = map(random(), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-  }
+      // Gives us a noise value of preyTX
+  preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
+    // Gives us a noise value of preyTY
+  preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
 
   // Update prey position based on velocity
   preyX = preyX + preyVX;
@@ -246,6 +250,11 @@ function movePrey() {
   else if (preyY > height) {
     preyY = preyY - height;
   }
+
+  // Using times that are closer together so the noise values are more similar
+    // 0.01 gives smooth movement (not too shaky)
+  preyTX = preyTX + 0.01;
+  preyTY = preyTY + 0.01;
 }
 
 // drawPrey()
