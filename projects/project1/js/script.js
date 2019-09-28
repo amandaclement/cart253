@@ -124,9 +124,17 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
+    // Hold down SHIFT to double the speed
+    if (keyIsDown(SHIFT)){
+      playerVX = -playerMaxSpeed * 2;
+    }
   }
   else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
+    // Hold down SHIFT to double the speed
+    if (keyIsDown(SHIFT)){
+      playerVX = playerMaxSpeed * 2;
+    }
   }
   else {
     playerVX = 0;
@@ -135,9 +143,17 @@ function handleInput() {
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
+    // Hold down SHIFT to double the speed
+    if (keyIsDown(SHIFT)){
+      playerVY = -playerMaxSpeed * 2;
+    }
   }
   else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
+    // Hold down SHIFT to double the speed
+    if (keyIsDown(SHIFT)){
+      playerVY = playerMaxSpeed * 2;
+    }
   }
   else {
     playerVY = 0;
