@@ -24,7 +24,7 @@ let playerY;
 let playerRadius = 25;
 let playerVX = 0;
 let playerVY = 0;
-let playerMaxSpeed = 2;
+let playerMaxSpeed = 4;
 // Player health
 let playerHealth;
 let playerMaxHealth = 255;
@@ -35,7 +35,7 @@ let preyY;
 let preyRadius = 25;
 let preyVX;
 let preyVY;
-let preyMaxSpeed = 4;
+let preyMaxSpeed = 8;
 // Prey time variables
   // Seperate noise values (at different times) so they don't mirror each other
 let preyTX = 0;
@@ -139,19 +139,19 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
-    // Hold down SHIFT to double the speed
+    // Hold down SHIFT to increase the speed by 1.5
       // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
-      playerVX = -playerMaxSpeed * 2;
+      playerVX = -playerMaxSpeed * 1.5;
       playerHealth = playerHealth - 1;
     }
   }
   else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
-    // Hold down SHIFT to double the speed
+    // Hold down SHIFT to increase the speed by 1.5
       // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
-      playerVX = playerMaxSpeed * 2;
+      playerVX = playerMaxSpeed * 1.5;
       playerHealth = playerHealth - 1;
     }
   }
@@ -162,19 +162,19 @@ function handleInput() {
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
-    // Hold down SHIFT to double the speed
+    // Hold down SHIFT to increase the speed by 1.5
       // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
-      playerVY = -playerMaxSpeed * 2;
+      playerVY = -playerMaxSpeed * 1.5;
       playerHealth = playerHealth - 1;
     }
   }
   else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
-    // Hold down SHIFT to double the speed
+    // Hold down SHIFT to increase the speed by 1.5
       // BUT player's health will also decrease faster
     if (keyIsDown(SHIFT)){
-      playerVY = playerMaxSpeed * 2;
+      playerVY = playerMaxSpeed * 1.5;
       playerHealth = playerHealth - 1;
     }
   }
@@ -218,7 +218,7 @@ function movePlayer() {
 // Check if the player is dead
 function updateHealth() {
   // Reduce player health
-  playerHealth = playerHealth - 0.5;
+  playerHealth = playerHealth - 1.5;
   // Constrain the result to a sensible range
   playerHealth = constrain(playerHealth, 0, playerMaxHealth);
   // Check if the player is dead (0 health)
