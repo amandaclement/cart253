@@ -53,6 +53,24 @@ let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
+// For the image of the field (background), bee (player), and daisy (prey)
+let backgroundFieldImage;
+let playerBeeImage;
+let preyDaisyImage;
+
+
+// preload()
+//
+// Will load before all else to avoid delays
+function preload() {
+  // Loading the field image to be used as the background
+  backgroundFieldImage = loadImage("assets/images/fieldImage.jpg");
+  // Loading the bee image to be used for player
+  playerBeeImage = loadImage("assets/images/beeImage.png")
+  // Loading the daisy image to be used for prey
+  preyDaisyImage = loadImage("assets/images/daisyImage.png")
+}
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -98,7 +116,8 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100, 100, 200);
+  // background(100, 100, 200);
+  background(backgroundFieldImage);
 
   if (!gameOver) {
     handleInput();
