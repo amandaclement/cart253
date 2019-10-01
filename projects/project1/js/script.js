@@ -28,8 +28,6 @@ let playerMaxSpeed = 2;
 // Player health
 let playerHealth;
 let playerMaxHealth = 255;
-// Player fill color
-let playerFill = 50;
 
 // Prey position, size, velocity
 let preyX;
@@ -45,8 +43,6 @@ let preyTY = 100;
 // Prey health
 let preyHealth;
 let preyMaxHealth = 100;
-// Prey fill color
-let preyFill = 200;
 
 // Amount of health obtained per frame of "eating" (overlapping) the prey
 let eatHealth = 10;
@@ -116,7 +112,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  // background(100, 100, 200);
+  // background image of field
   background(backgroundFieldImage);
 
   if (!gameOver) {
@@ -302,18 +298,20 @@ function movePrey() {
 
 // drawPrey()
 //
-// Draw the prey as an ellipse with alpha based on health
+// Draw the prey as an image with alpha based on health
 function drawPrey() {
-  fill(preyFill, preyHealth);
-  ellipse(preyX, preyY, preyRadius * 2);
+  // For daisy image opacity (use 255 so colours do not change)
+  tint(255,preyHealth);
+  image(preyDaisyImage,preyX,preyY,70,70);
 }
 
 // drawPlayer()
 //
-// Draw the player as an ellipse with alpha value based on health
+// Draw the player as an image with alpha value based on health
 function drawPlayer() {
-  fill(playerFill, playerHealth);
-  ellipse(playerX, playerY, playerRadius * 2);
+  // For bee image opacity (use 255 so colours do not change)
+  tint(255,playerHealth);
+  image(playerBeeImage,playerX,playerY,80,50);
 }
 
 // showGameOver()
