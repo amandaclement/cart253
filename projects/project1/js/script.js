@@ -22,9 +22,11 @@ let gameOver = false;
 let playerX;
 let playerY;
 let playerRadius = 25;
+let playerWidth = 80;
+let playerHeight = 50;
 let playerVX = 0;
 let playerVY = 0;
-let playerMaxSpeed = 4;
+let playerMaxSpeed = 6;
 // Player health
 let playerHealth;
 let playerMaxHealth = 255;
@@ -35,7 +37,7 @@ let preyY;
 let preyRadius = 25;
 let preyVX;
 let preyVY;
-let preyMaxSpeed = 8;
+let preyMaxSpeed = 6;
 // Prey time variables
 // Seperate noise values (at different times) so they don't mirror each other
 let preyTX = 0;
@@ -49,7 +51,20 @@ let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
-// For the image of the bee (player) and daisy (prey)
+// Predator position, size, velocity
+let predatorX;
+let predatorY;
+let predatorRadius = 15;
+let predatorVX;
+let predatorVY;
+let predatorMaxSpeed = 13;
+// Predator time variables
+// Seperate noise values (at different times) so they don't mirror each other
+let predatorTX = 0;
+let predatorTY = 100;
+let predatorSize = 15;
+
+// For the image of the bee (player) and daisy (prey and prey2)
 let playerBeeImage;
 let preyDaisyImage;
 
@@ -74,6 +89,7 @@ function setup() {
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
+  setupPredator();
 }
 
 // setupPrey()
@@ -99,6 +115,19 @@ function setupPlayer() {
   playerHealth = playerMaxHealth;
 }
 
+// setupPredator()
+//
+// Initialises predator's position, velocity, and health
+function setupPredator() {
+  predatorX = width / 2;
+  predatorY = height / 5;
+  predatorVX = -predatorMaxSpeed;
+  predatorVY = predatorMaxSpeed;
+
+  predatorTX = random(0, 1000);
+  predatorTY = random(0, 1000);
+}
+
 // draw()
 //
 // While the game is active, checks input
@@ -116,12 +145,16 @@ function draw() {
 
     movePlayer();
     movePrey();
+    movePredator();
 
     updateHealth();
     checkEating();
+    checkPredatorCollision();
 
     drawPrey();
     drawPlayer();
+    drawPredator();
+
   } else {
     showGameOver();
   }
@@ -247,6 +280,18 @@ function checkEating() {
   }
 }
 
+// checkPredatorCollision()
+//
+// Check if the player overlaps the predator (game over if they do)
+function checkPredatorCollision() {
+  // Get distance of player to predator
+  let d = dist(playerX, playerY, predatorX, predatorY);
+  // Check if it's an overlap
+  if (d < playerWidth/2 + predatorRadius || d < playerHeight/2 + predatorRadius) {
+    gameOver = true;
+}
+}
+
 // movePrey()
 //
 // Moves the prey using Perlin noise
@@ -283,6 +328,42 @@ function movePrey() {
   preyTY = preyTY + 0.01;
 }
 
+// movePredator()
+//
+// Moves the predator using Perlin noise
+// Creating a sequence of random numbers that are related to one another
+// Random numbers following some kind of organic pattern
+function movePredator() {
+  // Use map() to convert from the 0-1 range of the noise() function
+  // to the appropriate range of velocities for the predator
+  // Gives us a noise value of predatorTX
+  predatorVX = map(noise(predatorTX), 0, 1, -predatorMaxSpeed, predatorMaxSpeed);
+  // Gives us a noise value of predatorTY
+  predatorVY = map(noise(predatorTY), 0, 1, -predatorMaxSpeed, predatorMaxSpeed);
+
+  // Update predator position based on velocity
+  predatorX = predatorX + predatorVX;
+  predatorY = predatorY + predatorVY;
+
+  // Screen wrapping
+  if (predatorX < 0) {
+    predatorX = predatorX + width;
+  } else if (predatorX > width) {
+    predatorX = predatorX - width;
+  }
+
+  if (predatorY < 0) {
+    predatorY = predatorY + height;
+  } else if (predatorY > height) {
+    predatorY = predatorY - height;
+  }
+
+  // Using times that are closer together so the noise values are more similar
+  // 0.01 gives smooth movement (not too shaky)
+  predatorTX = predatorTX + 0.01;
+  predatorTY = predatorTY + 0.01;
+}
+
 // drawPrey()
 //
 // Draw the prey as an image with alpha based on health
@@ -298,7 +379,17 @@ function drawPrey() {
 function drawPlayer() {
   // For bee image opacity (use 255 so colours do not change)
   tint(255, playerHealth);
-  image(playerBeeImage, playerX, playerY, 80, 50);
+  imageMode(CENTER);
+  image(playerBeeImage, playerX, playerY, playerWidth, playerHeight);
+}
+
+// drawPredator()
+//
+// Draw the predator as a black circle
+function drawPredator() {
+    fill(0);
+    noStroke();
+    ellipse(predatorX, predatorY, predatorSize, predatorSize);
 }
 
 // showGameOver()
@@ -357,36 +448,36 @@ function drawHexagonBackground() {
   // Fill is yellow
   fill("#f8d568");
 
-// Creating odd-numbered columns of hexagons
+  // Creating odd-numbered columns of hexagons
   // Start at 15 (first hexagon offset on canvas)
   // Keep drawing until 505 (until bottom of canvas reached)
   // Increments of 70
-for (var i = 15; i <= 505; i += 70) {
-  // Size is 40, 6 points (corner) for hexagonal shape
-  // Column 1
-  hexagon(20,i,40,6);
-  // Column 3
-  hexagon(140,i,40,6);
-  // Column 5
-  hexagon(260,i,40,6);
-  // Column 7
-  hexagon(380,i,40,6);
-  // Column 9
-  hexagon(500,i,40,6);
-}
+  for (var i = 15; i <= 505; i += 70) {
+    // Size is 40, 6 points (corner) for hexagonal shape
+    // Column 1
+    hexagon(20, i, 40, 6);
+    // Column 3
+    hexagon(140, i, 40, 6);
+    // Column 5
+    hexagon(260, i, 40, 6);
+    // Column 7
+    hexagon(380, i, 40, 6);
+    // Column 9
+    hexagon(500, i, 40, 6);
+  }
 
-// Creating even-numbered columns of hexagons
+  // Creating even-numbered columns of hexagons
   // Start at -20 (first hexagon offset on canvas)
   // Keep drawing until 470 (until bottom of canvas reached)
   // Increments of 70
-for (var i = -20; i <= 470; i += 70) {
-  // Column 2
-  hexagon(80,i,40,6);
-  // Column 4
-  hexagon(200,i,40,6);
-  // Column 6
-  hexagon(320,i,40,6);
-  // Column 8
-  hexagon(440,i,40,6);
-}
+  for (var i = -20; i <= 470; i += 70) {
+    // Column 2
+    hexagon(80, i, 40, 6);
+    // Column 4
+    hexagon(200, i, 40, 6);
+    // Column 6
+    hexagon(320, i, 40, 6);
+    // Column 8
+    hexagon(440, i, 40, 6);
+  }
 }
