@@ -62,7 +62,6 @@ let predatorMaxSpeed = 13;
 // Seperate noise values (at different times) so they don't mirror each other
 let predatorTX = 0;
 let predatorTY = 100;
-let predatorSize = 15;
 
 // For the image of the bee (player) and daisy (prey and prey2)
 let playerBeeImage;
@@ -126,6 +125,7 @@ function setupPredator() {
 
   predatorTX = random(0, 1000);
   predatorTY = random(0, 1000);
+
 }
 
 // draw()
@@ -267,6 +267,9 @@ function checkEating() {
     // Constrain to the possible range
     preyHealth = constrain(preyHealth, 0, preyMaxHealth);
 
+    // Increase size of predator when prey is eaten
+    predatorGrowth();
+
     // Check if the prey died (health 0)
     if (preyHealth === 0) {
       // Move the "new" prey to a random position
@@ -287,9 +290,11 @@ function checkPredatorCollision() {
   // Get distance of player to predator
   let d = dist(playerX, playerY, predatorX, predatorY);
   // Check if it's an overlap
-  if (d < playerWidth/2 + predatorRadius || d < playerHeight/2 + predatorRadius) {
+  // minus 8 to account for odd shape of image
+    // or else gameOver will be triggered before the player and predator touch
+  if (d < playerWidth / 2 - 8 + predatorRadius || d < playerHeight / 2 - 8 + predatorRadius) {
     gameOver = true;
-}
+  }
 }
 
 // movePrey()
@@ -387,9 +392,9 @@ function drawPlayer() {
 //
 // Draw the predator as a black circle
 function drawPredator() {
-    fill(0);
-    noStroke();
-    ellipse(predatorX, predatorY, predatorSize, predatorSize);
+  fill(0);
+  noStroke();
+  ellipse(predatorX, predatorY, predatorRadius, predatorRadius);
 }
 
 // showGameOver()
@@ -412,10 +417,7 @@ function showGameOver() {
 //
 // Based on code from https://p5js.org/examples/form-regular-polygon.html
 // Will be repeated to create pattern on background (beehive pattern)
-// x for horizontal location
-// y for vertical location
-// radius for size
-// numberOfPoints for number of corners
+// x for horizontal location, y for vertical location, radius for size, numberOfPoints for number of corners
 function hexagon(x, y, radius, numberOfPoints) {
   // TWO_PI to create full circle
   // numberOfPoints for number of corners/sides shape has
@@ -452,7 +454,7 @@ function drawHexagonBackground() {
   // Start at 15 (first hexagon offset on canvas)
   // Keep drawing until 505 (until bottom of canvas reached)
   // Increments of 70
-  for (var i = 15; i <= 505; i += 70) {
+  for (let i = 15; i <= 505; i += 70) {
     // Size is 40, 6 points (corner) for hexagonal shape
     // Column 1
     hexagon(20, i, 40, 6);
@@ -470,7 +472,7 @@ function drawHexagonBackground() {
   // Start at -20 (first hexagon offset on canvas)
   // Keep drawing until 470 (until bottom of canvas reached)
   // Increments of 70
-  for (var i = -20; i <= 470; i += 70) {
+  for (let i = -20; i <= 470; i += 70) {
     // Column 2
     hexagon(80, i, 40, 6);
     // Column 4
@@ -480,4 +482,9 @@ function drawHexagonBackground() {
     // Column 8
     hexagon(440, i, 40, 6);
   }
+}
+
+function predatorGrowth() {
+  // Increasing size of predator everytime prey is caught
+  predatorRadius = predatorRadius + (preyEaten * 0.5);
 }
