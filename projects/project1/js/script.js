@@ -34,7 +34,7 @@ let playerMaxHealth = 255;
 // Prey position, size, velocity
 let preyX;
 let preyY;
-let preyRadius = 25;
+let preyRadius = 15;
 let preyVX;
 let preyVY;
 let preyMaxSpeed = 6;
@@ -63,9 +63,12 @@ let predatorMaxSpeed = 13;
 let predatorTX = 0;
 let predatorTY = 100;
 
-// For the image of the bee (player) and daisy (prey and prey2)
+// For the image of the bee (player) and daisy (prey)
 let playerBeeImage;
 let preyDaisyImage;
+
+// For text font (Patrick Hand Regular)
+let patrickHandFont;
 
 // preload()
 //
@@ -75,6 +78,8 @@ function preload() {
   playerBeeImage = loadImage("assets/images/beeImage.png");
   // Loading the daisy image to be used for prey
   preyDaisyImage = loadImage("assets/images/daisyImage.png");
+  // Loading the font (Patrick Hand)
+  patrickHandFont = loadFont("assets/fonts/patrickhand-regular.ttf");
 }
 
 // setup()
@@ -84,11 +89,22 @@ function setup() {
   createCanvas(500, 500);
 
   noStroke();
+  setupGame();
+}
 
+// setupGame()
+//
+// Sets up prey, player, and predator
+function setupGame() {
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
   setupPredator();
+
+  // Reset number of prey eaten
+  preyEaten = 0;
+  // Reset size of predator
+  predatorRadius = 15;
 }
 
 // setupPrey()
@@ -402,7 +418,9 @@ function drawPredator() {
 // Display text about the game being over!
 function showGameOver() {
   // Set up the font
-  textSize(32);
+  textFont(patrickHandFont);
+  noStroke();
+  textSize(38);
   textAlign(CENTER, CENTER);
   fill(0);
   // Set up the text to display
@@ -410,7 +428,13 @@ function showGameOver() {
   gameOverText = gameOverText + "You ate " + preyEaten + " prey\n";
   gameOverText = gameOverText + "before you died."
   // Display it in the centre of the screen
-  text(gameOverText, width / 2, height / 2);
+    // -50 to display text higher up on screen
+  text(gameOverText, width / 2, height / 2 - 50);
+
+  fill(255);
+  textSize(28);
+  let pressKey = "PRESS ENTER TO RESTART";
+  text(pressKey, width / 2, height / 2 + 120);
 }
 
 // Drawing a hexagon
@@ -484,7 +508,21 @@ function drawHexagonBackground() {
   }
 }
 
-function predatorGrowth() {
+// function predatorGrowth()
+//
   // Increasing size of predator everytime prey is caught
+function predatorGrowth() {
   predatorRadius = predatorRadius + (preyEaten * 0.5);
+}
+
+// keyPressed()
+//
+  // If ENTER is clicked when gameOver screen shows, restart game
+function keyPressed() {
+  if (keyCode === ENTER && gameOver) {
+    // Hiding gameOver text when level starts
+    gameOver = false;
+    // Setting up prey, player, and predator
+    setupGame();
+  }
 }
