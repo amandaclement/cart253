@@ -70,6 +70,12 @@ let preyDaisyImage;
 // For text font (Patrick Hand Regular)
 let patrickHandFont;
 
+// For buzzing bee sound effect
+let buzzingSound;
+
+// Point sound for whenever a prey is eaten
+let pointSound;
+
 // preload()
 //
 // Will load before all else to avoid delays
@@ -80,6 +86,10 @@ function preload() {
   preyDaisyImage = loadImage("assets/images/daisyImage.png");
   // Loading the font (Patrick Hand)
   patrickHandFont = loadFont("assets/fonts/patrickhand-regular.ttf");
+  // Loading buzzing bee sound
+  buzzingSound = loadSound("assets/sounds/buzz.wav");
+  // Loading sound for point (prey eaten)
+  pointSound = loadSound("assets/sounds/point.wav");
 }
 
 // setup()
@@ -88,7 +98,6 @@ function preload() {
 function setup() {
   createCanvas(500, 500);
 
-  noStroke();
   setupGame();
 }
 
@@ -152,11 +161,11 @@ function setupPredator() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-
   // Drawing background pattern (beehive)
   drawHexagonBackground();
 
-  if (!gameOver) {
+   if (!gameOver) {
+
     handleInput();
 
     movePlayer();
@@ -171,7 +180,8 @@ function draw() {
     drawPlayer();
     drawPredator();
 
-  } else {
+  }
+  else {
     showGameOver();
   }
 }
@@ -291,6 +301,8 @@ function checkEating() {
       // Move the "new" prey to a random position
       preyX = random(0, width);
       preyY = random(0, height);
+      // Make point sound when prey is eaten (fully)
+      pointSound.play();
       // Give it full health
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
@@ -310,6 +322,8 @@ function checkPredatorCollision() {
     // or else gameOver will be triggered before the player and predator touch
   if (d < playerWidth / 2 - 8 + predatorRadius || d < playerHeight / 2 - 8 + predatorRadius) {
     gameOver = true;
+    // Making buzzing sound when player collides with predator
+    buzzingSound.play();
   }
 }
 
@@ -431,9 +445,10 @@ function showGameOver() {
     // -50 to display text higher up on screen
   text(gameOverText, width / 2, height / 2 - 50);
 
+  // For Play Again text
   fill(255);
   textSize(28);
-  let pressKey = "PRESS ENTER TO RESTART";
+  let pressKey = "PRESS ENTER TO PLAY AGAIN";
   text(pressKey, width / 2, height / 2 + 120);
 }
 
