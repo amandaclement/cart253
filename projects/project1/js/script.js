@@ -76,6 +76,19 @@ let buzzingSound;
 // Point sound for whenever a prey is eaten
 let pointSound;
 
+// Position (y) of instructions
+let instructionsY = 0;
+// String for instructions
+let instructionsText = "Use the arrow keys to pollinate the daisy";
+// String for warning text
+let warningText = "WARNING: Avoid the black dot!";
+
+// Position (y) of tip
+let boostTipY = 0;
+// String for tip about boosting speed
+let boostTip = "TIP: Hold Shift for a speed boost!";
+
+
 // preload()
 //
 // Will load before all else to avoid delays
@@ -164,7 +177,7 @@ function draw() {
   // Drawing background pattern (beehive)
   drawHexagonBackground();
 
-   if (!gameOver) {
+  if (!gameOver) {
 
     handleInput();
 
@@ -180,8 +193,11 @@ function draw() {
     drawPlayer();
     drawPredator();
 
-  }
-  else {
+    moveInstructions();
+
+    showTip();
+
+  } else {
     showGameOver();
   }
 }
@@ -319,7 +335,7 @@ function checkPredatorCollision() {
   let d = dist(playerX, playerY, predatorX, predatorY);
   // Check if it's an overlap
   // minus 8 to account for odd shape of image
-    // or else gameOver will be triggered before the player and predator touch
+  // or else gameOver will be triggered before the player and predator touch
   if (d < playerWidth / 2 - 8 + predatorRadius || d < playerHeight / 2 - 8 + predatorRadius) {
     gameOver = true;
     // Making buzzing sound when player collides with predator
@@ -439,10 +455,10 @@ function showGameOver() {
   fill(0);
   // Set up the text to display
   let gameOverText = "GAME OVER\n"; // \n means "new line"
-  gameOverText = gameOverText + "You ate " + preyEaten + " prey\n";
-  gameOverText = gameOverText + "before you died."
+  gameOverText = gameOverText + "You pollinated " + preyEaten + " daisies\n";
+  gameOverText = gameOverText + "before you went extinct."
   // Display it in the centre of the screen
-    // -50 to display text higher up on screen
+  // -50 to display text higher up on screen
   text(gameOverText, width / 2, height / 2 - 50);
 
   // For Play Again text
@@ -525,19 +541,70 @@ function drawHexagonBackground() {
 
 // function predatorGrowth()
 //
-  // Increasing size of predator everytime prey is caught
+// Increasing size of predator everytime prey is caught
 function predatorGrowth() {
   predatorRadius = predatorRadius + (preyEaten * 0.5);
 }
 
 // keyPressed()
 //
-  // If ENTER is clicked when gameOver screen shows, restart game
+// If ENTER is clicked when gameOver screen shows, restart game
 function keyPressed() {
   if (keyCode === ENTER && gameOver) {
     // Hiding gameOver text when level starts
     gameOver = false;
     // Setting up prey, player, and predator
     setupGame();
+  }
+}
+
+// showInstructions()
+//
+// Displaying game instructions (text)
+function showInstructions() {
+  // Black rectangle for readibility
+  fill(0);
+  rect(0, 0, 500, 72);
+  textFont(patrickHandFont);
+  fill("#ffc240");
+  textSize(22);
+  textAlign(CENTER);
+  // Instructions text (top center)
+  text(instructionsText, 250, 28);
+  fill(255);
+  // Warning text (top center)
+  text(warningText, 250, 55);
+}
+
+// moveInstructions()
+//
+// To move instructions off screen once first daisy is caught
+function moveInstructions() {
+  // Show instructions when no prey has been eaten
+  if (preyEaten === 0) {
+    showInstructions();
+  }
+  // Instructions translate up off screen once first prey has been caught
+  else if (preyEaten === 1) {
+    instructionsY = instructionsY - 4;
+    translate(0, instructionsY);
+    showInstructions();
+  }
+}
+
+// showTip()
+//
+// Tell player they can hold Shift to boost speed
+function showTip() {
+  // Show message once 3 daisies have been caught
+  if (preyEaten === 3) {
+    fill(0);
+    text(boostTip, 250, 28);
+  }
+  // Make message translate up off screen once fourth daisy is caught
+  else if (preyEaten === 4) {
+    boostTipY = boostTipY - 4;
+    translate(0, boostTipY);
+    text(boostTip, 250, 28);
   }
 }
