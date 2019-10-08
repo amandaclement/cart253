@@ -75,6 +75,8 @@ let patrickHandFont;
 let buzzingSound;
 // Point sound for whenever a daisy is pollinated
 let pointSound;
+// Background music (looping song)
+let backgroundMusic;
 
 // Position (y) of instructions
 let instructionsY = 0;
@@ -82,6 +84,8 @@ let instructionsY = 0;
 let instructionsText = "Use the arrow keys to pollinate the daisy";
 // String for warning text
 let warningText = "WARNING: Avoid the black dot!";
+// String for instructions to turn music on/off
+let musicInstructions = "Click anywhere turn music on/off";
 
 // Position (y) of tip
 let boostTipY = 0;
@@ -103,6 +107,8 @@ function preload() {
   buzzingSound = loadSound("assets/sounds/buzz.wav");
   // Loading sound for point (prey eaten)
   pointSound = loadSound("assets/sounds/point.wav");
+  // Loading background music
+  backgroundMusic = loadSound("assets/sounds/happyMusic.wav");
 }
 
 // setup()
@@ -193,12 +199,16 @@ function draw() {
     drawPlayer();
     drawPredator();
 
+    instructionsForMusic();
+
     moveInstructions();
 
     showTip();
 
   } else {
     showGameOver();
+    // Background music stops if player dies
+    backgroundMusic.stop();
   }
 }
 
@@ -595,3 +605,26 @@ function showTip() {
     text(boostTip, 250, 28);
   }
 }
+
+// instructionsForMusic()
+//
+// Instructions to turn on/off music
+function instructionsForMusic() {
+  // Display at bottom center of screen
+  fill(255);
+  textSize(18);
+  text(musicInstructions, width / 2, 488);
+}
+
+// mousePressed()
+//
+// Player clicks mouse to start/stop background music
+function mousePressed() {
+  if (backgroundMusic.isPlaying()) {
+    backgroundMusic.stop();
+  } else {
+    backgroundMusic.loop();
+  }
+}
+
+// musicInstructions
