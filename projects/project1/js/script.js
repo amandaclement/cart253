@@ -481,7 +481,6 @@ function showGameOver() {
 // Drawing a hexagon
 //
 // Based on code from https://p5js.org/examples/form-regular-polygon.html
-// Will be repeated to create pattern on background (beehive pattern)
 // x for horizontal location, y for vertical location, radius for size, numberOfPoints for number of corners
 function hexagon(x, y, radius, numberOfPoints) {
   // TWO_PI to create full circle
@@ -577,7 +576,7 @@ function showInstructions() {
 //
 // To move instructions off screen once first daisy is caught
 function moveInstructions() {
-  // Show instructions when no prey has been eaten
+  // Show instructions when no prey (daisies) have been eaten
   if (preyEaten === 0) {
     showInstructions();
   }
@@ -610,7 +609,8 @@ function showTip() {
 //
 // Instructions to turn on/off music
 function instructionsForMusic() {
-  // Display at bottom center of screen
+  // Display at bottom center of screen (stays on screen until gameOver)
+  // Text is white and in smaller font size than other instructions
   fill(255);
   textSize(18);
   text(musicInstructions, width / 2, 488);
@@ -626,5 +626,3 @@ function mousePressed() {
     backgroundMusic.loop();
   }
 }
-
-// musicInstructions
