@@ -5,13 +5,14 @@
 Game - Chaser
 Amanda Clement
 
-A "simple" game of cat and mouse. The player is a circle and can move with keys,
-if they overlap the (randomly moving) prey they "eat it" by sucking out its life
-and adding it to their own. The player "dies" slowly over time so they have to keep
-eating to stay alive.
+A "simple" game of cat and mouse. The player is a bee and can move with keys,
+if they overlap the (randomly moving) daisy, they "pollinate it" by sucking out
+its life and adding it to their own. The player "dies" slowly over time if they
+run out of life of collide with the black dot.
+
 
 Includes: Physics-based movement, keyboard controls, health/stamina,
-random movement, noise, screen wrap.
+random movement, noise, screen wrap, sound effects.
 
 ******************************************************/
 
@@ -70,10 +71,9 @@ let preyDaisyImage;
 // For text font (Patrick Hand Regular)
 let patrickHandFont;
 
-// For buzzing bee sound effect
+// For buzzing bee sound effect (when bee collides with dot)
 let buzzingSound;
-
-// Point sound for whenever a prey is eaten
+// Point sound for whenever a daisy is pollinated
 let pointSound;
 
 // Position (y) of instructions
@@ -334,9 +334,9 @@ function checkPredatorCollision() {
   // Get distance of player to predator
   let d = dist(playerX, playerY, predatorX, predatorY);
   // Check if it's an overlap
-  // minus 8 to account for odd shape of image
+  // minus (preyEaten * 8) for more precise collision point
   // or else gameOver will be triggered before the player and predator touch
-  if (d < playerWidth / 2 - 8 + predatorRadius || d < playerHeight / 2 - 8 + predatorRadius) {
+  if (d < playerWidth / 2 - (preyEaten * 8) + predatorRadius || d < playerHeight / 2 - (preyEaten * 8) + predatorRadius) {
     gameOver = true;
     // Making buzzing sound when player collides with predator
     buzzingSound.play();
@@ -497,45 +497,32 @@ function hexagon(x, y, radius, numberOfPoints) {
 
 // drawHexagonBackground()
 //
-// Created beehive (hexagon) pattern for background
+// Hexagonal (beehive) pattern for background
 function drawHexagonBackground() {
   // Stroke is orange
   stroke("#ffc240");
-  strokeWeight(4);
+  strokeWeight(3);
   // Fill is yellow
   fill("#f8d568");
 
-  // Creating odd-numbered columns of hexagons
-  // Start at 15 (first hexagon offset on canvas)
-  // Keep drawing until 505 (until bottom of canvas reached)
-  // Increments of 70
-  for (let i = 15; i <= 505; i += 70) {
-    // Size is 40, 6 points (corner) for hexagonal shape
-    // Column 1
-    hexagon(20, i, 40, 6);
-    // Column 3
-    hexagon(140, i, 40, 6);
-    // Column 5
-    hexagon(260, i, 40, 6);
-    // Column 7
-    hexagon(380, i, 40, 6);
-    // Column 9
-    hexagon(500, i, 40, 6);
-  }
+  // For horizontal distance between hexagons
+  let w = 70;
+  // For vertical distance between hexagons (consider yOffset)
+  let h = 80;
+  // For offsetting hexagons (on y-axis) so they fit within each other
+  let yOffset = h / 4;
 
-  // Creating even-numbered columns of hexagons
-  // Start at -20 (first hexagon offset on canvas)
-  // Keep drawing until 470 (until bottom of canvas reached)
-  // Increments of 70
-  for (let i = -20; i <= 470; i += 70) {
-    // Column 2
-    hexagon(80, i, 40, 6);
-    // Column 4
-    hexagon(200, i, 40, 6);
-    // Column 6
-    hexagon(320, i, 40, 6);
-    // Column 8
-    hexagon(440, i, 40, 6);
+  // Creating pattern
+  // Repeating hexagons along width of canvas
+  for (let x = 0; x < width; x += w) {
+    // Along height of canvas
+    for (let y = 0; y < height; y += h) {
+      // 45 is radius
+      // 6 is numberOfPoints (corners)
+      hexagon(x, y + yOffset, 45, 6);
+    }
+    // Offset hexagons so they fit within each other
+    yOffset = -yOffset;
   }
 }
 
