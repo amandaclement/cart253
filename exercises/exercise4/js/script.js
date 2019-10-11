@@ -1,7 +1,6 @@
 "use strict";
 
 // Pong
-// by Pippin Barr
 // Edited by Amanda Clement
 //
 // A "simple" implementation of Pong with no scoring system
@@ -59,6 +58,10 @@ let rightPaddle = {
   upKey: 38,
   downKey: 40
 }
+
+// For keeping score
+let leftPlayerPoints = 1;
+let rightPlayerPoints = 1;
 
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
@@ -123,13 +126,25 @@ function draw() {
     // (Note how we can use a function that returns a truth value
     // inside a conditional!)
     if (ballIsOutOfBounds()) {
+      // Counting points
+      // If the ball position exceeds right side of canvas
+        // then give the left player a point
+      if (ball.x > width) {
+        // Update left player's points
+        console.log("Left player's points: " + leftPlayerPoints);
+        leftPlayerPoints = leftPlayerPoints + 1;
+      }
+      // If the ball position exceeds left side of canvas
+        // then give the right player a point
+      if (ball.x < 0) {
+        console.log("Right player's points: " + rightPlayerPoints);
+        rightPlayerPoints = rightPlayerPoints + 1;
+      }
       // If it went off either side, reset it
       resetBall();
-      // This is where we would likely count points, depending on which side
-      // the ball went off...
     }
-  }
-  else {
+
+  } else {
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
@@ -155,8 +170,7 @@ function handleInput(paddle) {
   else if (keyIsDown(paddle.downKey)) {
     // Move down
     paddle.vy = paddle.speed;
-  }
-  else {
+  } else {
     // Otherwise stop moving
     paddle.vy = 0;
   }
@@ -187,8 +201,7 @@ function ballIsOutOfBounds() {
   // Check for ball going off the sides
   if (ball.x < 0 || ball.x > width) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -237,6 +250,7 @@ function checkBallPaddleCollision(paddle) {
       // Play our bouncing sound effect by rewinding and then playing
       beepSFX.currentTime = 0;
       beepSFX.play();
+
     }
   }
 }
