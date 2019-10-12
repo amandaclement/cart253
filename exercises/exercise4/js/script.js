@@ -134,14 +134,14 @@ function draw() {
     if (ballIsOutOfBounds()) {
       // Counting points
       // If the ball position exceeds right side of canvas
-        // then give the left player a point
+      // then give the left player a point
       if (ball.x > width) {
         // Update left player's points
         console.log("Left player's points: " + leftPlayerPoints);
         leftPlayerPoints = leftPlayerPoints + 1;
       }
       // If the ball position exceeds left side of canvas
-        // then give the right player a point
+      // then give the right player a point
       if (ball.x < 0) {
         console.log("Right player's points: " + rightPlayerPoints);
         rightPlayerPoints = rightPlayerPoints + 1;
@@ -150,10 +150,10 @@ function draw() {
       resetBall();
     }
 
-  } if (gameOver) {
-    gameOverText();
   }
-  else if (!playing){
+  if (gameOver) {
+    gameOverText();
+  } else if (!playing) {
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
@@ -289,11 +289,22 @@ function displayBall() {
 //
 // Sets the starting position and velocity of the ball
 function resetBall() {
-  // Initialise the ball's position and velocity
+  // Making direction ball launches in dependant on who lost point
+  // Shoots towards right as default (so for first round)
+  // Then shoots towards side that just lost point
+  if (ball.x < 0) {
+    ball.vx = -ball.speed;
+  } else {
+    ball.vx = ball.speed;
+  }
+
+  // Randomizing the ball's y velocity
+  // Make it a random value between 3 and 7
+  ball.vy = random(3, 7);
+
+  // Initialise the ball's position and y velocity
   ball.x = width / 2;
   ball.y = height / 2;
-  ball.vx = ball.speed;
-  ball.vy = ball.speed;
 }
 
 // displayStartMessage()
@@ -319,19 +330,19 @@ function mousePressed() {
 // leftPaddleOpacity()
 //
 // Gradually fade the left paddle opacity depending on the score
-  // minus 1 so that it starts at 255
+// minus 1 so that it starts at 255
 function leftPaddleOpacity() {
-    leftPaddle.color = 255 - ((rightPlayerPoints - 1) * 20);
-    fill(leftPaddle.color);
+  leftPaddle.color = 255 - ((rightPlayerPoints - 1) * 20);
+  fill(leftPaddle.color);
 }
 
 // leftPaddleOpacity()
 //
 // Gradually fade the right paddle opacity depending on the score
-  // minus 1 so that it starts at 255
+// minus 1 so that it starts at 255
 function rightPaddleOpacity() {
-    rightPaddle.color = 255 - ((leftPlayerPoints - 1) * 20);
-    fill(rightPaddle.color);
+  rightPaddle.color = 255 - ((leftPlayerPoints - 1) * 20);
+  fill(rightPaddle.color);
 }
 
 // checkGameOver()
@@ -348,9 +359,9 @@ function checkGameOver() {
 // Text for the game over screen
 function gameOverText() {
   // Red text
-  fill(255,0,0);
+  fill(255, 0, 0);
   textSize(32);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   // Display Game Over
   text("GAME OVER", width / 2, height / 2 - 40);
   textSize(20);
