@@ -12,6 +12,9 @@
 // Whether the game has started
 let playing = false;
 
+// Track whether the game is over
+let gameOver = false;
+
 // Game colors (using hexadecimal)
 let bgColor = 0;
 let fgColor = 255;
@@ -41,7 +44,8 @@ let leftPaddle = {
   vy: 0,
   speed: 5,
   upKey: 87,
-  downKey: 83
+  downKey: 83,
+  color: 255
 }
 
 // RIGHT PADDLE
@@ -56,7 +60,8 @@ let rightPaddle = {
   vy: 0,
   speed: 5,
   upKey: 38,
-  downKey: 40
+  downKey: 40,
+  color: 255
 }
 
 // For keeping score
@@ -83,7 +88,6 @@ function setup() {
   createCanvas(640, 480);
   rectMode(CENTER);
   noStroke();
-  fill(fgColor);
 
   setupPaddles();
   resetBall();
@@ -110,7 +114,9 @@ function draw() {
   // Fill the background
   background(bgColor);
 
-  if (playing) {
+  if (playing && !gameOver) {
+    // Checking if the game is over
+    checkGameOver();
     // If the game is in play, we handle input and move the elements around
     handleInput(leftPaddle);
     handleInput(rightPaddle);
@@ -144,15 +150,23 @@ function draw() {
       resetBall();
     }
 
-  } else {
+  } if (gameOver) {
+    gameOverText();
+  }
+  else if (!playing){
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
 
   // We always display the paddles and ball so it looks like Pong!
-  displayPaddle(leftPaddle);
-  displayPaddle(rightPaddle);
+  fill(fgColor);
   displayBall();
+  // Changing left paddle's opacity whenever opponent makes a point
+  leftPaddleOpacity();
+  displayPaddle(leftPaddle);
+  // Changing right paddle's opacity whenever opponent makes a point
+  rightPaddleOpacity();
+  displayPaddle(rightPaddle);
 }
 
 // handleInput()
@@ -286,6 +300,7 @@ function resetBall() {
 //
 // Shows a message about how to start the game
 function displayStartMessage() {
+  fill(fgColor);
   push();
   textAlign(CENTER, CENTER);
   textSize(32);
@@ -299,4 +314,47 @@ function displayStartMessage() {
 // Which will help us be allowed to play audio in the browser
 function mousePressed() {
   playing = true;
+}
+
+// leftPaddleOpacity()
+//
+// Gradually fade the left paddle opacity depending on the score
+  // minus 1 so that it starts at 255
+function leftPaddleOpacity() {
+    leftPaddle.color = 255 - ((rightPlayerPoints - 1) * 20);
+    fill(leftPaddle.color);
+}
+
+// leftPaddleOpacity()
+//
+// Gradually fade the right paddle opacity depending on the score
+  // minus 1 so that it starts at 255
+function rightPaddleOpacity() {
+    rightPaddle.color = 255 - ((leftPlayerPoints - 1) * 20);
+    fill(rightPaddle.color);
+}
+
+// checkGameOver()
+//
+// Once one of the paddles disappears (opacity 0), the game ends
+function checkGameOver() {
+  if ((leftPaddle.color <= 0) || (rightPaddle.color <= 0)) {
+    gameOver = true;
+  }
+}
+
+// gameOverText()
+//
+// Text for the game over screen
+function gameOverText() {
+  // Red text
+  fill(255,0,0);
+  textSize(32);
+  textAlign(CENTER,CENTER);
+  // Display Game Over
+  text("GAME OVER", width / 2, height / 2 - 40);
+  textSize(20);
+  // Show the final score when the game ends
+  text("The left player has " + (leftPlayerPoints - 1) + " point(s)", width / 2, height / 2);
+  text("The right player has " + (rightPlayerPoints - 1) + " point(s)", width / 2, (height / 2) + 30);
 }
