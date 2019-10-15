@@ -3,8 +3,8 @@
 // Pong
 // Edited by Amanda Clement
 //
-// A "simple" implementation of Pong with no scoring system
-// just the ability to play the game with the keyboard.
+// A "simple" implementation of Pong where the paddles fade depending on score
+// The game ends once a paddle has completely faded
 //
 // Up and down keys control the right hand paddle, W and S keys control
 // the left hand paddle
