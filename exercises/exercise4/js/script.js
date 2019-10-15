@@ -156,14 +156,7 @@ function draw() {
     }
 
   }
-  if (gameOver) {
-    gameOverText();
-  } else if (!playing) {
-    // Otherwise we display the message to start the game
-    displayStartMessage();
-  }
-
-  // We always display the paddles and ball so it looks like Pong!
+  // We display the paddles and ball until game over
   fill(fgColor);
   displayBall();
   // Changing left paddle's opacity whenever opponent makes a point
@@ -172,6 +165,13 @@ function draw() {
   // Changing right paddle's opacity whenever opponent makes a point
   rightPaddleOpacity();
   displayPaddle(rightPaddle);
+
+  if (gameOver) {
+    gameOverText();
+  } else if (!playing) {
+    // Otherwise we display the message to start the game
+    displayStartMessage();
+  }
 }
 
 // handleInput()
@@ -316,10 +316,11 @@ function resetBall() {
 //
 // Shows a message about how to start the game
 function displayStartMessage() {
-  fill(fgColor);
+  // Yellow text (more legible)
+  fill("#FADA5E");
   push();
   textAlign(CENTER, CENTER);
-  textSize(32);
+  textSize(42);
   text("CLICK TO START", width / 2, height / 2);
   pop();
 }
@@ -363,13 +364,15 @@ function checkGameOver() {
 //
 // Text for the game over screen
 function gameOverText() {
-  // Red text
-  fill(255, 0, 0);
-  textSize(32);
+  // So that white lines in background are hidden on game over screen
+  background("#1261A0");
+  // Yellow text (more legible)
+  fill("#FADA5E");
+  textSize(38);
   textAlign(CENTER, CENTER);
   // Display Game Over
   text("GAME OVER", width / 2, height / 2 - 40);
-  textSize(20);
+  textSize(22);
   // Show the final score when the game ends
   text("The left player has " + (leftPlayerPoints - 1) + " point(s)", width / 2, height / 2);
   text("The right player has " + (rightPlayerPoints - 1) + " point(s)", width / 2, (height / 2) + 30);
