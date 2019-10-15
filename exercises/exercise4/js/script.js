@@ -16,7 +16,6 @@ let playing = false;
 let gameOver = false;
 
 // Game colors (using hexadecimal)
-let bgColor = 0;
 let fgColor = 255;
 
 // BALL
@@ -113,10 +112,8 @@ function setupPaddles() {
 // draw()
 //
 // Calls the appropriate functions to run the game
-// See how tidy it looks?!
 function draw() {
   // Fill the background
-  // background(bgColor);
   tableBackground();
 
   if (playing && !gameOver) {
@@ -219,7 +216,7 @@ function updateBall() {
 function ballIsOutOfBounds() {
   // Check for ball going off the sides
   if (ball.x < 0 || ball.x > width) {
-    // Play our miss sound effect by rewinding and then playing
+    // Play miss sound effect by rewinding and then playing
     ballRollSFX.currentTime = 0;
     ballRollSFX.play();
     return true;
@@ -406,5 +403,4 @@ function tableBackground() {
   line(480, 40, 480, height - 40);
 
   noStroke();
-
 }
