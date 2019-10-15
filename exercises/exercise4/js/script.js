@@ -35,7 +35,7 @@ let ball = {
 // PADDLES
 
 // Basic definition of a left paddle object with its key properties of
-// position, size, velocity, and speed
+// position, size, velocity, speed, and alpha (color)
 let leftPaddle = {
   x: 0,
   y: 0,
@@ -45,13 +45,13 @@ let leftPaddle = {
   speed: 5,
   upKey: 87,
   downKey: 83,
-  color: 255
+  alpha: 255
 }
 
 // RIGHT PADDLE
 
 // Basic definition of a left paddle object with its key properties of
-// position, size, velocity, and speed
+// position, size, velocity, speed, and alpha (color)
 let rightPaddle = {
   x: 0,
   y: 0,
@@ -61,7 +61,7 @@ let rightPaddle = {
   speed: 5,
   upKey: 38,
   downKey: 40,
-  color: 255
+  alpha: 255
 }
 
 // For keeping score
@@ -112,7 +112,8 @@ function setupPaddles() {
 // See how tidy it looks?!
 function draw() {
   // Fill the background
-  background(bgColor);
+  // background(bgColor);
+  tableBackground();
 
   if (playing && !gameOver) {
     // Checking if the game is over
@@ -332,8 +333,8 @@ function mousePressed() {
 // Gradually fade the left paddle opacity depending on the score
 // minus 1 so that it starts at 255
 function leftPaddleOpacity() {
-  leftPaddle.color = 255 - ((rightPlayerPoints - 1) * 20);
-  fill(leftPaddle.color);
+  leftPaddle.alpha = 255 - ((rightPlayerPoints - 1) * 20);
+  fill(255, 255, 255, leftPaddle.alpha);
 }
 
 // leftPaddleOpacity()
@@ -341,15 +342,15 @@ function leftPaddleOpacity() {
 // Gradually fade the right paddle opacity depending on the score
 // minus 1 so that it starts at 255
 function rightPaddleOpacity() {
-  rightPaddle.color = 255 - ((leftPlayerPoints - 1) * 20);
-  fill(rightPaddle.color);
+  rightPaddle.alpha = 255 - ((leftPlayerPoints - 1) * 20);
+  fill(255, 255, 255, rightPaddle.alpha);
 }
 
 // checkGameOver()
 //
 // Once one of the paddles disappears (opacity 0), the game ends
 function checkGameOver() {
-  if ((leftPaddle.color <= 0) || (rightPaddle.color <= 0)) {
+  if ((leftPaddle.alpha <= 0) || (rightPaddle.alpha <= 0)) {
     gameOver = true;
   }
 }
@@ -368,4 +369,35 @@ function gameOverText() {
   // Show the final score when the game ends
   text("The left player has " + (leftPlayerPoints - 1) + " point(s)", width / 2, height / 2);
   text("The right player has " + (rightPlayerPoints - 1) + " point(s)", width / 2, (height / 2) + 30);
+}
+
+// tableBackground()
+//
+// Making background look like a ping pong table
+function tableBackground() {
+  // Blue
+  background("#1261A0");
+  // Shadow (dark blue) for center line (net)
+  stroke("#0d4573");
+  strokeWeight(5);
+  line(width / 2 + 5, 0, width / 2 + 5, height);
+
+  stroke(255);
+  // Center line for net
+  line(width / 2, 0, width / 2, height);
+
+  strokeWeight(2);
+  // Top horizontal line
+  line(width, 40, 0, 40);
+  // Bottom horizontal line
+  line(width, height - 40, 0, height - 40);
+  // Center horizontal line
+  line(160, height / 2, 480, height / 2);
+  // Left vertical line
+  line(160, 40, 160, height - 40);
+  // Right vertical line
+  line(480, 40, 480, height - 40);
+
+  noStroke();
+
 }
