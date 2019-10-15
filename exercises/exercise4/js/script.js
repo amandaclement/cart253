@@ -68,14 +68,18 @@ let rightPaddle = {
 let leftPlayerPoints = 1;
 let rightPlayerPoints = 1;
 
-// A variable to hold the beep sound we will play on bouncing
-let beepSFX;
+// A variable to hold sound made when ball hits paddle
+let paddleHitSFX;
+// A variable to hold sound made when ball is missed (ball rolling off effect)
+let ballRollSFX;
 
 // preload()
 //
-// Loads the beep audio for the sound of bouncing
+// Loads sound for when ball hits paddle
+// Loads sound for when ball is missed
 function preload() {
-  beepSFX = new Audio("assets/sounds/beep.wav");
+  paddleHitSFX = new Audio("assets/sounds/hit.mp3");
+  ballRollSFX = new Audio("assets/sounds/ballRoll.wav");
 }
 
 // setup()
@@ -215,6 +219,9 @@ function updateBall() {
 function ballIsOutOfBounds() {
   // Check for ball going off the sides
   if (ball.x < 0 || ball.x > width) {
+    // Play our miss sound effect by rewinding and then playing
+    ballRollSFX.currentTime = 0;
+    ballRollSFX.play();
     return true;
   } else {
     return false;
@@ -231,9 +238,6 @@ function checkBallWallCollision() {
   if (ball.y < 0 || ball.y > height) {
     // It hit so reverse velocity
     ball.vy = -ball.vy;
-    // Play our bouncing sound effect by rewinding and then playing
-    beepSFX.currentTime = 0;
-    beepSFX.play();
   }
 }
 
@@ -262,9 +266,9 @@ function checkBallPaddleCollision(paddle) {
       // Then the ball is touching the paddle
       // Reverse its vx so it starts travelling in the opposite direction
       ball.vx = -ball.vx;
-      // Play our bouncing sound effect by rewinding and then playing
-      beepSFX.currentTime = 0;
-      beepSFX.play();
+      // Play our paddleHit sound effect by rewinding and then playing
+      paddleHitSFX.currentTime = 0;
+      paddleHitSFX.play();
 
     }
   }
@@ -283,7 +287,7 @@ function displayPaddle(paddle) {
 // Draws the ball on screen as a square
 function displayBall() {
   // Draw the ball
-  rect(ball.x, ball.y, ball.size, ball.size);
+  ellipse(ball.x, ball.y, ball.size, ball.size);
 }
 
 // resetBall()
