@@ -21,14 +21,14 @@ let bee;
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // Tiger starts at top left of canvas
-    // and is controlled by arrow keys
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW);
+  // Tiger starts at top right of canvas
+    // and is controlled by arrow keys & ALT/OPTION KEY for sprinting
+  tiger = new Predator(width - 100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 18);
 
-  // Lion starts at top right of canvas
+  // Lion starts at top left of canvas
     // and is controlled by W, A, S, D keys
-      // W is up, S is down, A is left, D is right
-  lion = new Predator(width - 100, 100, 5, color(100,100,200), 40, 87, 83, 65, 68);
+      // W is up, S is down, A is left, D is right & F KEY for sprinting
+  lion = new Predator(100, 100, 5, color(100,100,200), 40, 87, 83, 65, 68, 70);
 
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
