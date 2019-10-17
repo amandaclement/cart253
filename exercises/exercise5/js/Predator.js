@@ -145,6 +145,20 @@ class Predator {
     fill(this.fillColor);
     this.radius = this.health;
     ellipse(this.x, this.y, this.radius * 2);
+    this.preyEatenText();
     pop();
   }
+
+// preyEatenText
+//
+// Text displaying number of prey eaten on respective predator
+preyEatenText() {
+  textFont(concertOneFont);
+  textAlign(CENTER,CENTER);
+  textSize(20);
+  fill(255);
+  // Positioning (centering) text on predator
+  text(this.preyEaten,this.x,this.y - 3);
+}
+
 }

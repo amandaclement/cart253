@@ -15,6 +15,16 @@ let antelope;
 let zebra;
 let bee;
 
+// For text font (Concert One Font)
+let concertOneFont;
+
+// preload()
+//
+// This will load first to avoid unnecessary delays
+function preload() {
+  concertOneFont = loadFont("../assets/fonts/ConcertOne-Regular.ttf");
+}
+
 // setup()
 //
 // Sets up a canvas
