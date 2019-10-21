@@ -55,15 +55,13 @@ class Prey {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
@@ -77,7 +75,10 @@ class Prey {
     noStroke();
     this.radius = this.health;
     // Prey will be mice images instead of ellipses
-    image(this.preyImg,this.x,this.y,this.radius * 2,this.radius * 2);
+    // This fixes issue of prey image going to default size once eaten
+    if (this.radius > 0) {
+      image(this.preyImg, this.x, this.y, this.radius * 2, this.radius * 2);
+    }
     pop();
   }
 

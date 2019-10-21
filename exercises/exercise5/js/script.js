@@ -53,9 +53,9 @@ function setup() {
   // W is up, S is down, A is left, D is right & F KEY for sprinting
   lion = new Predator(100, 100, 5, lionImg, 60, 87, 83, 65, 68, 70);
 
-  antelope = new Prey(100, 100, 10, mouseImg, 50);
-  zebra = new Prey(100, 100, 8, mouseImg, 60);
-  bee = new Prey(100, 100, 20, mouseImg, 10);
+  mouseOne = new Prey(100, 100, 6, mouseImg, 50);
+  mouseTwo = new Prey(100, 100, 4, mouseImg, 60);
+  mouseThree = new Prey(100, 100, 10, mouseImg, 10);
 }
 
 // draw()
@@ -72,24 +72,24 @@ function draw() {
   // Move all the "animals"
   bear.move();
   lion.move();
-  antelope.move();
-  zebra.move();
-  bee.move();
+  mouseOne.move();
+  mouseTwo.move();
+  mouseThree.move();
 
-  // Handle the tiger eating any of the prey
-  bear.handleEating(antelope);
-  bear.handleEating(zebra);
-  bear.handleEating(bee);
+  // Handle the bear eating any of the prey
+  bear.handleEating(mouseOne);
+  bear.handleEating(mouseTwo);
+  bear.handleEating(mouseThree);
 
   // Handle the lion eating any of the prey
-  lion.handleEating(antelope);
-  lion.handleEating(zebra);
-  lion.handleEating(bee);
+  lion.handleEating(mouseOne);
+  lion.handleEating(mouseTwo);
+  lion.handleEating(mouseThree);
 
   // Display all the "animals"
   bear.display();
   lion.display();
-  antelope.display();
-  zebra.display();
-  bee.display();
+  mouseOne.display();
+  mouseTwo.display();
+  mouseThree.display();
 }

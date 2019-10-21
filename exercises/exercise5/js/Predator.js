@@ -154,8 +154,8 @@ class Predator {
     // When predator dies, only display their number of prey eaten
       // this hides the animal face image
     else if (this.radius <= 0) {
-      text(this.preyEaten);
-    }
+  text(this.preyEaten);
+}
     // Displaying how many prey each predator has eaten
     this.preyEatenText();
     pop();
