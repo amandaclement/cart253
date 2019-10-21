@@ -6,7 +6,7 @@
 // The predator loses health over time, so must keep eating to survive.
 
 // Predator 1 (Tiger)
-let tiger;
+let bear;
 // Predator 2 (Lion)
 let lion;
 
@@ -17,12 +17,25 @@ let bee;
 
 // For text font (Concert One Font)
 let concertOneFont;
+// For predator, prey, and background images
+let grizzlyBearImg;
+let lionImg;
+let mouseImg;
+let forestImg;
 
 // preload()
 //
 // This will load first to avoid unnecessary delays
 function preload() {
   concertOneFont = loadFont("../assets/fonts/ConcertOne-Regular.ttf");
+  // Grizzly bear face (predator)
+  grizzlyBearImg = loadImage("../assets/images/bear.png");
+  // Lion face (predator)
+  lionImg = loadImage("../assets/images/lion.png");
+  // Mouse (prey))
+  mouseImg = loadImage("../assets/images/mouse.png");
+  // Forest background
+  forestImg = loadImage("../assets/images/forest.jpg");
 }
 
 // setup()
@@ -32,41 +45,41 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // Tiger starts at top right of canvas
-    // and is controlled by arrow keys & ALT/OPTION KEY for sprinting
-  tiger = new Predator(width - 100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 18);
+  // and is controlled by arrow keys & ALT/OPTION KEY for sprinting
+  bear = new Predator(width - 100, 100, 5, grizzlyBearImg, 60, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 18);
 
   // Lion starts at top left of canvas
-    // and is controlled by W, A, S, D keys
-      // W is up, S is down, A is left, D is right & F KEY for sprinting
-  lion = new Predator(100, 100, 5, color(100,100,200), 40, 87, 83, 65, 68, 70);
+  // and is controlled by W, A, S, D keys
+  // W is up, S is down, A is left, D is right & F KEY for sprinting
+  lion = new Predator(100, 100, 5, lionImg, 60, 87, 83, 65, 68, 70);
 
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  antelope = new Prey(100, 100, 10, mouseImg, 50);
+  zebra = new Prey(100, 100, 8, mouseImg, 60);
+  bee = new Prey(100, 100, 20, mouseImg, 10);
 }
 
 // draw()
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Clear the background to black
-  background(0);
+  // Background image is forest
+  background(forestImg);
 
   // Handle input for the tiger and the lion
-  tiger.handleInput();
+  bear.handleInput();
   lion.handleInput();
 
   // Move all the "animals"
-  tiger.move();
+  bear.move();
   lion.move();
   antelope.move();
   zebra.move();
   bee.move();
 
   // Handle the tiger eating any of the prey
-  tiger.handleEating(antelope);
-  tiger.handleEating(zebra);
-  tiger.handleEating(bee);
+  bear.handleEating(antelope);
+  bear.handleEating(zebra);
+  bear.handleEating(bee);
 
   // Handle the lion eating any of the prey
   lion.handleEating(antelope);
@@ -74,7 +87,7 @@ function draw() {
   lion.handleEating(bee);
 
   // Display all the "animals"
-  tiger.display();
+  bear.display();
   lion.display();
   antelope.display();
   zebra.display();

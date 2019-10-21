@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey, sprintKey) {
+  constructor(x, y, speed, predatorImg, radius, upKey, downKey, leftKey, rightKey, sprintKey) {
     // Position
     this.x = x;
     this.y = y;
@@ -26,7 +26,7 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.fillColor = fillColor;
+    this.predatorImg = predatorImg;
     this.radius = this.health; // Radius is defined in terms of health
     // Input properties (for arguments)
     this.upKey = upKey;
@@ -80,6 +80,8 @@ class Predator {
   // Lowers health (as a cost of living)
   // Handles wrapping
   move() {
+    // Predator can only move until they die
+    if (this.radius > 0) {
     // Update position
     this.x += this.vx;
     this.y += this.vy;
@@ -89,6 +91,7 @@ class Predator {
     // Handle wrapping
     this.handleWrapping();
   }
+}
 
   // handleWrapping
   //
@@ -142,9 +145,18 @@ class Predator {
   display() {
     push();
     noStroke();
-    fill(this.fillColor);
     this.radius = this.health;
-    ellipse(this.x, this.y, this.radius * 2);
+    imageMode(CENTER);
+    // Predators will be animal face images instead of ellipses
+    if (this.radius > 0) {
+      image(this.predatorImg,this.x,this.y,this.radius * 2,this.radius * 2);
+    }
+    // When predator dies, only display their number of prey eaten
+      // this hides the animal face image
+    else if (this.radius <= 0) {
+      text(this.preyEaten);
+    }
+    // Displaying how many prey each predator has eaten
     this.preyEatenText();
     pop();
   }
@@ -160,5 +172,4 @@ preyEatenText() {
   // Positioning (centering) text on predator
   text(this.preyEaten,this.x,this.y - 3);
 }
-
 }
