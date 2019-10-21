@@ -65,6 +65,8 @@ function draw() {
   // Background image is forest
   background(forestImg);
 
+  sprintingInstructions();
+
   // Handle input for the tiger and the lion
   bear.handleInput();
   lion.handleInput();
@@ -92,4 +94,15 @@ function draw() {
   mouseOne.display();
   mouseTwo.display();
   mouseThree.display();
+}
+
+// sprintingInstructions()
+//
+// Text explaining how predators can sprint in the game
+function sprintingInstructions() {
+  fill(255);
+  textSize(14);
+  textAlign(CENTER);
+  text("The lion sprints by holding the F key", width / 2, windowHeight - 45);
+  text("The bear sprints by holding the OPTION key", width / 2, windowHeight - 20);
 }
