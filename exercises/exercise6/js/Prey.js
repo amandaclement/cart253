@@ -49,7 +49,7 @@ class Prey { ////////////// FIXED
     this.ty += 0.01;
     // Handle wrapping
     this.handleWrapping(); ////////////// FIXED
-
+} ////////////// FIXED
 
     // handleWrapping
     //
