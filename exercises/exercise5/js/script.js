@@ -27,15 +27,15 @@ let forestImg;
 //
 // This will load first to avoid unnecessary delays
 function preload() {
-  concertOneFont = loadFont("../assets/fonts/ConcertOne-Regular.ttf");
+  concertOneFont = loadFont("assets/fonts/ConcertOne-Regular.ttf");
   // Grizzly bear face (predator)
-  grizzlyBearImg = loadImage("../assets/images/bear.png");
+  grizzlyBearImg = loadImage("assets/images/bear.png");
   // Lion face (predator)
-  lionImg = loadImage("../assets/images/lion.png");
+  lionImg = loadImage("assets/images/lion.png");
   // Mouse (prey))
-  mouseImg = loadImage("../assets/images/mouse.png");
+  mouseImg = loadImage("assets/images/mouse.png");
   // Forest background
-  forestImg = loadImage("../assets/images/forest.jpg");
+  forestImg = loadImage("assets/images/forest.jpg");
 }
 
 // setup()
