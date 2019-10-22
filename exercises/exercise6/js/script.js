@@ -28,7 +28,7 @@ function setup() { ////////////////////// FIXED
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(100,100, 5, color(200, 200, 0), 40); ////////////// FIXED
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 8, color(255, 255, 255), 60);
+  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60); ///////// FIXED
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
 }
 
@@ -46,7 +46,7 @@ function draw() {
   tiger.move();
   antelope.move();
   zebra.move();
-  bee.move();
+  bee.move(); /////////// FIXED
 
   // Handle the tiger eating any of the prey
   tiger.handleEating(antelope);
