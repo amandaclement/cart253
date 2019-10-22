@@ -2,6 +2,7 @@
 
 // Predator-Prey Simulation
 // by Pippin Barr
+// Edited/Corrected by Amanda Clement
 //
 // Creates a predator and three prey (of different sizes and speeds)
 // The predator chases the prey using the arrow keys and consumes them.
@@ -23,7 +24,7 @@ let bee;
 //
 // Sets up a canvas
 // Creates objects for the predator and three prey
-functionsetup() {
+function setup() { ////////////////////// FIXED
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(100, , 100, 5, color(200, 200, 0), 40);
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
