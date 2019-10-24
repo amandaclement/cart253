@@ -13,6 +13,11 @@ let antelope;
 let zebra;
 let bee;
 
+// An empty array to store the stars in (to be created in setup())
+let stars = [];
+// Number of stars for background
+let numStars = 1000;
+
 // setup()
 //
 // Sets up a canvas
@@ -23,14 +28,28 @@ function setup() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+
+  // Run a for loop numStars times to generate each star and put it in the array
+  for (let i = 0; i < numStars; i++) {
+    stars.push(new Shake());
+  }
 }
 
 // draw()
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Clear the background to black
-  background(0);
+  // Black with opacity (for translucent effect)
+  background(0,20);
+
+  // Go through every star element in the array in order by index
+  // using stars.length
+  // since it's automatically updated whenever the array changes length
+  for (let i = 0; i < stars.length; i++) {
+    // Move and display each star
+    stars[i].move();
+    stars[i].display();
+  }
 
   // Handle input for the tiger
   tiger.handleInput();
