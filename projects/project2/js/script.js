@@ -16,7 +16,7 @@ let bee;
 // An empty array to store the stars in (to be created in setup())
 let stars = [];
 // Number of stars for background
-let numStars = 1000;
+let numStars = 500;
 
 // setup()
 //
@@ -24,10 +24,10 @@ let numStars = 1000;
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
+  tiger = new Predator(100, 100, 5, color(255, 255, 0), 40);
+  antelope = new Prey(100, 100, 10, color(255, 255, 255), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  bee = new Prey(100, 100, 20, color(255, 255, 255), 10);
 
   // Run a for loop numStars times to generate each star and put it in the array
   for (let i = 0; i < numStars; i++) {

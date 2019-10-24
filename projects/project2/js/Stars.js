@@ -13,7 +13,7 @@ class Shake {
     this.x = random(0, width);
     this.y = random(0, height);
     this.radius = 10;
-    this.speed = 2;
+    this.speed = 200;
   }
 
   // move
@@ -28,8 +28,10 @@ class Shake {
   //
   // Draw the stars
   display() {
-    noStroke();
-    fill(255, 255, 255, 4);
+    // Stars will have no fill and white stroke
+      // Gives an interesting twinkle effect
+    noFill();
+    stroke(255,255,255);
     ellipse(this.x, this.y, this.radius, this.radius);
   }
 }
