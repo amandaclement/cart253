@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, strokeColor, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -24,7 +24,7 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.fillColor = fillColor;
+    this.strokeColor = strokeColor;
     this.radius = this.health; // Radius is defined in terms of health
     // Input properties
     this.upKey = UP_ARROW;
@@ -41,21 +41,17 @@ class Predator {
     // Horizontal movement
     if (keyIsDown(this.leftKey)) {
       this.vx = -this.speed;
-    }
-    else if (keyIsDown(this.rightKey)) {
+    } else if (keyIsDown(this.rightKey)) {
       this.vx = this.speed;
-    }
-    else {
+    } else {
       this.vx = 0;
     }
     // Vertical movement
     if (keyIsDown(this.upKey)) {
       this.vy = -this.speed;
-    }
-    else if (keyIsDown(this.downKey)) {
+    } else if (keyIsDown(this.downKey)) {
       this.vy = this.speed;
-    }
-    else {
+    } else {
       this.vy = 0;
     }
   }
@@ -84,15 +80,13 @@ class Predator {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
@@ -125,9 +119,16 @@ class Predator {
   // with a radius the same size as its current health.
   display() {
     push();
-    noStroke();
-    fill(this.fillColor);
+    // Predator will only have a bright stroke color (no fill)
+    noFill();
+    strokeWeight(5);
+    stroke(this.strokeColor);
     this.radius = this.health;
+    // Once the health/radius reaches zero, remove stroke as well
+      // so that is disappears entirely
+    if (this.radius === 0) {
+      strokeWeight(0);
+    }
     ellipse(this.x, this.y, this.radius * 2);
     pop();
   }
