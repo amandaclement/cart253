@@ -10,9 +10,12 @@ class Shake {
   // Sets the initial values for the stars' Shake properties
   constructor() {
     // Arguments for the Shake constructor
+    // Position
     this.x = random(0, width);
     this.y = random(0, height);
+    // Size
     this.radius = 10;
+    // Speed
     this.speed = 200;
   }
 
@@ -29,9 +32,9 @@ class Shake {
   // Draw the stars
   display() {
     // Stars will have no fill and white stroke
-      // Gives an interesting twinkle effect
+    // Gives an interesting twinkle effect
     noFill();
-    stroke(255,255,255);
+    stroke(255, 255, 255);
     ellipse(this.x, this.y, this.radius, this.radius);
   }
 }

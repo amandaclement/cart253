@@ -18,6 +18,8 @@ class Predator {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
+    // Boost speed for when boost (blue dot) is caught
+    this.boostSpeed = 1.2;
     // Health properties
     this.maxHealth = radius;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
@@ -125,7 +127,7 @@ class Predator {
     stroke(this.strokeColor);
     this.radius = this.health;
     // Once the health/radius reaches zero, remove stroke as well
-      // so that is disappears entirely
+    // so that is disappears entirely
     if (this.radius === 0) {
       strokeWeight(0);
     }

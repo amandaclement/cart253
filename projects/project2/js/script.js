@@ -18,6 +18,11 @@ let stars = [];
 // Number of stars for background
 let numStars = 500;
 
+// An empty array to store the boosters in (to be created in setup())
+let boosters = [];
+// Number of boosters
+let numBoosters = 4;
+
 // setup()
 //
 // Sets up a canvas
@@ -33,6 +38,11 @@ function setup() {
   for (let i = 0; i < numStars; i++) {
     stars.push(new Shake());
   }
+
+  // Run a for loop numBoosts times to generate each booster and put it in the array
+  for (let i = 0; i < numBoosters; i++) {
+    boosters.push(new Boost());
+  }
 }
 
 // draw()
@@ -40,7 +50,7 @@ function setup() {
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
   // Black with opacity (for translucent effect)
-  background(0,20);
+  background(0, 20);
 
   // Go through every star element in the array in order by index
   // using stars.length
@@ -49,6 +59,17 @@ function draw() {
     // Move and display each star
     stars[i].move();
     stars[i].display();
+  }
+
+  // Go through every boost element in the array in order by index
+  // using boosters.length
+  // since it's automatically updated whenever the array changes length
+  for (let i = 0; i < boosters.length; i++) {
+    // Move and display each booster
+    boosters[i].move();
+    boosters[i].display();
+    // When the predator catches a blue dot
+    boosters[i].handleAbsorption(tiger);
   }
 
   // Handle input for the tiger
