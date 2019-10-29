@@ -1,9 +1,9 @@
-// Shake
+// Stars
 //
-// A class that represents the shaking effect for the stars
+// A class that represents stars with a shaking effect
 // they will create the moving background pattern
 
-class Shake {
+class Stars {
 
   // constructor
   //
@@ -17,6 +17,8 @@ class Shake {
     this.radius = 10;
     // Speed
     this.speed = 200;
+    // Color for stroke
+    this.strokeColor = color(255);
   }
 
   // move
@@ -34,7 +36,7 @@ class Shake {
     // Stars will have no fill and white stroke
     // Gives an interesting twinkle effect
     noFill();
-    stroke(255, 255, 255);
+    stroke(this.strokeColor);
     ellipse(this.x, this.y, this.radius, this.radius);
   }
 }

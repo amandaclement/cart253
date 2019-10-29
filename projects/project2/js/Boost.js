@@ -65,12 +65,14 @@ class Boost {
   // handleAbsorption
   //
   // Increase predator speed when boost (blue dot) is caught
-    // keep increasing speed as more and mroe are caught
+    // keep increasing speed as more and more are caught
   handleAbsorption(predator) {
     // Calculate distance from boost to predator
     let d = dist(this.x, this.y, predator.x, predator.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
+      // Blue flashing effect indicating collision
+      background(this.fillColor);
       // Increase predator speed once caught
         // No limit to its speed
       predator.speed = predator.speed * predator.boostSpeed;

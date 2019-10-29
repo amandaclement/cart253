@@ -6,12 +6,12 @@
 // The predator loses health over time, so must keep eating to survive.
 
 // Our predator
-let tiger;
+let predator;
 
 // An empty array to store the prey in (to be created in setup())
 let prey = [];
 // Number of prey
-let numPrey = 3;
+let numPrey = 5;
 
 // An empty array to store the stars in (to be created in setup())
 let stars = [];
@@ -34,7 +34,7 @@ let numTeleporters = 4;
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(255, 255, 0), 40);
+  predator = new Predator(100, 100, 5, color(255, 255, 0), 40);
 
   // Run a for loop numPrey times to generate each prey and put it in the array
   for (let i = 0; i < numPrey; i++) {
@@ -73,7 +73,7 @@ function draw() {
     prey[i].move();
     prey[i].display();
     // Handle the predator absorbing any of the prey
-    tiger.handleEating(prey[i]);
+    predator.handleEating(prey[i]);
   }
 
   // Go through every star element in the array in order by index
@@ -93,7 +93,7 @@ function draw() {
     boosters[i].move();
     boosters[i].display();
     // When the predator catches a blue dot
-    boosters[i].handleAbsorption(tiger);
+    boosters[i].handleAbsorption(predator);
   }
 
   // Go through every teleport element in the array
@@ -104,13 +104,13 @@ function draw() {
     teleporters[i].move();
     teleporters[i].display();
     // When the predator catches a blue dot
-    teleporters[i].handleAbsorption(tiger,prey[i]);
+    teleporters[i].handleAbsorption(predator,prey[i]);
   }
 
-  // Handle input for the tiger
-  tiger.handleInput();
+  // Handle input for the predator
+  predator.handleInput();
   // Move the predator
-  tiger.move();
+  predator.move();
   // Display the predator
-  tiger.display();
+  predator.display();
 }
