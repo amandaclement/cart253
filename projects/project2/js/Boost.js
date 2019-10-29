@@ -1,7 +1,7 @@
 // Boost
 //
 // A class that represents items that will boost the predator when caught
-// they will be still, but will all change locations once one is caught
+// they move in a similar pattern to the prey
 
 class Boost {
 
