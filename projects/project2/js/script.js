@@ -23,6 +23,11 @@ let boosters = [];
 // Number of boosters
 let numBoosters = 4;
 
+// An empty array to store the teleporters in (to be created in setup())
+let teleporters = [];
+// Number of teleporters
+let numTeleporters = 4;
+
 // setup()
 //
 // Sets up a canvas
@@ -38,12 +43,18 @@ function setup() {
 
   // Run a for loop numStars times to generate each star and put it in the array
   for (let i = 0; i < numStars; i++) {
-    stars.push(new Shake());
+    stars.push(new Stars());
   }
 
   // Run a for loop numBoosts times to generate each booster and put it in the array
   for (let i = 0; i < numBoosters; i++) {
     boosters.push(new Boost());
+  }
+
+  // Run a for loop numTeleporters times to generate each teleporter
+    // and put it in the array
+  for (let i = 0; i < numTeleporters; i++) {
+    teleporters.push(new Teleport());
   }
 }
 
@@ -83,6 +94,17 @@ function draw() {
     boosters[i].display();
     // When the predator catches a blue dot
     boosters[i].handleAbsorption(tiger);
+  }
+
+  // Go through every teleport element in the array
+  // using teleporters.length
+  // since it's automatically updated whenever the array changes length
+  for (let i = 0; i < teleporters.length; i++) {
+    // Move and display each grower
+    teleporters[i].move();
+    teleporters[i].display();
+    // When the predator catches a blue dot
+    teleporters[i].handleAbsorption(tiger,prey[i]);
   }
 
   // Handle input for the tiger
