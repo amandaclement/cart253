@@ -10,13 +10,14 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, strokeColor, radius) {
+  constructor(x, y, initialSpeed, speed, strokeColor, radius) {
     // Position
     this.x = x;
     this.y = y;
     // Velocity and speed
     this.vx = 0;
     this.vy = 0;
+    this.initialSpeed = initialSpeed;
     this.speed = speed;
     // Boost speed for when boost (blue dot) is caught
     this.boostSpeed = 1.2;
@@ -110,6 +111,8 @@ class Predator {
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
+        // Keeping track of how many prey were consumed
+        numPreyConsumed++;
         // Reset the prey
         prey.reset();
       }
@@ -131,8 +134,28 @@ class Predator {
     // so that is disappears entirely
     if (this.radius === 0) {
       strokeWeight(0);
+      // Once the health/radius reaches 0, end the game
+      gameOver = true;
+      gameStart = false;
+      // Resetting the predator
+      this.reset();
     }
     ellipse(this.x, this.y, this.radius * 2);
     pop();
+  }
+
+// reset
+//
+// Resetting the predator's position, heath (radius), and speed
+  reset() {
+    // Reset to original location
+    this.x = this.x;
+    this.y = this.y;
+    // Default health
+    this.health = this.maxHealth;
+    // Default radius
+    this.radius = this.health;
+    // Resetting the predator's speed
+    this.speed = this.initialSpeed;
   }
 }

@@ -8,6 +8,10 @@
 // So that game starts on main menu
 let gameStart = false;
 
+// Game over screen to display when the player loses
+// so when the predator's health/radius is 0
+let gameOver = false;
+
 // Font for title
 let titleFont;
 // Font for instructions
@@ -20,6 +24,8 @@ let predator;
 let prey = [];
 // Number of prey
 let numPrey = 5;
+// Number of prey that have been consumed by the predator
+let numPreyConsumed = 0;
 
 // An empty array to store the stars in (to be created in setup())
 let stars = [];
@@ -54,7 +60,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   // Main menu shows first (before game starts)
   mainMenu();
-  predator = new Predator(100, 100, 5, color(255, 255, 0), 40);
+  predator = new Predator(100, 100, 5, 5, color(255, 255, 0), 40);
 
   // Run a for loop numPrey times to generate each prey and put it in the array
   for (let i = 0; i < numPrey; i++) {
@@ -82,7 +88,7 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  if (gameStart) {
+  if (gameStart && !gameOver || gameOver && gameStart) {
     // Black with opacity (for translucent effect)
     background(0, 20);
 
@@ -134,6 +140,8 @@ function draw() {
     predator.move();
     // Display the predator
     predator.display();
+  } else if (gameOver) {
+    gameOverScreen();
   } else {
     checkGameStart();
   }
@@ -145,9 +153,10 @@ function draw() {
 // this function contains the styling
 function mainMenu() {
   background(0);
-  textFont(titleFont);
+  textFont(instructionsFont);
 
   // Title
+  textFont(titleFont);
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(80);
@@ -230,10 +239,44 @@ function checkGameStart() {
     dist(mouseX, mouseY, width / 2 + 40, height / 2 + 160) < 50 ||
     dist(mouseX, mouseY, width / 2, height / 2 + 160) < 25);
   // If the mouse and start button overlap, and the mouse is clicked
-  // Start the game
-  if (startButtonClick && !gameStart) {
+  // then start the game
+  if (startButtonClick && !gameStart || startButtonClick && gameOver) {
     if (mouseIsPressed) {
       gameStart = true;
+      gameOver = false;
     }
+  }
+}
+
+// gameOverScreen()
+//
+// This will be displayed when the player loses
+function gameOverScreen() {
+  if (gameOver) {
+    background(0);
+    textFont(titleFont);
+    noStroke();
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(80);
+    text("GAME OVER", width / 2, height / 2 - 180);
+    textSize(24);
+
+    // Displaying number of prey consumed
+    textFont(instructionsFont);
+    text("You caught " + numPreyConsumed + " prey", width / 2, height / 2 - 100);
+
+    // Rounded rectangle for button
+    rectMode(CENTER, CENTER);
+    noStroke();
+    fill(255);
+    rect(width / 2, height / 2 + 160, 180, 40, 5);
+
+    textFont(titleFont);
+    fill(0);
+    text("PLAY AGAIN", width / 2, height / 2 + 158);
+
+    // Checking if the player pressed the button to play again
+    checkGameStart();
   }
 }
