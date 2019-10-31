@@ -76,6 +76,10 @@ class Boost {
       // Increase predator speed once caught
         // No limit to its speed
       predator.speed = predator.speed * predator.boostSpeed;
+      // Sound effect (ambient beep) when the predator boosts
+      ambientBeep.play();
+      // Setting the beep volume so it matches the background game music volume
+      ambientBeep.setVolume(0.15);
       // Reset the boost once caught
       this.reset();
     }

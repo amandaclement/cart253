@@ -17,6 +17,12 @@ let titleFont;
 // Font for instructions
 let instructionsFont;
 
+// For background game music
+let gameMusic;
+// Sound effects
+let ambientBeep;
+let absorptionSound;
+
 // Our predator
 let predator;
 
@@ -50,6 +56,12 @@ function preload() {
   titleFont = loadFont('assets/fonts/staatliches.ttf');
   // Oswald font for instructions font
   instructionsFont = loadFont('assets/fonts/oswald.ttf');
+  // Ambient music for background game music
+  gameMusic = loadSound('assets/sounds/ambientMusic.mp3');
+  // Ambient beep for when the player boosts or teleports
+  ambientBeep = loadSound('assets/sounds/ambientBeep.wav');
+  // Weird absorption sund for when predator catches prey
+  absorptionSound = loadSound('assets/sounds/absorptionSound.wav');
 }
 
 // setup()
@@ -239,9 +251,11 @@ function checkGameStart() {
     dist(mouseX, mouseY, width / 2 + 40, height / 2 + 160) < 50 ||
     dist(mouseX, mouseY, width / 2, height / 2 + 160) < 25);
   // If the mouse and start button overlap, and the mouse is clicked
-  // then start the game
+    // then start the game
   if (startButtonClick && !gameStart || startButtonClick && gameOver) {
     if (mouseIsPressed) {
+      // Play background game music when that Start button is clicked
+      gameMusic.loop();
       gameStart = true;
       gameOver = false;
     }
@@ -275,6 +289,12 @@ function gameOverScreen() {
     textFont(titleFont);
     fill(0);
     text("PLAY AGAIN", width / 2, height / 2 + 158);
+
+    // Stop the background game music when the game ends
+      // Also stop the sound effects
+    gameMusic.stop();
+    ambientBeep.stop();
+    absorptionSound.stop();
 
     // Checking if the player pressed the button to play again
     checkGameStart();

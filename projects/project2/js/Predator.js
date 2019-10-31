@@ -109,6 +109,10 @@ class Predator {
       this.health = constrain(this.health, 0, this.maxHealth);
       // Decrease prey health by the same amount
       prey.health -= this.healthGainPerEat;
+      // Sound effect for when the predator is absorbing the prey
+      absorptionSound.play();
+      absorptionSound.setVolume(0.15);
+
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
         // Keeping track of how many prey were consumed

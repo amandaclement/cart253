@@ -77,6 +77,10 @@ class Teleport {
         // as if teleporting
       predator.x = random(0,width);
       predator.x = random(0,height);
+      // Sound effect (ambient beep) when the predator teleports
+      ambientBeep.play();
+      // Setting the beep volume so it matches the background game music volume
+      ambientBeep.setVolume(0.15);
       // Reset the teleport once caught
       this.reset();
     }
