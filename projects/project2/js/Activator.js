@@ -25,6 +25,7 @@ class Activator {
 
     // Size
     this.radius = 5;
+    this.initialRadius = 5;
   }
   // move
   //
@@ -43,6 +44,7 @@ class Activator {
     // Handle wrapping
     this.handleWrapping();
   }
+
   // handleWrapping
   //
   // Checks if the Activator has gone off the canvas and
@@ -64,7 +66,7 @@ class Activator {
 
   // display
   //
-  // Draw the Activators as ellipses on the canvas
+  // Draw the Activator as ellipse on the canvas
   display() {
     push();
     noStroke();
@@ -81,7 +83,7 @@ class Activator {
     // Random position
     this.x = random(0, width);
     this.y = random(0, height);
-    // Set radius back to default (5)
-    this.radius = 5;
+    // Set radius back to default
+    this.radius = this.initialRadius;
   }
 }

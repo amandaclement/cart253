@@ -21,6 +21,7 @@ class Boost extends Activator {
   //
   // Increase predator speed when boost (blue dot) is caught
   // keep increasing speed as more and more are caught
+  // no limit to speed since high speed creates an interesting challenge
   handleAbsorption(predator) {
     // Calculate distance from boost to predator
     let d = dist(this.x, this.y, predator.x, predator.y);

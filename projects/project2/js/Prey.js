@@ -25,7 +25,7 @@ class Prey {
     this.tx = random(0, 1000); // To make x and y noise different
     this.ty = random(0, 1000); // we use random starting values
     // Health properties
-    // ranges from 20 to 60
+    // ranges from 20 to 40
     this.maxHealth = random(20, 40);
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties

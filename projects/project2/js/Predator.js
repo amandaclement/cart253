@@ -148,9 +148,9 @@ class Predator {
     pop();
   }
 
-// reset
-//
-// Resetting the predator's position, heath (radius), and speed
+  // reset
+  //
+  // Resetting the predator's position, heath (radius), and speed
   reset() {
     // Reset to original location
     this.x = this.x;

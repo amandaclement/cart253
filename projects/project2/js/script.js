@@ -1,9 +1,10 @@
 // Predator-Prey Simulation
 // by Amanda Clement
 //
-// Creates a predator and three prey (of different sizes and speeds)
+// Creates a predator and five prey (of different sizes and speeds)
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
+// The predator can absorb elements to boost its speed or change (teleport) locations.
 
 // So that game starts on main menu
 let gameStart = false;
@@ -38,15 +39,11 @@ let stars = [];
 // Number of stars for background
 let numStars = 300;
 
-// Number of boosters
-let numBoosters = 4;
-
-// Number of teleporters
-let numTeleporters = 4;
-
 // An empty array to store the activators in (Boosts and Teleports)
-  // to be created in setup()
+// to be created in setup()
 let activators = [];
+// Number of activators
+let numActivators = 4;
 
 // Angle and radius of oscillating circle
 // that will be displayed on Game Over screen
@@ -65,7 +62,7 @@ function preload() {
   gameMusic = loadSound('assets/sounds/ambientMusic.mp3');
   // Ambient beep for when the player boosts or teleports
   ambientBeep = loadSound('assets/sounds/ambientBeep.wav');
-  // Weird absorption sund for when predator catches prey
+  // Weird absorption sound for when predator catches prey
   absorptionSound = loadSound('assets/sounds/absorptionSound.wav');
 }
 
@@ -89,16 +86,11 @@ function setup() {
     stars.push(new Stars());
   }
 
-  // Run a for loop numBoosts times to generate each boost
-    // and put it in the activators' array
-  for (let i = 0; i < numBoosters; i++) {
-    activators.push(new Boost());
-  }
-
-  // Run a for loop numTeleporters times to generate each teleport
-   // and put it in the activators' array
-  for (let i = 0; i < numTeleporters; i++) {
+  // Run a for loop numActivators times to generate each teleport and boost
+  // and put it in the activators' array
+  for (let i = 0; i < numActivators; i++) {
     activators.push(new Teleport());
+    activators.push(new Boost());
   }
 }
 
@@ -191,6 +183,7 @@ function mainMenu() {
   fill(0);
   text("START THE GAME", width / 2, height / 2 + 158);
 
+  // Display the character legend on the Main Menu
   characterLegend();
 }
 
@@ -229,6 +222,7 @@ function characterLegend() {
   fill(255);
   textSize(18);
   textAlign(LEFT);
+
   // Names of each game character
   // to be displayed next to their respective character in the instructions
   text("You (Predator)", textX, height / 2 - 5);
@@ -253,6 +247,8 @@ function checkGameStart() {
       gameMusic.loop();
       gameStart = true;
       gameOver = false;
+      // Resets numPreyConsumed count
+      numPreyConsumed = 0;
     }
   }
 }
@@ -277,8 +273,6 @@ function gameOverScreen() {
 
     // Rounded rectangle for button
     rectMode(CENTER, CENTER);
-    noStroke();
-    fill(255);
     rect(width / 2, height / 2 + 160, 180, 40, 5);
 
     textFont(titleFont);
