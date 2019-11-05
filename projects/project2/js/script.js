@@ -48,6 +48,11 @@ let teleporters = [];
 // Number of teleporters
 let numTeleporters = 4;
 
+// Angle and radius of oscillating circle
+// that will be displayed on Game Over screen
+let circleOscillationAngle = 0;
+let circleOscillationRadius = 90;
+
 // preload()
 //
 // Loads before all else to avoid delays
@@ -251,7 +256,7 @@ function checkGameStart() {
     dist(mouseX, mouseY, width / 2 + 40, height / 2 + 160) < 50 ||
     dist(mouseX, mouseY, width / 2, height / 2 + 160) < 25);
   // If the mouse and start button overlap, and the mouse is clicked
-    // then start the game
+  // then start the game
   if (startButtonClick && !gameStart || startButtonClick && gameOver) {
     if (mouseIsPressed) {
       // Play background game music when that Start button is clicked
@@ -278,7 +283,7 @@ function gameOverScreen() {
 
     // Displaying number of prey consumed
     textFont(instructionsFont);
-    text("You caught " + numPreyConsumed + " prey", width / 2, height / 2 - 100);
+    text("You caught " + numPreyConsumed + " prey", width / 2, height / 2 - 115);
 
     // Rounded rectangle for button
     rectMode(CENTER, CENTER);
@@ -290,8 +295,11 @@ function gameOverScreen() {
     fill(0);
     text("PLAY AGAIN", width / 2, height / 2 + 158);
 
+    // Displaying the osciallting circle on the Game Over screen
+    circleOscillation();
+
     // Stop the background game music when the game ends
-      // Also stop the sound effects
+    // Also stop the sound effects
     gameMusic.stop();
     ambientBeep.stop();
     absorptionSound.stop();
@@ -299,4 +307,24 @@ function gameOverScreen() {
     // Checking if the player pressed the button to play again
     checkGameStart();
   }
+}
+// circleOscillation()
+//
+// Effect of circle (representing predator) growing and shrinking
+// to be displayed on Game Over screen
+function circleOscillation() {
+  // Controlling the circle's growth
+  // it's based on the angle (0) and the radius (90)
+  let growth = sin(circleOscillationAngle) * (circleOscillationRadius / 2);
+
+  // Ellipse will resemble predator
+  // so it will be a yellow stroke with no fill
+  noFill();
+  strokeWeight(7);
+  stroke(255, 255, 0);
+  ellipse(width / 2, height / 2 + 15, circleOscillationRadius + growth);
+
+  // Increasing the angle, causing the sine function to oscillate
+  circleOscillationAngle += 0.05;
+
 }
