@@ -283,7 +283,7 @@ function gameOverScreen() {
 
     // Displaying number of prey consumed
     textFont(instructionsFont);
-    text("You caught " + numPreyConsumed + " prey", width / 2, height / 2 - 115);
+    text("You caught " + numPreyConsumed + " prey", width / 2, height / 2 - 100);
 
     // Rounded rectangle for button
     rectMode(CENTER, CENTER);
@@ -322,9 +322,8 @@ function circleOscillation() {
   noFill();
   strokeWeight(7);
   stroke(255, 255, 0);
-  ellipse(width / 2, height / 2 + 15, circleOscillationRadius + growth);
+  ellipse(width / 2, height / 2 + 23, circleOscillationRadius + growth);
 
   // Increasing the angle, causing the sine function to oscillate
   circleOscillationAngle += 0.05;
-
 }
