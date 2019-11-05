@@ -38,15 +38,15 @@ let stars = [];
 // Number of stars for background
 let numStars = 300;
 
-// An empty array to store the boosters in (to be created in setup())
-let boosters = [];
 // Number of boosters
 let numBoosters = 4;
 
-// An empty array to store the teleporters in (to be created in setup())
-let teleporters = [];
 // Number of teleporters
 let numTeleporters = 4;
+
+// An empty array to store the activators in (Boosts and Teleports)
+  // to be created in setup()
+let activators = [];
 
 // Angle and radius of oscillating circle
 // that will be displayed on Game Over screen
@@ -89,15 +89,16 @@ function setup() {
     stars.push(new Stars());
   }
 
-  // Run a for loop numBoosts times to generate each booster and put it in the array
+  // Run a for loop numBoosts times to generate each boost
+    // and put it in the activators' array
   for (let i = 0; i < numBoosters; i++) {
-    boosters.push(new Boost());
+    activators.push(new Boost());
   }
 
-  // Run a for loop numTeleporters times to generate each teleporter
-  // and put it in the array
+  // Run a for loop numTeleporters times to generate each teleport
+   // and put it in the activators' array
   for (let i = 0; i < numTeleporters; i++) {
-    teleporters.push(new Teleport());
+    activators.push(new Teleport());
   }
 }
 
@@ -129,26 +130,15 @@ function draw() {
       stars[i].display();
     }
 
-    // Go through every boost element in the array
-    // using boosters.length
+    // Go through every activator element in the array in order by index
+    // using activators.length
     // since it's automatically updated whenever the array changes length
-    for (let i = 0; i < boosters.length; i++) {
-      // Move and display each booster
-      boosters[i].move();
-      boosters[i].display();
-      // When the predator catches a blue dot
-      boosters[i].handleAbsorption(predator);
-    }
-
-    // Go through every teleport element in the array
-    // using teleporters.length
-    // since it's automatically updated whenever the array changes length
-    for (let i = 0; i < teleporters.length; i++) {
-      // Move and display each grower
-      teleporters[i].move();
-      teleporters[i].display();
-      // When the predator catches a blue dot
-      teleporters[i].handleAbsorption(predator, prey[i]);
+    for (let i = 0; i < activators.length; i++) {
+      // Move and display each activator
+      activators[i].move();
+      activators[i].display();
+      // When the predator catches an activator
+      activators[i].handleAbsorption(predator);
     }
 
     // Handle input for the predator

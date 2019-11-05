@@ -1,7 +1,7 @@
 // Teleport
 //
 // A class that represents items that will teleport the predator when caught
-// they move in a similar pattern to the prey
+// Moves, handles wrapping, displays, and resets according to parent (Activator) class
 
 // Inherents from Activator class
 class Teleport extends Activator {
@@ -15,16 +15,6 @@ class Teleport extends Activator {
 
     // Purple
     this.fillColor = color(238, 130, 238);
-  }
-
-  // Moves according to parent (Activator) class
-  move() {
-    super.move();
-  }
-
-  // Handles wrapping according to parent (Activator) class
-  handleWrapping() {
-    super.handleWrapping();
   }
 
   // handleAbsorption
@@ -49,15 +39,5 @@ class Teleport extends Activator {
       // Reset the teleport once caught
       this.reset();
     }
-  }
-
-  // Displays according to parent (Activator) class
-  display() {
-    super.display();
-  }
-
-  // Reset according to parent (Activator) class
-  reset() {
-    super.reset();
   }
 }

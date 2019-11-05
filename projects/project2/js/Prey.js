@@ -26,7 +26,7 @@ class Prey {
     this.ty = random(0, 1000); // we use random starting values
     // Health properties
     // ranges from 20 to 60
-    this.maxHealth = random(20, 60);
+    this.maxHealth = random(20, 40);
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
     this.fillColor = color(255);

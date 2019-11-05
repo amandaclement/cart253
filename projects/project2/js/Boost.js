@@ -1,7 +1,7 @@
 // Boost
 //
 // A class that represents items that will boost the predator when caught
-// they move in a similar pattern to the prey
+// Moves, handles wrapping, displays, and resets according to parent (Activator) class
 
 // Inherents from Activator class
 class Boost extends Activator {
@@ -15,16 +15,6 @@ class Boost extends Activator {
 
     // Blue
     this.fillColor = color(47, 100, 255);
-  }
-
-  // Moves according to parent (Activator) class
-  move() {
-    super.move();
-  }
-
-  // Handles wrapping according to parent (Activator) class
-  handleWrapping() {
-    super.handleWrapping();
   }
 
   // handleAbsorption
@@ -48,15 +38,5 @@ class Boost extends Activator {
       // Reset the boost once caught
       this.reset();
     }
-  }
-
-  // Displays according to parent (Activator) class
-  display() {
-    super.display();
-  }
-
-  // Reset according to parent (Activator) class
-  reset() {
-    super.reset();
   }
 }
