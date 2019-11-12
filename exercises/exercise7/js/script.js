@@ -13,8 +13,7 @@ function preload() {
 //
 function setup() {
   createCanvas(windowWidth, 700);
-  background(0);
-
+  
   expansionCircle = new Expansion();
 
 }
@@ -22,6 +21,7 @@ function setup() {
 // draw()
 //
 function draw() {
-  expansionCircle.display();
+  background(0);
+  expansionCircle.growth();
 
 }
