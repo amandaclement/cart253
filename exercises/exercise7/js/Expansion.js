@@ -13,13 +13,10 @@ class Expansion {
     // Position
     this.x = width / 2;
     this.y = height / 2;
-
     // Size
     this.radius = 200;
-
     // Speed
     this.speed = 0;
-
     // Color
     this.strokeColor = color(255, 255, 255, 200);
   }
@@ -30,25 +27,28 @@ class Expansion {
   growth() {
     this.styling();
 
+    // Sounds effects
+    ambientSound.play();
+    ambientSound.setVolume(0.02);
+
     // To control the ellipse's growth rate
     let growth = (this.speed) * (this.radius / 5);
-
-    // Checking for a mouse & ellipse overlap
-    let d = dist(mouseX, mouseY, this.x, this.y);
+    // To control the ellipse's shrink rate
+    let shrink = (-this.speed) * (this.radius / 5);
 
     // For loop to control growth/expansion
-    for (let i = 1; i < 8; i = i + 0.075) {
+    for (let i = 1; i < 9; i = i + 0.05) {
       ellipse(this.x, this.y, this.radius + growth / i);
+      //  ellipse(this.x, this.y, this.radius/2 + growth/i);
+      // For shrinking
+      ellipse(this.x, this.y, this.radius + shrink / i);
 
-      // If the mouse is hovering within then continue to grow
-      if (d <= this.radius / 2 + growth / i) {
-        for (let d = 200; d < width; d = d + 30) {
-          this.speed += 0.000015;
+      // If cursor overlaps the ellipse
+      let d = dist(mouseX, mouseY, this.x, this.y);
+      if (d < this.radius / 2 + growth / i) {
+        for (let a = 0; a < width; a = a + 100) {
+          this.speed += 0.0001;
         }
-      }
-      // If mouse is not hovering over it, stop growing
-      else if (d > this.radius / 2 + growth / i) {
-        this.speed += 0;
       }
     }
   }
