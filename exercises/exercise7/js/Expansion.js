@@ -27,19 +27,14 @@ class Expansion {
   growth() {
     this.styling();
 
-    // Sounds effects
-    ambientSound.play();
-    ambientSound.setVolume(0.02);
-
     // To control the ellipse's growth rate
     let growth = (this.speed) * (this.radius / 5);
     // To control the ellipse's shrink rate
-    let shrink = (-this.speed) * (this.radius / 5);
+    let shrink = (-this.speed) * (this.radius);
 
     // For loop to control growth/expansion
     for (let i = 1; i < 9; i = i + 0.05) {
       ellipse(this.x, this.y, this.radius + growth / i);
-      //  ellipse(this.x, this.y, this.radius/2 + growth/i);
       // For shrinking
       ellipse(this.x, this.y, this.radius + shrink / i);
 
@@ -47,6 +42,7 @@ class Expansion {
       let d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.radius / 2 + growth / i) {
         for (let a = 0; a < width; a = a + 100) {
+          // Increase speed
           this.speed += 0.0001;
         }
       }

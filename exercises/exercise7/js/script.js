@@ -1,11 +1,13 @@
 // Project 3
 // by Amanda Clement
+// An expanding circle that reacts depending on how the cursor interacts with it
+// The ellipse reacts when hovered over, and the speed changes based on cursor location
+// also the further from the center you go, the louder the audio
 
 // Circle that grows/expands
 let expansionCircle;
 
 // Music to accompany expansion circle
-// will play when mouse is hovering it
 let ambientSound;
 
 // preload()
@@ -22,12 +24,19 @@ function setup() {
 
   expansionCircle = new Expansion();
 
+  // Sound will loop
+  ambientSound.loop();
 }
 
 // draw()
 //
 function draw() {
   background(0);
+
   expansionCircle.growth();
 
+  // Controlling sound volume based on mouse location
+  // in relation to center of canvas
+  let d = map(mouseX, width / 2, 0, 0, width) / 400;
+  ambientSound.setVolume(d);
 }
