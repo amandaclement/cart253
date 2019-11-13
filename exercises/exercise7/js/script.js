@@ -37,6 +37,6 @@ function draw() {
 
   // Controlling sound volume based on mouse location
   // in relation to center of canvas
-  let d = map(mouseX, width / 2, 0, 0, width) / 400;
+  let d = map(mouseX, width / 2, 0, 0, width) / 200;
   ambientSound.setVolume(d);
 }
