@@ -4,6 +4,8 @@
 // Static circle effect
 let staticCircle;
 
+let start = false;
+
 // preload()
 //
 function preload() {
@@ -22,7 +24,5 @@ function setup() {
 // draw()
 //
 function draw() {
-  // Center the shape and display it
-  translate(width/2, height/2);
   staticCircle.display();
 }
