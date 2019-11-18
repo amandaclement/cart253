@@ -10,8 +10,6 @@ class Static {
     // Position
     this.x = width / 2;
     this.y = height / 2;
-    // Size
-    //this.radius = 200;
     // Time
     this.t = 0;
     // Color
@@ -29,16 +27,20 @@ class Static {
       // Third value gives shape (the lower the value, the more circle-like)
       let angle = map(i, 0, 400, 0, TWO_PI);
 
+      // Size (radius) will be based on mouse position
+      let d = map(mouseX, width / 2, 2, 0, width);
+      // Based on noise
       // Second value in brackets controls how "spikey/irratic" it looks
-      let radius = 400 * noise(i * 0.9, this.t * 0.006);
+      let radius = d * noise(i * 0.9, this.t * 0.006);
       let x = radius * cos(angle);
       let y = radius * sin(angle);
       curveVertex(x, y);
     }
     endShape(CLOSE);
 
-    // Controlling movement speed
-    this.t += 0.5;
+    // Controlling movement speed based on mouse location
+    let d = map(mouseX, width / 2, 2, 0, width);
+    this.t += 0.3 * d;
   }
 
 }
