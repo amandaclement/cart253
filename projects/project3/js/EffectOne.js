@@ -2,8 +2,8 @@
 // by Amanda Clement
 
 // A class that represents the first effect (inherits from Scene)
-// This effect is composed of two layers (one white and one black) that
-// creates a static-looking effect.
+// This effect is created through layers of white strokes affected by noise
+// responding to user input (mouse location).
 
 class EffectOne extends Scene {
   // constructor()
@@ -13,8 +13,6 @@ class EffectOne extends Scene {
     super();
     // Time
     this.time = 0;
-    // Stroke color (black) for secondary layer
-    this.secondaryStrokeColor = color(0, 30);
   }
 
   // draw()
@@ -30,10 +28,16 @@ class EffectOne extends Scene {
     }
   }
 
+  // mousePressed()
+  //
+  // Triggering the next scene/effect
   mousePressed() {
-    // state = sceneTwo;
+    // i.e. state = sceneTwo;
   }
 
+// initialCircle()
+//
+// The initial circle (white outline) that is displayed before effect starts
 initialCircle() {
   stroke(this.strokeColor);
   noFill();
@@ -52,44 +56,27 @@ initialCircle() {
   // effect()
   //
   // An effect composed of two layers (one white and one black)
-  // User controls the effect in terms of size and amount of black vs white
+  // User controls the effect in terms of size and creates a pattern
   // based on mouse location
   effect() {
   // Center the shape
   translate(width / 2, height / 2);
 
-  // WHITE CIRCLE
+  // CREATING EFFECT
   stroke(this.strokeColor);
   beginShape();
   // Creating circular effect
-  for (let i = 0; i < this.radius * 2; i++) {
+  for (let i = 0; i < this.radius; i++) {
     // TWO_PI to create full, closed shape
     // Third value gives shape (the lower the value, the more circle-like)
-    let angle = map(i, 0, this.radius * 2, 0, TWO_PI);
+    let angle = map(i, 0, this.radius, 0, TWO_PI);
 
     // Size (radius) will be based on mouseX position
     let d = map(mouseX, width / 2, 2, 0, width);
     // Based on noise
+    // d - 40 to create more circular effect
     // Second value in brackets controls how "spikey/irratic" it looks
-    let radius = d * noise(i * 0.9, this.time * 0.006);
-    let x = radius * cos(angle);
-    let y = radius * sin(angle);
-    curveVertex(x, y);
-  }
-  endShape(CLOSE);
-
-  // BLACK CIRCLE
-  // Having this avoids the white circle getting too intense
-  // and gives user ability to control amount of white versus black
-  stroke(this.secondaryStrokeColor);
-  beginShape();
-  for (let i = 0; i < this.radius * 2; i++) {
-    let angle = map(i, 0, this.radius * 2, 0, TWO_PI);
-
-    // Controlled vertically (based on mouseY position)
-    let d = map(mouseY, height / 2, 2, 0, height);
-    // Different noise property from white circle so they don't overlap perfectly
-    let radius = d * noise(i * 0.9, this.time * 0.004);
+    let radius = d - 40 * noise(i * 0.09, this.time * 0.0004);
     let x = radius * cos(angle);
     let y = radius * sin(angle);
     curveVertex(x, y);
@@ -98,7 +85,7 @@ initialCircle() {
 
   // Controlling movement speed based on mouse location
   let d = map(mouseX, width / 2, 2, 0, width);
-  this.time += 0.5 * d;
+  this.time += 0.05 * d;
 }
 
 }
