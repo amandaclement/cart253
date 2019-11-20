@@ -1,3 +1,5 @@
+"use strict";
+
 // Project 3
 // by Amanda Clement
 
@@ -15,13 +17,17 @@ class Scene {
     // Size
     this.radius = 200;
     // Color for stroke
-    this.strokeColor = color(255,10);
+    this.strokeColor = color(255,20);
   }
 
   // draw()
   //
   // Display the initial circle (until user has hovered over it)
   draw() {
+  }
+
+  mousePressed() {
+    // This will be called by the main program when it detects a mouse press
   }
 
 }

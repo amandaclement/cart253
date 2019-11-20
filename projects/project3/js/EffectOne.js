@@ -1,3 +1,5 @@
+"use strict";
+
 // Project 3
 // by Amanda Clement
 
@@ -22,17 +24,10 @@ class EffectOne extends Scene {
     // Initial circle shows only until user hovers over it
     if (!start) {
       this.initialCircle();
-      // staticWhiteLayer effect starts once user has hovered over intialCircle
+      // effect one starts once user has hovered over intialCircle
     } else {
       this.effect();
     }
-  }
-
-  // mousePressed()
-  //
-  // Triggering the next scene/effect
-  mousePressed() {
-    // i.e. state = sceneTwo;
   }
 
 // initialCircle()
@@ -88,4 +83,15 @@ initialCircle() {
   this.time += 0.05 * d;
 }
 
+// mousePressed()
+//
+// If user clicks mouse, bring them to next scene
+// in this case that's the second effect scene
+mousePressed() {
+  // Black background to replace content of effect one
+  background(0);
+  currentScene = effectTwo;
+  // So it starts with the initial circle
+  start = false;
+}
 }
