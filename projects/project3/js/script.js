@@ -22,7 +22,8 @@ function preload() {
 // setup()
 //
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  // Use WEBGL since effects use 3D
+  createCanvas(windowWidth, windowHeight, WEBGL);
   background(0);
 
   // In draw we just tell the current scene to draw

@@ -10,11 +10,13 @@
 class EffectOne extends Scene {
   // constructor()
   //
-  // Sets the initial values for the Scene (circle) properties
+  // Sets the initial values for EffectOne based on Scene
   constructor() {
     super();
     // Time
     this.time = 0;
+    // Degree for rotation
+    this.degree = 0.9;
   }
 
   // draw()
@@ -34,9 +36,10 @@ class EffectOne extends Scene {
 //
 // The initial circle (white outline) that is displayed before effect starts
 initialCircle() {
+  strokeWeight(this.strokeThickness);
   stroke(this.strokeColor);
   noFill();
-  ellipse(this.x, this.y, this.radius, this.radius);
+  ellipse(0, 0, this.radius, this.radius);
   // If mouse location is within the initial circle
   // then start the static effect and make initial circle disappear
   let d = dist(mouseX, mouseY, this.x, this.y);
@@ -54,12 +57,10 @@ initialCircle() {
   // User controls the effect in terms of size and creates a pattern
   // based on mouse location
   effect() {
-  // Center the shape
-  translate(width / 2, height / 2);
 
   // CREATING EFFECT
-  stroke(this.strokeColor);
   beginShape();
+  stroke(this.strokeColor);
   // Creating circular effect
   for (let i = 0; i < this.radius; i++) {
     // TWO_PI to create full, closed shape
@@ -75,6 +76,10 @@ initialCircle() {
     let x = radius * cos(angle);
     let y = radius * sin(angle);
     curveVertex(x, y);
+
+    // Rotate based on X value
+    // gives it surface appearance
+    rotateX(this.degree);
   }
   endShape(CLOSE);
 

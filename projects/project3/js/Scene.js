@@ -16,8 +16,9 @@ class Scene {
     this.y = (height / 2);
     // Size
     this.radius = 200;
-    // Color for stroke
+    // Color and weight of stroke
     this.strokeColor = color(255,20);
+    this.strokeThickness = 0.8;
   }
 
   // draw()
