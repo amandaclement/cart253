@@ -4,14 +4,20 @@
 // by Amanda Clement
 
 // A class that represents the second effect (inherits from Scene)
-// This effect is created through expanding circles controlled by user input
+// Description
 
 class EffectTwo extends Scene {
   // constructor()
   //
-  // Sets the initial values for the Scene (circle) properties
+  // Sets the initial values for EffectTwo based on Scene
   constructor() {
     super();
+    // Time
+    this.time = 0;
+    // Degree for rotation
+    this.degree = 0.9;
+    // Speed
+    this.speed = 0;
   }
 
   // draw()
@@ -27,35 +33,50 @@ class EffectTwo extends Scene {
     }
   }
 
-// initialCircle()
-//
-// The initial circle (white outline) that is displayed before effect starts
-initialCircle() {
-  stroke(this.strokeColor);
-  noFill();
-  ellipse(this.x, this.y, this.radius, this.radius);
-  // If mouse location is within the initial circle
-  // then start the static effect and make initial circle disappear
-  let d = dist(mouseX, mouseY, this.x, this.y);
-  if (d < this.radius / 2) {
-    // Start the effect
-    start = true;
-    // Hides the initial circle
-    background(0);
+  // initialCircle()
+  //
+  // The initial circle (white outline) that is displayed before effect starts
+  initialCircle() {
+    strokeWeight(this.strokeThickness);
+    stroke(this.strokeColor);
+    noFill();
+    ellipse(0, 0, this.radius, this.radius);
+    // If mouse location is within the initial circle
+    // then start the static effect and make initial circle disappear
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d < this.radius / 2) {
+      // Start the effect
+      start = true;
+      // Hides the initial circle
+      background(0);
+    }
   }
-}
 
   // effect()
   //
-  // An effect composed of two layers (one white and one black)
-  // User controls the effect in terms of size and creates a pattern
-  // based on mouse location
+  // Description of effect two
   effect() {
-    // effect two will be here
-    // make background white for now to show that it works
-    background(255);
-    fill(0);
-    textAlign(CENTER);
-    text("EFFECT TWO WILL APPEAR HERE", width / 2, height / 2);
-}
+    // CREATING EFFECT
+    beginShape();
+    stroke(this.strokeColor);
+    // Creating circular effect
+    for (let i = 0; i < this.radius; i++) {
+      // TWO_PI to create full, closed shape
+      // Third value gives shape (the lower the value, the more circle-like)
+      let angle = map(i, 0, this.radius, 0, TWO_PI);
+
+      // Size (radius) will be based on mouseX position
+      let d = map(mouseX, width / 2, 2, 0, width);
+      let radius = d;
+
+      // CREATING SHAPE
+      let x = radius * cos(angle);
+      // Use noise to create interesting shape (for y value)
+      let nx = map(x, 0, width, 0, 10);
+      let y = radius * sin(angle) * noise(nx);
+
+      curveVertex(x, y);
+    }
+    endShape(CLOSE);
+  }
 }
