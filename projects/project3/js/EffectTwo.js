@@ -4,7 +4,9 @@
 // by Amanda Clement
 
 // A class that represents the second effect (inherits from Scene)
-// Description
+// This effect is created through layers of white strokes that works
+// on x-axis and y-axis to create dome effect.
+// It responding to user input (mouseX and mouseY location).
 
 class EffectTwo extends Scene {
   // constructor()
@@ -16,8 +18,8 @@ class EffectTwo extends Scene {
     this.time = 0;
     // Degree for rotation
     this.degree = 0.9;
-    // Speed
-    this.speed = 0;
+    this.tx = 0;
+    this.ty = 0;
   }
 
   // draw()
@@ -54,7 +56,8 @@ class EffectTwo extends Scene {
 
   // effect()
   //
-  // Description of effect two
+  // An effect composed of white strokes creating circular effect
+  // User controls effect through mouse location (mouseX for size, mouseY for height)
   effect() {
     // CREATING EFFECT
     beginShape();
@@ -67,16 +70,26 @@ class EffectTwo extends Scene {
 
       // Size (radius) will be based on mouseX position
       let d = map(mouseX, width / 2, 2, 0, width);
-      let radius = d;
 
       // CREATING SHAPE
+      let radius = d;
       let x = radius * cos(angle);
-      // Use noise to create interesting shape (for y value)
-      let nx = map(x, 0, width, 0, 10);
-      let y = radius * sin(angle) * noise(nx);
+      let y = radius * sin(angle);
 
-      curveVertex(x, y);
+      // dY for mapping mouseY
+      let dY = map(mouseY, height / 2, 2, 0, height);
+
+      // /7 to limit range (to create more of a dome effect)
+      curveVertex(x, y + dY / 7);
+
+      // Rotate based on X value
+      // gives it surface appearance
+      rotateX(this.degree);
     }
     endShape(CLOSE);
+
+    // Controlling movement speed based on mouse location
+    let d = map(mouseX, width / 2, 2, 0, width);
+    this.time += 0.05 * d;
   }
 }

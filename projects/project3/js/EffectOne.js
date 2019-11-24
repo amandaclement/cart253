@@ -53,7 +53,7 @@ initialCircle() {
 
   // effect()
   //
-  // An effect composed of two layers (one white and one black)
+  // An effect composed of two layers
   // User controls the effect in terms of size and creates a pattern
   // based on mouse location
   effect() {
