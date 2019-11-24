@@ -14,44 +14,6 @@ class EffectTwo extends Scene {
   // Sets the initial values for EffectTwo based on Scene
   constructor() {
     super();
-    // Time
-    this.time = 0;
-    // Degree for rotation
-    this.degree = 0.9;
-    this.tx = 0;
-    this.ty = 0;
-  }
-
-  // draw()
-  //
-  // Initial cicle shows until user hovers over it (triggering effect)
-  draw() {
-    // Initial circle shows only until user hovers over it
-    if (!start) {
-      this.initialCircle();
-      // effect two starts once user has hovered over intialCircle
-    } else {
-      this.effect();
-    }
-  }
-
-  // initialCircle()
-  //
-  // The initial circle (white outline) that is displayed before effect starts
-  initialCircle() {
-    strokeWeight(this.strokeThickness);
-    stroke(this.strokeColor);
-    noFill();
-    ellipse(0, 0, this.radius, this.radius);
-    // If mouse location is within the initial circle
-    // then start the static effect and make initial circle disappear
-    let d = dist(mouseX, mouseY, this.x, this.y);
-    if (d < this.radius / 2) {
-      // Start the effect
-      start = true;
-      // Hides the initial circle
-      background(0);
-    }
   }
 
   // effect()
@@ -74,13 +36,12 @@ class EffectTwo extends Scene {
       // CREATING SHAPE
       let radius = d;
       let x = radius * cos(angle);
-      let y = radius * sin(angle);
-
       // dY for mapping mouseY
       let dY = map(mouseY, height / 2, 2, 0, height);
-
       // /7 to limit range (to create more of a dome effect)
-      curveVertex(x, y + dY / 7);
+      let y = radius * sin(angle) + dY / 7;
+
+      curveVertex(x, y);
 
       // Rotate based on X value
       // gives it surface appearance
