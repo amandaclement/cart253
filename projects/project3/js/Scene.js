@@ -27,38 +27,24 @@ class Scene {
 
   // draw()
   //
-  // Initial cicle shows until user hovers over it (triggering effect)
+  // HTML text will be displayed until user clicks (triggering the start of the effect)
   draw() {
-    // Initial circle shows only until user hovers over it
-    if (!start) {
-      this.initialCircle();
-      // effect one starts once user has hovered over intialCircle
-    } else {
+    if (start) {
+      // To hide HTML button once effect starts
+      document.getElementById('textButton').style.visibility = 'hidden';
+      // Start the effect
       this.effect();
     }
   }
 
-  // initialCircle()
+  // styling()
   //
-  // The initial circle (white outline) that is displayed before effect starts
-  initialCircle() {
+  // Basic styling to be inherited by child classes
+  styling() {
+    // Styling for the effect
     strokeWeight(this.strokeThickness);
     stroke(this.strokeColor);
     noFill();
-    //ellipse(0, 0, this.radius, this.radius);
-    // If mouse location is within the initial circle
-    // then start the static effect and make initial circle disappear
-    let d = dist(mouseX, mouseY, this.x, this.y);
-    if (d < this.radius / 2) {
-      // Start the effect
-      start = true;
-      // Hides the initial circle
-      background(0);
-    }
-  }
-
-  mousePressed() {
-    // This will be called by the main program when it detects a mouse press
   }
 
 }

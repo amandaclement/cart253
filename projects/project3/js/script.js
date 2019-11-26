@@ -51,6 +51,8 @@ function setup() {
   innerSphere = new Sphere(0.000002, 5);
   outerSphere = new Sphere(0.000001, 1);
 
+  innerSphere.styling();
+
   // In draw we just tell the current scene to draw
   // and whichever scene it is will display as per its class
   //effectOne = new EffectOne();
@@ -63,6 +65,7 @@ function setup() {
 //
 function draw() {
   background(0);
+
   // Draw the inner and outer spheres
   innerSphere.draw();
   outerSphere.draw();

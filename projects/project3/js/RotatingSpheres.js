@@ -24,6 +24,8 @@ class Sphere extends Scene {
   // An effect composed of white strokes creating circular effect
   // User controls effect through mouse location (mouseX for size, mouseY for height)
   effect() {
+    // Inherits styling from its parent class
+
     let dist = map(mouseX, width / 2, 2, 0, width);
     // get amplitude (rms level) of music
     let rms = analyzer.getLevel();
@@ -42,13 +44,16 @@ class Sphere extends Scene {
     sphere(size + rms * 80, 20, 20);
   }
 
+  // mousePressed()
+  //
+  // User clicks to activate Piano Music music
   mousePressed() {
-    // If music is playing and user clicks, pause it
+    start = true;
+    // If the music is already playing, simply make it continue if the player clicks again
     if (pianoMusic.isPlaying()) {
-     pianoMusic.pause();
-     // play if not
-   } else {
-     pianoMusic.play();
-   }
+      pianoMusic.playMode('sustain');
+    } else {
+      pianoMusic.play(); // if thr music is not yet playing and the user clicks, make it start
+    }
   }
 }

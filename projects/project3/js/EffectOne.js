@@ -31,7 +31,7 @@ class EffectOne extends Scene {
       let angle = map(i, 0, this.radius, 0, TWO_PI);
 
       // Size (radius) will be based on mouseX position
-      let d = map(mouseX, width / 2, 2, 0, width);
+      let d = map(mouseX, width / 2, 2, 0, width / 4);
       // Based on noise
       // d - 40 to create more circular effect
       // Second value in brackets controls how "spikey/irratic" it looks
@@ -42,7 +42,7 @@ class EffectOne extends Scene {
 
       // Rotate based on X value
       // gives it surface appearance
-      rotateX(this.degree);
+      //rotateX(this.degree);
     }
     endShape(CLOSE);
 
