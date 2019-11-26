@@ -37,11 +37,6 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   background(0);
 
-  // Make the music loop
-  pianoMusic.loop();
-  // Setting volume
-  pianoMusic.setVolume(0.3);
-
   // create a new Amplitude analyzer
   analyzer = new p5.Amplitude();
   // Patch the input to an volume analyzer
@@ -51,7 +46,9 @@ function setup() {
   innerSphere = new Sphere(0.000002, 5);
   outerSphere = new Sphere(0.000001, 1);
 
+  // Styling for the spheres
   innerSphere.styling();
+  outerSphere.styling();
 
   // In draw we just tell the current scene to draw
   // and whichever scene it is will display as per its class

@@ -46,14 +46,13 @@ class Sphere extends Scene {
 
   // mousePressed()
   //
-  // User clicks to activate Piano Music music
+  // User clicks to activate Piano music
   mousePressed() {
     start = true;
-    // If the music is already playing, simply make it continue if the player clicks again
+    // If music is already playing and mouse is clicked again, it will simply continue
     if (pianoMusic.isPlaying()) {
       pianoMusic.playMode('sustain');
-    } else {
-      pianoMusic.play(); // if thr music is not yet playing and the user clicks, make it start
+    } else
+    pianoMusic.loop(); // Music starts on first user click and loops
     }
-  }
 }
