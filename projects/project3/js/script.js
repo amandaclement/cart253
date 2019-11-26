@@ -8,13 +8,19 @@ let state;
 let currentScene;
 
 // Each effect scene
-let effectOne;
-let effectTwo;
+//let effectOne;
+//let effectTwo;
+
+// Inner and outer spheres to build effect
+let innerSphere;
+let outerSphere;
 
 let start = false;
 
 // Piano music for background sound
 let pianoMusic;
+
+// Analyzer for measuring amplitude of music
 let analyzer;
 
 // preload()
@@ -38,23 +44,28 @@ function setup() {
 
   // create a new Amplitude analyzer
   analyzer = new p5.Amplitude();
-
   // Patch the input to an volume analyzer
   analyzer.setInput(pianoMusic);
 
+  // Creating the inner and outer spheres
+  innerSphere = new Sphere(0.000002, 5);
+  outerSphere = new Sphere(0.000001, 1);
+
   // In draw we just tell the current scene to draw
   // and whichever scene it is will display as per its class
-  effectOne = new EffectOne();
-  effectTwo = new EffectTwo();
+  //effectOne = new EffectOne();
+  //rotatingSpheres = new Sphere();
   //state = effectOne;
-  currentScene = effectOne; // Because we start with the first effect
+  //currentScene = rotatingSpheres; // Because we start with the first effect
 }
 
 // draw()
 //
 function draw() {
   background(0);
-  currentScene.draw();
+  // Draw the inner and outer spheres
+  innerSphere.draw();
+  outerSphere.draw();
 }
 
 // mousePressed()
@@ -63,5 +74,6 @@ function draw() {
 function mousePressed() {
   // In mousePressed we call the mousePressed of the current scene
   // so it knows the mouse was pressed
-  currentScene.mousePressed();
+  innerSphere.mousePressed();
+  outerSphere.mousePressed();
 }
