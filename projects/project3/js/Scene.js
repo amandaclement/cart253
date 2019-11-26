@@ -17,7 +17,7 @@ class Scene {
     // Size
     this.radius = 200;
     // Color and weight of stroke
-    this.strokeColor = color(255,20);
+    this.strokeColor = color(255,10);
     this.strokeThickness = 0.8;
     // Time
     this.time = 0;
@@ -45,7 +45,7 @@ class Scene {
     strokeWeight(this.strokeThickness);
     stroke(this.strokeColor);
     noFill();
-    ellipse(0, 0, this.radius, this.radius);
+    //ellipse(0, 0, this.radius, this.radius);
     // If mouse location is within the initial circle
     // then start the static effect and make initial circle disappear
     let d = dist(mouseX, mouseY, this.x, this.y);

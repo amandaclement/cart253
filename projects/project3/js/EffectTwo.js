@@ -14,6 +14,7 @@ class EffectTwo extends Scene {
   // Sets the initial values for EffectTwo based on Scene
   constructor() {
     super();
+    this.angle = 0;
   }
 
   // effect()
@@ -21,36 +22,32 @@ class EffectTwo extends Scene {
   // An effect composed of white strokes creating circular effect
   // User controls effect through mouse location (mouseX for size, mouseY for height)
   effect() {
-    // CREATING EFFECT
-    beginShape();
-    stroke(this.strokeColor);
-    // Creating circular effect
-    for (let i = 0; i < this.radius; i++) {
-      // TWO_PI to create full, closed shape
-      // Third value gives shape (the lower the value, the more circle-like)
-      let angle = map(i, 0, this.radius, 0, TWO_PI);
-
-      // Size (radius) will be based on mouseX position
-      let d = map(mouseX, width / 2, 2, 0, width);
-
-      // CREATING SHAPE
-      let radius = d;
-      let x = radius * cos(angle);
-      // dY for mapping mouseY
-      let dY = map(mouseY, height / 2, 2, 0, height);
-      // /7 to limit range (to create more of a dome effect)
-      let y = radius * sin(angle) + dY / 7;
-
-      curveVertex(x, y);
-
-      // Rotate based on X value
-      // gives it surface appearance
-      rotateX(this.degree);
-    }
-    endShape(CLOSE);
-
-    // Controlling movement speed based on mouse location
+    // get amplitude (rms level) of music
+    let rms = analyzer.getLevel();
+    // stroke opacity changes according to rms (more 'white' as amplitude increases)
+    stroke(255, 10 + rms * 200);
+    // blow into mic to increase stroke weight or make it glow
+    // Get the average (root mean square) amplitude
     let d = map(mouseX, width / 2, 2, 0, width);
-    this.time += 0.05 * d;
+    // Rotates across x, y and z axis by 0.00003 times mouseX at every frame
+    rotateY(frameCount * 0.000002 * d);
+    rotateX(frameCount * 0.000002 * d);
+    rotateZ(frameCount * 0.000002 * d);
+
+    // Size of sphere controlled by mouseY location
+    let size = map(mouseX, width / 2, 2, 0, width)/5;
+
+    // Size controlled by user but also sphere pulsates according to music amplitude
+    sphere(size + rms * 80, 20, 20);
+  }
+
+  mousePressed() {
+    // If music is playing and user clicks, pause it
+    if (pianoMusic.isPlaying()) {
+     pianoMusic.pause();
+     // play if not
+   } else {
+     pianoMusic.play();
+   }
   }
 }
