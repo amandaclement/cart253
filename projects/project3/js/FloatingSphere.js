@@ -41,16 +41,4 @@ class FloatingSphere extends Scene {
     pop();
 
   }
-
-  // mousePressed()
-  //
-  // User clicks to activate Piano music
-  mousePressed() {
-    start = true;
-    // If music is already playing and mouse is clicked again, it will simply continue
-    if (pianoMusic.isPlaying()) {
-      pianoMusic.playMode('sustain');
-    } else
-    pianoMusic.loop(); // Music starts on first user click and loops
-    }
 }

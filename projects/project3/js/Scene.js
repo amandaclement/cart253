@@ -25,23 +25,11 @@ class Scene {
     this.degree = 0.9;
   }
 
-  // draw()
-  //
-  // HTML text will be displayed until user clicks (triggering the start of the effect)
-  draw() {
-    if (start) {
-      // To hide HTML button once effect starts
-      document.getElementById('textButton').style.visibility = 'hidden';
-      // Start the effect
-      this.effect();
-    }
-  }
-
   // styling()
   //
   // Basic styling to be inherited by child classes
   styling() {
-    // Styling for the effect
+    // Styling for spheres
     strokeWeight(this.strokeThickness);
     stroke(this.strokeColor);
     noFill();

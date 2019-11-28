@@ -3,9 +3,16 @@
 // Project 3
 // by Amanda Clement
 
-let state;
-// To store the current scene
-let currentScene;
+// We create a JavaScript object with a property for each potential state of our
+// program, making sure each one has a different value in it
+let State = {
+  STARTSCREEN: 0,
+  ROTATINGSPHERES: 1,
+  FLOATINGSPHERES: 2
+};
+
+// Then we can set our state to one of these properties in order to track state
+let state = State.STARTSCREEN; // This variable tells us what state the program is in
 
 // Inner and outer spheres to build effect
 let innerSphere;
@@ -13,9 +20,8 @@ let outerSphere;
 
 // Store floating spheres in an array
 let floatingSpheres = [];
-let numFloatingSpheres = 50;
-
-let start = false;
+// Number of floating spheres to be created
+let numFloatingSpheres = 30;
 
 // Piano music for background sound
 let pianoMusic;
@@ -43,26 +49,18 @@ function setup() {
   analyzer.setInput(pianoMusic);
 
   // Creating the inner and outer spheres
-  //innerSphere = new Sphere(0.000002, 5);
-  //outerSphere = new Sphere(0.000001, 1);
+  innerSphere = new Sphere(0.000002, 5);
+  outerSphere = new Sphere(0.000001, 1);
 
   // Styling for the spheres
-  //innerSphere.styling();
-  //outerSphere.styling();
+  innerSphere.styling();
+  outerSphere.styling();
 
   // Run a for loop numFloatingSpheres times to generate each floating sphere
   // and put it in the array
   for (let i = 0; i < numFloatingSpheres; i++) {
     floatingSpheres.push(new FloatingSphere());
-    floatingSpheres[i].styling();
   }
-
-  // In draw we just tell the current scene to draw
-  // and whichever scene it is will display as per its class
-  //effectOne = new EffectOne();
-  //rotatingSpheres = new Sphere();
-  //state = effectOne;
-  //currentScene = rotatingSpheres; // Because we start with the first effect
 }
 
 // draw()
@@ -70,22 +68,36 @@ function setup() {
 function draw() {
   background(0);
 
-  // Draw the inner and outer spheres
-  //innerSphere.draw();
-  //outerSphere.draw();
+  switch (state) {
+    case State.STARTSCREEN:
+    break;
 
-  for (let i = 0; i < floatingSpheres.length; i++) {
-    // Draw each floating sphere
-    floatingSpheres[i].effect();
-  }
+    case State.ROTATINGSPHERES:
+    innerSphere.effect();
+    outerSphere.effect();
+    break;
+
+    case State.FLOATINGSPHERES:
+    for (let i = 0; i < floatingSpheres.length; i++) {
+      // Draw each floating sphere
+      floatingSpheres[i].effect();
+    }
+    break;
+}
 }
 
 // mousePressed()
 //
 // When user clicks, they will be brought to new scene/effect
 function mousePressed() {
-  // In mousePressed we call the mousePressed of the current scene
-  // so it knows the mouse was pressed
-  //innerSphere.mousePressed();
-  //outerSphere.mousePressed();
+  // If mouse pressed on start screen, remove HTML text
+  if (state === State.STARTSCREEN) {
+    document.getElementById('textButton').style.visibility = 'hidden';
+      state = State.ROTATINGSPHERES;
+      innerSphere.mousePressed();
+    } else if (state === State.ROTATINGSPHERES) {
+      state = State.FLOATINGSPHERES;
+    } else {
+      state = State.STARTSCREEN;
+    }
 }
