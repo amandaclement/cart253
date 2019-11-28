@@ -7,13 +7,13 @@ let state;
 // To store the current scene
 let currentScene;
 
-// Each effect scene
-//let effectOne;
-//let effectTwo;
-
 // Inner and outer spheres to build effect
 let innerSphere;
 let outerSphere;
+
+// Store floating spheres in an array
+let floatingSpheres = [];
+let numFloatingSpheres = 50;
 
 let start = false;
 
@@ -43,12 +43,19 @@ function setup() {
   analyzer.setInput(pianoMusic);
 
   // Creating the inner and outer spheres
-  innerSphere = new Sphere(0.000002, 5);
-  outerSphere = new Sphere(0.000001, 1);
+  //innerSphere = new Sphere(0.000002, 5);
+  //outerSphere = new Sphere(0.000001, 1);
 
   // Styling for the spheres
-  innerSphere.styling();
-  outerSphere.styling();
+  //innerSphere.styling();
+  //outerSphere.styling();
+
+  // Run a for loop numFloatingSpheres times to generate each floating sphere
+  // and put it in the array
+  for (let i = 0; i < numFloatingSpheres; i++) {
+    floatingSpheres.push(new FloatingSphere());
+    floatingSpheres[i].styling();
+  }
 
   // In draw we just tell the current scene to draw
   // and whichever scene it is will display as per its class
@@ -64,8 +71,13 @@ function draw() {
   background(0);
 
   // Draw the inner and outer spheres
-  innerSphere.draw();
-  outerSphere.draw();
+  //innerSphere.draw();
+  //outerSphere.draw();
+
+  for (let i = 0; i < floatingSpheres.length; i++) {
+    // Draw each floating sphere
+    floatingSpheres[i].effect();
+  }
 }
 
 // mousePressed()
@@ -74,6 +86,6 @@ function draw() {
 function mousePressed() {
   // In mousePressed we call the mousePressed of the current scene
   // so it knows the mouse was pressed
-  innerSphere.mousePressed();
-  outerSphere.mousePressed();
+  //innerSphere.mousePressed();
+  //outerSphere.mousePressed();
 }
