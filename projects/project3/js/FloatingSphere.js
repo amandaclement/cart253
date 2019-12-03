@@ -13,14 +13,25 @@ class FloatingSphere extends Scene {
   // Sets the initial values for Sphere based on Scene
   constructor() {
     super();
-    this.rotationX = 0;
-    this.rotationY = 0;
+    // Position of spheres
+    this.positionX = random (0, width);
+    this.positionY = random (0, height);
 
-    this.positionX = random(width);
-    this.positionY = random(height);
-    this.positionZ = random(-1000, 1000);
+    // Depth of spheres (in terms of how far away they appear)
+    this.positionZ = random (-1000, 10);
 
-    this.size = random(25,5);
+    // Size
+    this.size = random (50, 100);
+
+    // Rotation speed for spheres
+    this.rotationSpeedX = random(0.00005, 0.00008);
+    this.rotationSpeedY = 0.0000007;
+
+    // For growth (some will shrink and others will grow based on rms)
+    this.multiplier = random(-500,500);
+
+    //this.detailX = Math.round(random(3,20));
+    this.detail = 6;
   }
 
   // effect()
@@ -30,15 +41,24 @@ class FloatingSphere extends Scene {
   effect() {
     // Inherits styling from its parent class
 
-  	this.rotationX += (mouseX - this.rotationX) * 0.04;
-  	this.rotationY += (mouseY - this.rotationY) * 0.04;
-  	rotateX(this.rotationX * 0.01);
-  	rotateY(this.rotationY * 0.01);
+    // get amplitude (rms level) of music
+    let rms = analyzer.getLevel();
+    console.log(rms);
+    // stroke opacity changes according to rms (more 'white' as amplitude increases)
+    stroke(255, 10 + rms * 200);
 
-    push();
-    translate (this.positionX - this.x, this.positionY - this.y, this.positionZ);
-    sphere (this.size * 6.0);
-    pop();
+    push ();
+    // Positions the spheres on the canvas
+		translate (this.positionX - this.x, this.positionY - this.y, this.positionZ);
 
+    // Size controlled by user but also sphere pulsates according to music amplitude
+    sphere(this.size + rms * this.multiplier, this.detail, this.detail);
+		pop ();
+
+    let dist = map(mouseX, width / 2, 2, 0, width);
+
+    // Sphere rotation (rotateY is automatic while rotateY also depends on mouse location)
+    rotateX(frameCount * this.rotationSpeedX);
+    rotateY(frameCount * this.rotationSpeedY * dist);
   }
 }

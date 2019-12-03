@@ -21,7 +21,7 @@ let outerSphere;
 // Store floating spheres in an array
 let floatingSpheres = [];
 // Number of floating spheres to be created
-let numFloatingSpheres = 30;
+let numFloatingSpheres = 50;
 
 // Piano music for background sound
 let pianoMusic;
@@ -79,7 +79,6 @@ function draw() {
 
     case State.FLOATINGSPHERES:
     for (let i = 0; i < floatingSpheres.length; i++) {
-      // Draw each floating sphere
       floatingSpheres[i].effect();
     }
     break;
