@@ -23,8 +23,9 @@ let floatingSpheres = [];
 // Number of floating spheres to be created
 let numFloatingSpheres = 50;
 
-// Piano music for background sound
-let pianoMusic;
+// Music
+let pianoMusic; // for the first effect
+let ringingMusic; // for the second effect
 
 // Analyzer for measuring amplitude of music
 let analyzer;
@@ -32,8 +33,10 @@ let analyzer;
 // preload()
 //
 function preload() {
-  // Piano music (background music)
+  // Piano music (background music for first effect)
   pianoMusic = loadSound('assets/sounds/pianoMusic.mp3');
+  // Ringing music (background music for second effect)
+  ringingMusic = loadSound('assets/sounds/ringingMusic.mp3');
 }
 
 // setup()
@@ -47,6 +50,7 @@ function setup() {
   analyzer = new p5.Amplitude();
   // Patch the input to an volume analyzer
   analyzer.setInput(pianoMusic);
+  analyzer.setInput(ringingMusic);
 
   // Creating the inner and outer spheres
   innerSphere = new Sphere(0.000002, 5);
@@ -75,11 +79,14 @@ function draw() {
     case State.ROTATINGSPHERES:
     innerSphere.effect();
     outerSphere.effect();
+    innerSphere.mousePressed();
     break;
 
     case State.FLOATINGSPHERES:
     for (let i = 0; i < floatingSpheres.length; i++) {
+      pianoMusic.stop();
       floatingSpheres[i].effect();
+      floatingSpheres[i].mousePressed();
     }
     break;
 }
@@ -93,7 +100,6 @@ function mousePressed() {
   if (state === State.STARTSCREEN) {
     document.getElementById('textButton').style.visibility = 'hidden';
       state = State.ROTATINGSPHERES;
-      innerSphere.mousePressed();
     } else if (state === State.ROTATINGSPHERES) {
       state = State.FLOATINGSPHERES;
     } else {
