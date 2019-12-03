@@ -7,16 +7,12 @@
 // The user controls the viewing angle according to mouse location
 // The amplitude of the background music is used to create a pulsating/glowing effect
 
-class FloatingSphere extends Scene {
+class FloatingSphere extends Sphere {
   // constructor()
   //
   // Sets the initial values for Sphere based on Scene
   constructor() {
     super();
-    // Position of spheres
-    this.positionX = (width / 2);
-    this.positionY = (0, height / 2);
-
     // Depth of spheres (in terms of how far away they appear)
     this.positionZ = random(-1000, 1000);
 
@@ -26,12 +22,8 @@ class FloatingSphere extends Scene {
     // Rotation speed for spheres (so they move at different rates)
     this.rotationSpeed = random(0.0000007, 0.0000009);
 
-    // Details for spheres
-    this.detailX = 20;
+    // DetailY for spheres
     this.detailY = 6;
-
-    // Controlling the stroke opacity (glow effect)
-    this.opacity = random(5, 80);
   }
 
   // effect()
@@ -39,32 +31,24 @@ class FloatingSphere extends Scene {
   // An effect composed of white strokes creating circular effect
   // User controls effect through mouse location (mouseX for size, mouseY for height)
   effect() {
-    // Inherits styling from its parent class
-    // get amplitude (rms level) of music
-    let rms = analyzer.getLevel();
+    super.effect();
 
-    push ();
     // stroke opacity changes according to rms (more 'white' as amplitude increases)
-    stroke(255, 3 + rms * this.opacity);
+    push();
+    stroke(255, 3 + this.rms * this.opacityMultiplier);
 
-    // dist maps mouseX (for rotation on y-axis)
-    let dist = map(mouseX, width / 2, 2, 0, width);
-    // distY maps mouseY (for rotation on z-axis)
-    let distY = map(mouseY, height / 2, 2, 0, height);
-
-    // Positions the spheres on the canvas
-		translate (this.positionX - this.x, this.positionY - this.y, this.positionZ * dist/100);
+    // Positions the spheres on the canvas (based on mouseX dist)
+		translate(0, 0, this.positionZ * this.distX / 300);
 
     // Size controlled by user but also sphere pulsates according to music amplitude
-    sphere(this.size + rms * 30, this.detail, 6);
-		pop ();
+    sphere(this.size + this.pulsation, this.detail, this.detailY);
+    pop();
 
     // Rotation for spheres
     // rotateY based on mouseX
-    rotateY(frameCount * this.rotationSpeed * dist);
+    rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
-    rotateZ(frameCount * this.rotationSpeed * distY);
-
+    rotateZ(frameCount * this.rotationSpeed * this.distY);
   }
 
   // mousePressed()

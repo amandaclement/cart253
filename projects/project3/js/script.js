@@ -14,11 +14,11 @@ let State = {
 // Then we can set our state to one of these properties in order to track state
 let state = State.STARTSCREEN; // This variable tells us what state the program is in
 
-// Inner and outer spheres to build effect
-let innerSphere;
-let outerSphere;
+// Inner and outer rotating spheres to build first effect
+let rotatingInnerSphere;
+let rotatingOuterSphere;
 
-// Store floating spheres in an array
+// Store floating spheres in an array for second effect
 let floatingSpheres = [];
 // Number of floating spheres to be created
 let numFloatingSpheres = 50;
@@ -52,18 +52,19 @@ function setup() {
   analyzer.setInput(pianoMusic);
   analyzer.setInput(ringingMusic);
 
-  // Creating the inner and outer spheres
-  innerSphere = new Sphere(0.000002, 5);
-  outerSphere = new Sphere(0.000001, 1);
+  // Creating the inner and outer rotating spheres (first effect)
+  rotatingInnerSphere = new RotatingSphere(0.000002, 5);
+  rotatingOuterSphere = new RotatingSphere(0.000001, 1);
 
   // Styling for the spheres
-  innerSphere.styling();
-  outerSphere.styling();
+  rotatingInnerSphere.styling();
+  rotatingOuterSphere.styling();
 
   // Run a for loop numFloatingSpheres times to generate each floating sphere
   // and put it in the array
   for (let i = 0; i < numFloatingSpheres; i++) {
     floatingSpheres.push(new FloatingSphere());
+    floatingSpheres[i].styling();
   }
 }
 
@@ -77,9 +78,9 @@ function draw() {
     break;
 
     case State.ROTATINGSPHERES:
-    innerSphere.effect();
-    outerSphere.effect();
-    innerSphere.mousePressed();
+    rotatingInnerSphere.effect();
+    rotatingOuterSphere.effect();
+    rotatingInnerSphere.mousePressed();
     break;
 
     case State.FLOATINGSPHERES:
