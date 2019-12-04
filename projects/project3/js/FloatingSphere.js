@@ -23,7 +23,7 @@ class FloatingSphere extends Sphere {
     this.rotationSpeed = random(0.0000007, 0.0000009);
 
     // DetailY for spheres
-    this.detailY = 6;
+    this.sphereDetailY = 2;
   }
 
   // effect()
@@ -33,22 +33,20 @@ class FloatingSphere extends Sphere {
   effect() {
     super.effect();
 
-    // stroke opacity changes according to rms (more 'white' as amplitude increases)
-    push();
-    stroke(255, 3 + this.rms * this.opacityMultiplier);
-
-    // Positions the spheres on the canvas (based on mouseX dist)
-		translate(0, 0, this.positionZ * this.distX / 300);
-
-    // Size controlled by user but also sphere pulsates according to music amplitude
-    sphere(this.size + this.pulsation, this.detail, this.detailY);
-    pop();
-
     // Rotation for spheres
     // rotateY based on mouseX
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
     rotateZ(frameCount * this.rotationSpeed * this.distY);
+
+    // stroke opacity changes according to rms (more 'white' as amplitude increases)
+    push();
+    // Positions the spheres on the canvas (based on mouseX dist)
+		translate(0, 0, this.positionZ * this.distX / 300);
+
+    // Size controlled by user but also sphere pulsates according to music amplitude
+    sphere(this.size + this.pulsation, this.sphereDetail, this.sphereDetailY);
+    pop();
   }
 
   // mousePressed()

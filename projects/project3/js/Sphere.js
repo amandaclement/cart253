@@ -32,6 +32,7 @@ class Sphere {
     this.distX;
     this.distY;
 
+    // For pulsating effect
     this.pulsation;
   }
 
