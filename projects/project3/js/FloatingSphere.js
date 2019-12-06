@@ -38,8 +38,12 @@ class FloatingSphere extends Sphere {
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
     rotateZ(frameCount * this.rotationSpeed * this.distY);
+  }
 
-    // stroke opacity changes according to rms (more 'white' as amplitude increases)
+  // display()
+  //
+  // Displaying the diamonds on the screen
+  display() {
     push();
     // Positions the spheres on the canvas (based on mouseX dist)
 		translate(0, 0, this.positionZ * this.distX / 300);

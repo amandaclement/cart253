@@ -8,7 +8,8 @@
 let State = {
   STARTSCREEN: 0,
   ROTATINGSPHERES: 1,
-  FLOATINGSPHERES: 2
+  FLOATINGSPHERES: 2,
+  DOMINOS: 3
 };
 
 // Then we can set our state to one of these properties in order to track state
@@ -22,6 +23,8 @@ let rotatingOuterSphere;
 let floatingSpheres = [];
 // Number of floating spheres to be created
 let numFloatingSpheres = 50;
+
+let dominos;
 
 // Music
 let pianoMusic; // for the first effect
@@ -66,6 +69,10 @@ function setup() {
     floatingSpheres.push(new FloatingSphere());
     floatingSpheres[i].styling();
   }
+
+  // Creating the inner and outer rotating spheres (first effect)
+  dominos = new Domino();
+  dominos.styling();
 }
 
 // draw()
@@ -75,11 +82,14 @@ function draw() {
 
   switch (state) {
     case State.STARTSCREEN:
+    // Just a black screen with the HTML text on it (prompting user to click to begin)
     break;
 
     case State.ROTATINGSPHERES:
     rotatingInnerSphere.effect();
     rotatingOuterSphere.effect();
+    rotatingInnerSphere.display();
+    rotatingOuterSphere.display();
     rotatingInnerSphere.mousePressed();
     break;
 
@@ -87,8 +97,14 @@ function draw() {
     for (let i = 0; i < floatingSpheres.length; i++) {
       pianoMusic.stop();
       floatingSpheres[i].effect();
+      floatingSpheres[i].display();
       floatingSpheres[i].mousePressed();
     }
+    break;
+
+    case State.DOMINOS:
+    dominos.effect();
+    dominos.display();
     break;
 }
 }
@@ -103,7 +119,10 @@ function mousePressed() {
       state = State.ROTATINGSPHERES;
     } else if (state === State.ROTATINGSPHERES) {
       state = State.FLOATINGSPHERES;
-    } else {
+    } else if (state === State.FLOATINGSPHERES) {
+      state = State.DOMINOS;
+    }
+    else {
       state = State.STARTSCREEN;
     }
 }

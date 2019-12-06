@@ -48,6 +48,11 @@ class Sphere {
     this.distY = map(mouseY, height / 2, 2, 0, height);
 
     this.pulsation = this.rms * 200;
+
+    // HAS TO GO HERE AND NOT UNDER STYLING (DUE TO THE WAY IT'S SET UP IN SCRIPT.JS)
+    // SINCE IT NEEDS TO GO UNDER DRAW, NOT SETUP
+    // stroke opacity changes according to rms (more 'white' as amplitude increases)
+    stroke(255, 5 + this.rms * this.opacityMultiplier);
   }
 
   // styling()
