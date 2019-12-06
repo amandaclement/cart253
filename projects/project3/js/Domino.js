@@ -38,7 +38,7 @@ class Domino extends Sphere {
   display() {
     push();
     // To make opacity for domino effect more responsive to amplitude
-    this.opacityMultiplier = this.opacityMultiplier + 10;
+    this.opacityMultiplier = this.opacityMultiplier + 5;
 
     // Positions the dominos on the canvas (based on mouseX and mouseY dist)
     // divide by 20 to limit the range of movement
@@ -49,14 +49,14 @@ class Domino extends Sphere {
     pop();
   }
 
-  // mousePressed()
+  // keyPressed()
   //
-  // User clicks to activate Piano music
-  mousePressed() {
-    // If music is already playing and mouse is clicked again, it will simply continue
-    if (mysteriousMusic.isPlaying()) {
+  // User presses spacebar to activate mysterious music
+  keyPressed() {
+    // If music is already playing and spacebar is pressed again, it will simply continue
+    if (keyCode === 32 && mysteriousMusic.isPlaying()) {
       mysteriousMusic.playMode('sustain');
     } else
-    mysteriousMusic.loop(); // Music starts on first user click and loops
+    mysteriousMusic.loop(); // Music starts on first spacebar click and loops
     }
 }

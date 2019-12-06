@@ -90,7 +90,8 @@ function draw() {
 
   switch (state) {
     case State.STARTSCREEN:
-    // Just a black screen with the HTML text on it (prompting user to click to begin)
+    // Just a black screen with the HTML text on it
+    // prompting user to press spacebar to begin
     break;
 
     case State.ROTATINGSPHERES:
@@ -98,7 +99,7 @@ function draw() {
     rotatingOuterSphere.effect();
     rotatingInnerSphere.display();
     rotatingOuterSphere.display();
-    rotatingInnerSphere.mousePressed();
+    rotatingInnerSphere.keyPressed();
     break;
 
     case State.FLOATINGSPHERES:
@@ -106,7 +107,7 @@ function draw() {
       pianoMusic.stop();
       floatingSpheres[i].effect();
       floatingSpheres[i].display();
-      floatingSpheres[i].mousePressed();
+      floatingSpheres[i].keyPressed();
     }
     break;
 
@@ -115,23 +116,23 @@ function draw() {
       ringingMusic.stop();
       dominos[i].effect();
       dominos[i].display();
-      dominos[i].mousePressed();
+      dominos[i].keyPressed();
     }
     break;
 }
 }
 
-// mousePressed()
+// keyPressed()
 //
-// When user clicks, they will be brought to new scene/effect
-function mousePressed() {
-  // If mouse pressed on start screen, remove HTML text
-  if (state === State.STARTSCREEN) {
+// When user clicks spacebar, they will be brought to new scene/effect
+function keyPressed() {
+  // If spacebar pressed on start screen, remove HTML text
+  if (keyCode === 32 && state === State.STARTSCREEN) {
     document.getElementById('textButton').style.visibility = 'hidden';
       state = State.ROTATINGSPHERES;
-    } else if (state === State.ROTATINGSPHERES) {
+    } else if (keyCode === 32 && state === State.ROTATINGSPHERES) {
       state = State.FLOATINGSPHERES;
-    } else if (state === State.FLOATINGSPHERES) {
+    } else if (keyCode === 32 && state === State.FLOATINGSPHERES) {
       state = State.DOMINOS;
     }
     else {
