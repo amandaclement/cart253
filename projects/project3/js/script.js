@@ -27,11 +27,12 @@ let numFloatingSpheres = 50;
 // Store dominos in an array for third effect
 let dominos = [];
 // Number of dominos to be created
-let numDominos = 5;
+let numDominos = 9;
 
 // Music
 let pianoMusic; // for the first effect
 let ringingMusic; // for the second effect
+let mysteriousMusic; // for the third effect
 
 // Analyzer for measuring amplitude of music
 let analyzer;
@@ -43,6 +44,8 @@ function preload() {
   pianoMusic = loadSound('assets/sounds/pianoMusic.mp3');
   // Ringing music (background music for second effect)
   ringingMusic = loadSound('assets/sounds/ringingMusic.mp3');
+  // Mysterious music (background music for third effect)
+  mysteriousMusic = loadSound('assets/sounds/mysteriousMusic.mp3');
 }
 
 // setup()
@@ -57,6 +60,7 @@ function setup() {
   // Patch the input to an volume analyzer
   analyzer.setInput(pianoMusic);
   analyzer.setInput(ringingMusic);
+  analyzer.setInput(mysteriousMusic);
 
   // Creating the inner and outer rotating spheres (first effect)
   rotatingInnerSphere = new RotatingSphere(0.000002, 5);
@@ -108,9 +112,10 @@ function draw() {
 
     case State.DOMINOS:
     for (let i = 0; i < dominos.length; i++) {
-      //ringingMusic.stop();
+      ringingMusic.stop();
       dominos[i].effect();
       dominos[i].display();
+      dominos[i].mousePressed();
     }
     break;
 }

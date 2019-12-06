@@ -37,9 +37,11 @@ class Domino extends Sphere {
   // Displaying the diamonds on the screen
   display() {
     push();
-    stroke(255);
+    // To make opacity for domino effect more responsive to amplitude
+    this.opacityMultiplier = this.opacityMultiplier + 10;
+
     // Positions the dominos on the canvas (based on mouseX and mouseY dist)
-    // divide by 20 to limit the range
+    // divide by 20 to limit the range of movement
     translate(0 + (this.distX / 20), 0 + (this.distY / 20));
 
     // Box dimensions for width, height, and depth
@@ -51,5 +53,10 @@ class Domino extends Sphere {
   //
   // User clicks to activate Piano music
   mousePressed() {
-}
+    // If music is already playing and mouse is clicked again, it will simply continue
+    if (mysteriousMusic.isPlaying()) {
+      mysteriousMusic.playMode('sustain');
+    } else
+    mysteriousMusic.loop(); // Music starts on first user click and loops
+    }
 }
