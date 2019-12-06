@@ -13,7 +13,8 @@ class Domino extends Sphere {
   // Sets the initial values for Domino based on Sphere
   constructor() {
     super();
-
+    // Rotation speed for dominos
+    this.rotationSpeed = 0.0000006;
   }
 
   // effect()
@@ -23,8 +24,12 @@ class Domino extends Sphere {
   effect() {
     super.effect();
 
-    //rotateX(frameCount * 0.01);
-    //rotateY(frameCount * 0.01);
+    // Rotation for dominos
+    // rotateY based on mouseX
+    rotateY(frameCount * this.rotationSpeed * this.distX);
+    // rotateZ based on mouseY
+    rotateZ(frameCount * this.rotationSpeed * this.distY);
+
   }
 
   // display()
@@ -32,12 +37,13 @@ class Domino extends Sphere {
   // Displaying the diamonds on the screen
   display() {
     push();
-    // Creating box (values are dimension for width, height and depth)
+    stroke(255);
+    // Positions the dominos on the canvas (based on mouseX and mouseY dist)
+    // divide by 20 to limit the range
+    translate(0 + (this.distX / 20), 0 + (this.distY / 20));
 
-    stroke(150); // just for visibility while styling (hard to see with effect on)
-
-    box(150,75,5);
-
+    // Box dimensions for width, height, and depth
+    box(150,250,20);
     pop();
   }
 

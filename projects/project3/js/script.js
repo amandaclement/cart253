@@ -24,7 +24,10 @@ let floatingSpheres = [];
 // Number of floating spheres to be created
 let numFloatingSpheres = 50;
 
-let dominos;
+// Store dominos in an array for third effect
+let dominos = [];
+// Number of dominos to be created
+let numDominos = 5;
 
 // Music
 let pianoMusic; // for the first effect
@@ -70,9 +73,10 @@ function setup() {
     floatingSpheres[i].styling();
   }
 
-  // Creating the inner and outer rotating spheres (first effect)
-  dominos = new Domino();
-  dominos.styling();
+  for (let i = 0; i < numDominos; i++) {
+    dominos.push(new Domino());
+    dominos[i].styling();
+  }
 }
 
 // draw()
@@ -103,8 +107,11 @@ function draw() {
     break;
 
     case State.DOMINOS:
-    dominos.effect();
-    dominos.display();
+    for (let i = 0; i < dominos.length; i++) {
+      //ringingMusic.stop();
+      dominos[i].effect();
+      dominos[i].display();
+    }
     break;
 }
 }
