@@ -15,8 +15,7 @@ class Sphere {
     this.x = (width / 2);
     this.y = (height / 2);
 
-    // Color and weight of stroke
-    //this.strokeColor = color(255);
+    // Weight of stroke
     this.strokeThickness = 0.8;
 
     // Details for sphere

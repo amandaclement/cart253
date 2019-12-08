@@ -66,7 +66,7 @@ function setup() {
   rotatingInnerSphere = new RotatingSphere(0.000002, 5);
   rotatingOuterSphere = new RotatingSphere(0.000001, 1);
 
-  // Styling for the spheres
+  // Styling for the rotating spheres
   rotatingInnerSphere.styling();
   rotatingOuterSphere.styling();
 
@@ -95,10 +95,12 @@ function draw() {
     break;
 
     case State.ROTATINGSPHERES:
-    rotatingInnerSphere.effect();
     rotatingOuterSphere.effect();
-    rotatingInnerSphere.display();
-    rotatingOuterSphere.display();
+    rotatingInnerSphere.effect();
+    //rotatingOuterSphere.mouseDragged();
+    //rotatingOuterSphere.mouseIsPressed();
+    //rotatingInnerSphere.changeSize();
+    //rotatingOuterSphere.changeSize();
     rotatingInnerSphere.keyPressed();
     break;
 
@@ -106,7 +108,7 @@ function draw() {
     for (let i = 0; i < floatingSpheres.length; i++) {
       pianoMusic.stop();
       floatingSpheres[i].effect();
-      floatingSpheres[i].display();
+      floatingSpheres[i].changeLocation();
       floatingSpheres[i].keyPressed();
     }
     break;
@@ -115,7 +117,8 @@ function draw() {
     for (let i = 0; i < dominos.length; i++) {
       ringingMusic.stop();
       dominos[i].effect();
-      dominos[i].display();
+      //dominos[i].mouseIsPressed();
+      dominos[i].changeDimensions();
       dominos[i].keyPressed();
     }
     break;

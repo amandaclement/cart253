@@ -38,6 +38,7 @@ class FloatingSphere extends Sphere {
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
     rotateZ(frameCount * this.rotationSpeed * this.distY);
+    this.display();
   }
 
   // display()
@@ -52,6 +53,15 @@ class FloatingSphere extends Sphere {
     sphere(this.size + this.pulsation, this.sphereDetail, this.sphereDetailY);
     pop();
   }
+
+  // changeLocation()
+  //
+  // Pressing mouse while moving accross screen (or simply clicking)
+  // allows user to control size of inner sphere
+  changeLocation() {
+    if (mouseIsPressed) {
+    }
+}
 
   // keyPressed()
   //

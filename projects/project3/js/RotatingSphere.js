@@ -27,26 +27,13 @@ class RotatingSphere extends Sphere {
   effect() {
     super.effect();
 
-    let rotationValue = frameCount * this.rotationSpeed * this.distX;
+    let rotationValue = (frameCount * this.rotationSpeed * this.distX);
 
     // Rotates across x, y and z axis based on rotation speed & mouseX at every frame
     rotateY(rotationValue);
     rotateX(rotationValue);
     rotateZ(rotationValue);
-
-    //stroke(255, 5 + this.rms * this.opacityMultiplier);
-
-    // stroke opacity changes according to rms (more 'white' as amplitude increases)
-    push();
-
-    // Size of sphere is mouseX location divided by this.divider
-    // so that we can create spheres of different sizes (proportionally)
-    let size = this.distX / this.sizeDivider;
-
-    // Size controlled by user but also sphere pulsates according to music amplitude
-    sphere(size + this.pulsation, this.sphereDetail, this.sphereDetail);
-    pop();
-
+    this.display();
   }
 
   // display()
@@ -62,6 +49,17 @@ class RotatingSphere extends Sphere {
     sphere(size + this.pulsation, this.sphereDetail, this.sphereDetail);
     pop();
   }
+
+  // changeSize()
+  //
+  // Pressing mouse while moving accross screen (or simply clicking)
+  // allows user to control size of inner sphere
+  changeSize() {
+    if (mouseIsPressed) {
+
+
+  }
+}
 
   // keyPressed()
   //

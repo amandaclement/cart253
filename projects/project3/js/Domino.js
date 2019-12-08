@@ -15,6 +15,14 @@ class Domino extends Sphere {
     super();
     // Rotation speed for dominos
     this.rotationSpeed = 0.0000006;
+
+    // Box dimensions
+    this.boxWidth = 150;
+    this.boxHeight = 250;
+    this.boxDepth = 20;
+
+    // Box adj1
+    this.adj1 = 0
   }
 
   // effect()
@@ -29,7 +37,7 @@ class Domino extends Sphere {
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
     rotateZ(frameCount * this.rotationSpeed * this.distY);
-
+    this.display();
   }
 
   // display()
@@ -38,15 +46,29 @@ class Domino extends Sphere {
   display() {
     push();
     // To make opacity for domino effect more responsive to amplitude
-    this.opacityMultiplier = this.opacityMultiplier + 5;
+    this.opacityMultiplier = this.opacityMultiplier + 2;
 
     // Positions the dominos on the canvas (based on mouseX and mouseY dist)
     // divide by 20 to limit the range of movement
     translate(0 + (this.distX / 20), 0 + (this.distY / 20));
 
     // Box dimensions for width, height, and depth
-    box(150,250,20);
+    // Dimensions affected by pulsation (based on music amplitude)
+    box(this.boxWidth + this.pulsation, this.boxHeight + this.pulsation, this.boxDepth + this.pulsation);
     pop();
+  }
+
+  // changeDimensions()
+  //
+  // Pressing mouse while moving accross screen (or simply clicking)
+  // allows user to control width and height of box
+  changeDimensions() {
+    if (mouseIsPressed) {
+      // Box width based on mouseX location
+      this.boxWidth = this.distX;
+      // Box height based on mouseY location
+      this.boxHeight = this.distY;
+    }
   }
 
   // keyPressed()
