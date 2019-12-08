@@ -97,10 +97,7 @@ function draw() {
     case State.ROTATINGSPHERES:
     rotatingOuterSphere.effect();
     rotatingInnerSphere.effect();
-    //rotatingOuterSphere.mouseDragged();
-    //rotatingOuterSphere.mouseIsPressed();
     rotatingOuterSphere.musicSpeed();
-    //rotatingOuterSphere.changeSize();
     rotatingInnerSphere.keyPressed();
     break;
 
@@ -108,7 +105,7 @@ function draw() {
     for (let i = 0; i < floatingSpheres.length; i++) {
       pianoMusic.stop();
       floatingSpheres[i].effect();
-      floatingSpheres[i].changeLocation();
+      floatingSpheres[i].spin();
       floatingSpheres[i].keyPressed();
     }
     break;
@@ -117,7 +114,6 @@ function draw() {
     for (let i = 0; i < dominos.length; i++) {
       ringingMusic.stop();
       dominos[i].effect();
-      //dominos[i].mouseIsPressed();
       dominos[i].changeDimensions();
       dominos[i].keyPressed();
     }

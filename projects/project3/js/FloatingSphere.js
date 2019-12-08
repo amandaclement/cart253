@@ -47,30 +47,34 @@ class FloatingSphere extends Sphere {
   display() {
     push();
     // Positions the spheres on the canvas (based on mouseX dist)
-		translate(0, 0, this.positionZ * this.distX / 300);
+    translate(0, 0, this.positionZ * this.distX / 300);
 
     // Size controlled by user but also sphere pulsates according to music amplitude
     sphere(this.size + this.pulsation, this.sphereDetail, this.sphereDetailY);
     pop();
   }
 
-  // changeLocation()
+  // spin()
   //
-  // Pressing mouse while moving accross screen (or simply clicking)
-  // allows user to control size of inner sphere
-  changeLocation() {
+  // Pressing mouse allows randomizes the sphere detailX every frame
+  // making diamonds appear to be spinning
+  spin() {
     if (mouseIsPressed) {
+      // Round to nearest full number since decimals don't work for sphere details
+      // range between 6 and 20
+      this.sphereDetail = floor(random(6, 20));
     }
-}
+  }
 
   // keyPressed()
   //
   // User presses spacebar to activate ringing music
   keyPressed() {
     // If music is already playing and spacebar is pressed again, it will simply continue
-    if (ringingMusic.isPlaying()) {
+    if (keyCode === 32 && ringingMusic.isPlaying()) {
       ringingMusic.playMode('sustain');
-    } else
-    ringingMusic.loop(); // Music starts on first spacebar click and loops
+    } else {
+      ringingMusic.loop(); // Music starts on first spacebar click and loops
     }
+  }
 }
