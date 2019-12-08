@@ -1,68 +1,73 @@
 "use strict";
 
-// Project 3
-// by Amanda Clement
+/*************
 
-// A class that represents a rotating sphere
-// The user controls the speed and size of the sphere according to mouse location
-// The amplitude of the background music is used to create a pulsating/glowing effect
+FIRST EFFECT: ROTATING SPHERE
+
+A class that inherents from Shape, and represents a rotating sphere.
+The user controls the size and speed of the sphere according to mouse location.
+Clicking down (or dragging) the mouse changes the speed of the music.
+
+*************/
 
 class RotatingSphere extends Sphere {
   // constructor()
   //
-  // Sets the initial values for Sphere based on Scene
+  // Sets the initial values for Rotating Sphere based on Shape
   constructor(rotationSpeed, sizeDivider) {
     super();
-    // Rotation speed for spheres
+    // Rotation speed
     this.rotationSpeed = rotationSpeed;
 
-    // Divider for sphere size
+    // Divider for size (for proportional sphere sizes)
     this.sizeDivider = sizeDivider;
   }
 
   // effect()
   //
-  // An effect composed of white strokes creating circular effect
-  // User controls effect through mouse location (mouseX for size, mouseY for height)
+  // Creating the effect: each sphere will rotate across the X,Y and Z axes based
+  // on mouse location
   effect() {
     super.effect();
 
+    // The sphere will rotate the same way across the three axes
+    // based on frame rate, rotation speed, and mouseX location
     let rotationValue = (frameCount * this.rotationSpeed * this.distX);
 
-    // Rotates across x, y and z axis based on rotation speed & mouseX at every frame
     rotateY(rotationValue);
     rotateX(rotationValue);
     rotateZ(rotationValue);
+
+    // Display it
     this.display();
   }
 
   // display()
   //
-  // Diplaying the spheres
+  // Displaying the sphere
   display() {
     push();
-    // Size of sphere is mouseX location divided by this.divider
+    // Size of sphere is mouseX location divided by this.sizeDivider
     // so that we can create spheres of different sizes (proportionally)
     let size = this.distX / this.sizeDivider;
 
-    // Size controlled by user but also sphere pulsates according to music amplitude
+    // Size controlled by user and sphere pulsates according to music amplitude
     sphere(size + this.pulsation, this.sphereDetail, this.sphereDetail);
     pop();
   }
 
   // musicSpeed
   //
-  // Pressing mouse while moving accross screen (or simply clicking)
-  // allows user to control speed of music
+  // Mouse click (or holding it down) affects music speed (based on mouseX)
   musicSpeed() {
     if (mouseIsPressed) {
-    // Set the rate to a range between 0.05 and 1
-    // Changing the rate alters the pitch
-    let speed = map(mouseX, 0.1, width, 0, 2);
-    speed = constrain(speed, 0.05, 1);
-    pianoMusic.rate(speed);
+      // Set the rate to a range between 0.05 and 1
+      // changing the rate alters the pitch
+      let speed = map(mouseX, 0.1, width, 0, 2);
+      speed = constrain(speed, 0.05, 1);
+      pianoMusic.rate(speed);
+    }
   }
-}
 
   // keyPressed()
   //
@@ -71,7 +76,8 @@ class RotatingSphere extends Sphere {
     // If music is already playing and spacebar is pressed again, it will simply continue
     if (keyCode === 32 && pianoMusic.isPlaying()) {
       pianoMusic.playMode('sustain');
-    } else
-    pianoMusic.loop(); // Music starts on first spacebar click and loops
+    } else {
+      pianoMusic.loop(); // Music starts on first spacebar click and loops
     }
+  }
 }

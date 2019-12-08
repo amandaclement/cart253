@@ -1,63 +1,67 @@
 "use strict";
 
-// Project 3
-// by Amanda Clement
+/*************
 
-// A class that represents a group of floating/rotating spheres
-// The user controls the viewing angle according to mouse location
-// The amplitude of the background music is used to create a pulsating/glowing effect
+SECOND EFFECT: DIAMOND
+
+A class that inherents from Shape, and represents a diamond that floats around.
+The user controls the location/angle of the diamond according to mouse location.
+Clicking down on the mouse makes the diamond appear to spin.
+
+*************/
 
 class FloatingSphere extends Sphere {
   // constructor()
   //
-  // Sets the initial values for Sphere based on Scene
+  // Sets the initial values for Diamond based on Shape
   constructor() {
     super();
-    // Depth of spheres (in terms of how far away they appear)
+    // Depth (in terms of how far away they appear)
     this.positionZ = random(-1000, 1000);
 
-    // Size of spheres
+    // Size of diamonds
     this.size = random(50, 100);
 
-    // Rotation speed for spheres (so they move at different rates)
+    // Rotation speed (so they move at different rates)
     this.rotationSpeed = random(0.0000007, 0.0000009);
 
-    // DetailY for spheres
+    // DetailY (to give diamond shape)
     this.sphereDetailY = 2;
   }
 
   // effect()
   //
-  // An effect composed of white strokes creating circular effect
-  // User controls effect through mouse location (mouseX for size, mouseY for height)
+  // Creating the effect: each diamond will rotate across the Y and Z axes based
+  // on mouse location
   effect() {
     super.effect();
 
-    // Rotation for spheres
     // rotateY based on mouseX
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
     rotateZ(frameCount * this.rotationSpeed * this.distY);
+
+    // Display it
     this.display();
   }
 
   // display()
   //
-  // Displaying the diamonds on the screen
+  // Displaying the diamond on the screen
   display() {
     push();
-    // Positions the spheres on the canvas (based on mouseX dist)
+    // Positions the diamonds on the canvas (based on mouseX dist)
     translate(0, 0, this.positionZ * this.distX / 300);
 
-    // Size controlled by user but also sphere pulsates according to music amplitude
+    // Size controlled by user and diamond pulsates according to music amplitude
     sphere(this.size + this.pulsation, this.sphereDetail, this.sphereDetailY);
     pop();
   }
 
   // spin()
   //
-  // Pressing mouse allows randomizes the sphere detailX every frame
-  // making diamonds appear to be spinning
+  // Mouse click (or holding it down) changes detailX of the diamonds
+  // which creates a spinning effect (due to how quickly it moves)
   spin() {
     if (mouseIsPressed) {
       // Round to nearest full number since decimals don't work for sphere details

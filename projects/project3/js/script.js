@@ -1,7 +1,16 @@
 "use strict";
 
-// Project 3
-// by Amanda Clement
+/*************
+
+Project 3
+by Amanda Clement
+
+This project features three scenes that share similar characteristics but
+have distinctive features from one another. The user must press the spacebar to
+begin and to navigate through the different visuals. Each scene responds to
+mouse location and mouse click, and has accompanying audio.
+
+*************/
 
 // We create a JavaScript object with a property for each potential state of our
 // program, making sure each one has a different value in it
@@ -55,7 +64,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   background(0);
 
-  // create a new Amplitude analyzer
+  // Create a new Amplitude analyzer
   analyzer = new p5.Amplitude();
   // Patch the input to an volume analyzer
   analyzer.setInput(pianoMusic);
@@ -90,35 +99,40 @@ function draw() {
 
   switch (state) {
     case State.STARTSCREEN:
-    // Just a black screen with the HTML text on it
-    // prompting user to press spacebar to begin
-    break;
+      // Just a black screen with the HTML text on it
+      // prompting user to press spacebar to begin
+      break;
 
+      // First effect is rotating spheres
     case State.ROTATINGSPHERES:
-    rotatingOuterSphere.effect();
-    rotatingInnerSphere.effect();
-    rotatingOuterSphere.musicSpeed();
-    rotatingInnerSphere.keyPressed();
-    break;
+      rotatingOuterSphere.effect();
+      rotatingInnerSphere.effect();
+      rotatingOuterSphere.musicSpeed();
+      rotatingInnerSphere.keyPressed();
+      break;
 
+      // First effect is floating spheres
     case State.FLOATINGSPHERES:
-    for (let i = 0; i < floatingSpheres.length; i++) {
-      pianoMusic.stop();
-      floatingSpheres[i].effect();
-      floatingSpheres[i].spin();
-      floatingSpheres[i].keyPressed();
-    }
-    break;
+      for (let i = 0; i < floatingSpheres.length; i++) {
+        // Turning off music from previous effect
+        pianoMusic.stop();
+        floatingSpheres[i].effect();
+        floatingSpheres[i].spin();
+        floatingSpheres[i].keyPressed();
+      }
+      break;
 
+      // First effect is dominos
     case State.DOMINOS:
-    for (let i = 0; i < dominos.length; i++) {
-      ringingMusic.stop();
-      dominos[i].effect();
-      dominos[i].changeDimensions();
-      dominos[i].keyPressed();
-    }
-    break;
-}
+      for (let i = 0; i < dominos.length; i++) {
+        // Turning off music from previous effect
+        ringingMusic.stop();
+        dominos[i].effect();
+        dominos[i].changeDimensions();
+        dominos[i].keyPressed();
+      }
+      break;
+  }
 }
 
 // keyPressed()
@@ -128,13 +142,12 @@ function keyPressed() {
   // If spacebar pressed on start screen, remove HTML text
   if (keyCode === 32 && state === State.STARTSCREEN) {
     document.getElementById('textButton').style.visibility = 'hidden';
-      state = State.ROTATINGSPHERES;
-    } else if (keyCode === 32 && state === State.ROTATINGSPHERES) {
-      state = State.FLOATINGSPHERES;
-    } else if (keyCode === 32 && state === State.FLOATINGSPHERES) {
-      state = State.DOMINOS;
-    }
-    else {
-      state = State.STARTSCREEN;
-    }
+    state = State.ROTATINGSPHERES;
+  } else if (keyCode === 32 && state === State.ROTATINGSPHERES) {
+    state = State.FLOATINGSPHERES;
+  } else if (keyCode === 32 && state === State.FLOATINGSPHERES) {
+    state = State.DOMINOS;
+  } else {
+    state = State.STARTSCREEN;
+  }
 }

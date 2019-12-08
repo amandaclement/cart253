@@ -1,38 +1,38 @@
 "use strict";
 
-// Project 3
-// by Amanda Clement
+/*************
 
-// A class that represents a domino effect
-// The user controls the viewing angle according to mouse location
-// The amplitude of the background music is used to create a pulsating/glowing effect
+THIRD EFFECT: DOMINOS
+
+A class that inherents from Shape, and represents a moving box.
+The user controls the location/angle of the box according to mouse location.
+Clicking down (or dragging) the mouse changes the size of the box.
+
+*************/
 
 class Domino extends Sphere {
   // constructor()
   //
-  // Sets the initial values for Domino based on Sphere
+  // Sets the initial values for Domino based on Shape
   constructor() {
     super();
-    // Rotation speed for dominos
+    // Rotation speed
     this.rotationSpeed = 0.0000006;
 
     // Box dimensions
     this.boxWidth = 150;
     this.boxHeight = 250;
     this.boxDepth = 20;
-
-    // Box adj1
-    this.adj1 = 0
   }
 
   // effect()
   //
-  // An effect composed of white strokes creating circular effect
-  // User controls effect through mouse location (mouseX for size, mouseY for height)
+  // Creating the effect: each box will rotate across the Y and Z axes based
+  // on mouse location
   effect() {
     super.effect();
 
-    // Rotation for dominos
+    // Rotation for domino
     // rotateY based on mouseX
     rotateY(frameCount * this.rotationSpeed * this.distX);
     // rotateZ based on mouseY
@@ -78,7 +78,8 @@ class Domino extends Sphere {
     // If music is already playing and spacebar is pressed again, it will simply continue
     if (keyCode === 32 && mysteriousMusic.isPlaying()) {
       mysteriousMusic.playMode('sustain');
-    } else
-    mysteriousMusic.loop(); // Music starts on first spacebar click and loops
+    } else {
+      mysteriousMusic.loop(); // Music starts on first spacebar click and loops
     }
+  }
 }
