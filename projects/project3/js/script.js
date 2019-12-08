@@ -99,7 +99,7 @@ function draw() {
     rotatingInnerSphere.effect();
     //rotatingOuterSphere.mouseDragged();
     //rotatingOuterSphere.mouseIsPressed();
-    //rotatingInnerSphere.changeSize();
+    rotatingOuterSphere.musicSpeed();
     //rotatingOuterSphere.changeSize();
     rotatingInnerSphere.keyPressed();
     break;

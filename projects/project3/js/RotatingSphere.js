@@ -50,14 +50,17 @@ class RotatingSphere extends Sphere {
     pop();
   }
 
-  // changeSize()
+  // musicSpeed
   //
   // Pressing mouse while moving accross screen (or simply clicking)
-  // allows user to control size of inner sphere
-  changeSize() {
+  // allows user to control speed of music
+  musicSpeed() {
     if (mouseIsPressed) {
-
-
+    // Set the rate to a range between 0.05 and 1
+    // Changing the rate alters the pitch
+    let speed = map(mouseX, 0.1, width, 0, 2);
+    speed = constrain(speed, 0.05, 1);
+    pianoMusic.rate(speed);
   }
 }
 
