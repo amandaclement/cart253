@@ -18,7 +18,8 @@ let State = {
   STARTSCREEN: 0,
   ROTATINGSPHERES: 1,
   DIAMONDS: 2,
-  DOMINOS: 3
+  DOMINOS: 3,
+  ENDSCREEN: 4
 };
 
 // Then we can set our state to one of these properties in order to track state
@@ -132,6 +133,13 @@ function draw() {
         dominos[i].keyPressed();
       }
       break;
+
+      case State.ENDSCREEN:
+      // Turning off music from previous effect
+      mysteriousMusic.stop();
+        // Just a black screen with the HTML text on it
+        // indicating the end
+      break;
   }
 }
 
@@ -141,12 +149,15 @@ function draw() {
 function keyPressed() {
   // If spacebar pressed on start screen, remove HTML text
   if (keyCode === 32 && state === State.STARTSCREEN) {
-    document.getElementById('textButton').style.visibility = 'hidden';
+    document.getElementById('intro-text').style.display = 'none';
     state = State.ROTATINGSPHERES;
   } else if (keyCode === 32 && state === State.ROTATINGSPHERES) {
     state = State.DIAMONDS;
   } else if (keyCode === 32 && state === State.DIAMONDS) {
     state = State.DOMINOS;
+  } else if (keyCode === 32 && state === State.DOMINOS) {
+    state = State.ENDSCREEN;
+    document.getElementById('ending-text').style.display = 'block';
   } else {
     state = State.STARTSCREEN;
   }
