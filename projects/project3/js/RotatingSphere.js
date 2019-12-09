@@ -10,7 +10,7 @@ Clicking down (or dragging) the mouse changes the speed of the music.
 
 *************/
 
-class RotatingSphere extends Sphere {
+class RotatingSphere extends Shape {
   // constructor()
   //
   // Sets the initial values for Rotating Sphere based on Shape

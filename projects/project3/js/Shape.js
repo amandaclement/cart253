@@ -2,7 +2,7 @@
 
 // The parent class for the three effects. It represents a basic shape.
 
-class Sphere {
+class Shape {
   // constructor()
   //
   // Sets the initial values for the Shape properties

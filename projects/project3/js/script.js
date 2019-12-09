@@ -17,7 +17,7 @@ mouse location and mouse click, and has accompanying audio.
 let State = {
   STARTSCREEN: 0,
   ROTATINGSPHERES: 1,
-  FLOATINGSPHERES: 2,
+  DIAMONDS: 2,
   DOMINOS: 3
 };
 
@@ -28,10 +28,10 @@ let state = State.STARTSCREEN; // This variable tells us what state the program 
 let rotatingInnerSphere;
 let rotatingOuterSphere;
 
-// Store floating spheres in an array for second effect
-let floatingSpheres = [];
-// Number of floating spheres to be created
-let numFloatingSpheres = 50;
+// Store diamonds in an array for second effect
+let diamonds = [];
+// Number of diamonds to be created
+let numDiamonds = 50;
 
 // Store dominos in an array for third effect
 let dominos = [];
@@ -79,11 +79,11 @@ function setup() {
   rotatingInnerSphere.styling();
   rotatingOuterSphere.styling();
 
-  // Run a for loop numFloatingSpheres times to generate each floating sphere
+  // Run a for loop numDiamonds times to generate each diamond
   // and put it in the array
-  for (let i = 0; i < numFloatingSpheres; i++) {
-    floatingSpheres.push(new FloatingSphere());
-    floatingSpheres[i].styling();
+  for (let i = 0; i < numDiamonds; i++) {
+    diamonds.push(new Diamond());
+    diamonds[i].styling();
   }
 
   for (let i = 0; i < numDominos; i++) {
@@ -111,18 +111,18 @@ function draw() {
       rotatingInnerSphere.keyPressed();
       break;
 
-      // First effect is floating spheres
-    case State.FLOATINGSPHERES:
-      for (let i = 0; i < floatingSpheres.length; i++) {
+      // Second effect is diamonds
+    case State.DIAMONDS:
+      for (let i = 0; i < diamonds.length; i++) {
         // Turning off music from previous effect
         pianoMusic.stop();
-        floatingSpheres[i].effect();
-        floatingSpheres[i].spin();
-        floatingSpheres[i].keyPressed();
+        diamonds[i].effect();
+        diamonds[i].spin();
+        diamonds[i].keyPressed();
       }
       break;
 
-      // First effect is dominos
+      // Third effect is dominos
     case State.DOMINOS:
       for (let i = 0; i < dominos.length; i++) {
         // Turning off music from previous effect
@@ -144,8 +144,8 @@ function keyPressed() {
     document.getElementById('textButton').style.visibility = 'hidden';
     state = State.ROTATINGSPHERES;
   } else if (keyCode === 32 && state === State.ROTATINGSPHERES) {
-    state = State.FLOATINGSPHERES;
-  } else if (keyCode === 32 && state === State.FLOATINGSPHERES) {
+    state = State.DIAMONDS;
+  } else if (keyCode === 32 && state === State.DIAMONDS) {
     state = State.DOMINOS;
   } else {
     state = State.STARTSCREEN;

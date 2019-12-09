@@ -10,7 +10,7 @@ Clicking down (or dragging) the mouse changes the size of the box.
 
 *************/
 
-class Domino extends Sphere {
+class Domino extends Shape {
   // constructor()
   //
   // Sets the initial values for Domino based on Shape

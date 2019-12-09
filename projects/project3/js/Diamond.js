@@ -10,7 +10,7 @@ Clicking down on the mouse makes the diamond appear to spin.
 
 *************/
 
-class FloatingSphere extends Sphere {
+class Diamond extends Shape {
   // constructor()
   //
   // Sets the initial values for Diamond based on Shape
