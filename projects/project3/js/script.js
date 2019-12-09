@@ -50,6 +50,7 @@ let analyzer;
 // preload()
 //
 function preload() {
+  // MUSIC BY KAI ENGEL - https://freemusicarchive.org/music/Kai_Engel
   // Piano music (background music for first effect)
   pianoMusic = loadSound('assets/sounds/pianoMusic.mp3');
   // Ringing music (background music for second effect)
